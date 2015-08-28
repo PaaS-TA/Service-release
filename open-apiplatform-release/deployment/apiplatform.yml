@@ -1,0 +1,130 @@
+---
+name: apiplatform
+
+director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
+
+releases:
+- {name: apiplatform_dev, version: 0+dev.69}
+#- {name: apiplatform, version: 2}
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-600000
+  max_in_flight: 1
+  update_watch_time: 30000-600000
+
+networks:
+- name: default
+#  type: manual
+#  subnets:
+#  - range:    10.30.0.0/16
+#    gateway:  10.30.20.23
+#    dns:      [10.30.20.23]
+#    reserved: [10.30.0.1-10.30.0.10]
+    # IaaS specific properties
+#    cloud_properties:
+#      name: Internal
+  subnets:
+  - cloud_properties:
+      name: Internal
+    dns:
+    - 10.30.20.24
+    gateway: 10.30.20.23
+    name: default_unused
+    range: 10.30.0.0/16
+    reserved:
+    - 10.30.0.1 - 10.30.0.255
+    - 10.30.40.1 - 10.30.40.70
+    - 10.30.40.101 - 10.30.60.199
+    - 10.30.60.211 - 10.30.255.254 
+    static:
+    - 10.30.60.200 - 10.30.60.210
+  type: manual
+
+resource_pools:
+- name: apiplatform-servers
+  network: default
+
+  # Association with Ubuntu Trusty stemcell for AWS
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: 3012
+
+  # IaaS specific properties
+  cloud_properties:
+    cpu: 2
+    disk: 8192
+    ram: 4096
+
+
+compilation:
+  workers: 2
+  network: default
+  reuse_compilation_vms: true
+  cloud_properties:
+    ram: 4096
+    disk: 8192
+    cpu: 2
+
+
+jobs:
+- name: mariadb
+  instances: 1
+  template: mariadb
+  resource_pool: apiplatform-servers
+  networks:
+  - name: default
+    static_ips: 10.30.60.210
+  properties:
+    admin_password: openpaas
+    apiplatform_username: wso2
+    apiplatform_password: openpaas
+    apiplatform_broker_username: apiplatform
+    apiplatform_broker_password: openpaas
+
+- name: bam
+  instances: 1
+  template: bam
+  resource_pool: apiplatform-servers
+  networks:
+  - name: default
+    static_ips: 10.30.60.203
+
+- name: apimanager
+  instances: 1
+  template: apimanager
+  resource_pool: apiplatform-servers
+  networks:
+  - name: default
+    static_ips: 10.30.60.201
+
+- name: apiplatform-broker
+  instances: 1
+  template: apiplatform-broker
+  resource_pool: apiplatform-servers
+  networks:
+  - name: default
+    static_ips: 10.30.60.200
+  properties:
+    apimanager_url: http://10.30.60.201
+    database_ip: 10.30.60.210
+    apiplatform_broker_username: apiplatform
+    apiplatform_broker_password: openpaas
+
+
+- name: broker-registrar
+  template: broker-registrar
+  instances: 1
+  lifecycle: errand
+  resource_pool: apiplatform-servers 
+  networks:
+  - name: default
+  properties:
+    broker:
+      protocol: http
+      host: 10.30.60.201
+      port: 4567
+      name: apiplatform
+      username: "admin"
+      password: "eaa139af583c"
+

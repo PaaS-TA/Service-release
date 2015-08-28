@@ -1,0 +1,31 @@
+---
+packages:
+- name: apimanager
+  version: !binary |-
+    OTM4YWU2NjQ2ZWNmNmQ3MzZiZTRjNjI2ZGQ5NmYxNDcyZjBjOGZmMw==
+  fingerprint: !binary |-
+    OTM4YWU2NjQ2ZWNmNmQ3MzZiZTRjNjI2ZGQ5NmYxNDcyZjBjOGZmMw==
+  sha1: !binary |-
+    YTM1YzZkOWRmNDQxNTc5ODYyYzBmMDJmNGRmOGExMTc2MzdkMjM0OQ==
+  dependencies:
+  - java7
+- name: java7
+  version: !binary |-
+    ZDhhODE0NzllY2NjYWRjNWExNTFmN2RkZDMxNmMzYzA5YTZhOGQ0Mg==
+  fingerprint: !binary |-
+    ZDhhODE0NzllY2NjYWRjNWExNTFmN2RkZDMxNmMzYzA5YTZhOGQ0Mg==
+  sha1: !binary |-
+    MzJkOGQ5MDkxMTcxNmUzNTVmMTVjZTUzZjQxMWE5YjExZGZiZjYwMQ==
+  dependencies: []
+jobs:
+- name: apimanager
+  version: !binary |-
+    NzI1NTQ0NDIzYjhlYjNhMzc0ZjEzMzI3NWQzZjI2M2UyNmZmODYzZA==
+  fingerprint: !binary |-
+    NzI1NTQ0NDIzYjhlYjNhMzc0ZjEzMzI3NWQzZjI2M2UyNmZmODYzZA==
+  sha1: !binary |-
+    YTc0YmRmNzBlNTgyYzI4MTRkMjA3YWY3NmNmY2ZhYzkzZmJiOTk2Mw==
+commit_hash: '00000000'
+uncommitted_changes: false
+name: apiplatform_dev
+version: 0+dev.21

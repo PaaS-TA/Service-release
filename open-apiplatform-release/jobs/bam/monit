@@ -1,0 +1,5 @@
+check process bam
+  with pidfile /var/vcap/packages/bam/wso2bam-2.5.0/wso2carbon.pid
+  start program "/var/vcap/jobs/bam/bin/bam_ctl start"
+  stop program "/var/vcap/jobs/bam/bin/bam_ctl stop"
+  group vcap

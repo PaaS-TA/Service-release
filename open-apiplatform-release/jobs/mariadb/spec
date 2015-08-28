@@ -1,0 +1,33 @@
+---
+name: mariadb
+
+templates:
+  mariadb_ctl.erb: bin/mariadb_ctl
+  my.cnf.erb: config/my.cnf
+  mariadb_init.erb: config/mariadb_init
+
+packages:
+  - mariadb
+
+properties:
+  admin_username:
+    description: 'Username for the MySQL server admin user'
+    default: 'root'
+  admin_password:
+    description: 'Password for the MySQL server admin user'
+    default: 'openpaas'
+
+  apiplatform_username:
+    description: 'API Platform Username for the MySQL server'
+    default: 'wso2'
+  apiplatform_password:
+    description: 'API Platform Password for the MySQL server'
+    default: 'openpaas'
+
+  apiplatform_broker_username:
+    description: 'API Platform service broker Username for the MySQL server'
+    default: 'apiplatform'
+  apiplatform_broker_password:
+    description: 'API Platform service broker Password for the MySQL server'
+    default: 'openpaas'
+

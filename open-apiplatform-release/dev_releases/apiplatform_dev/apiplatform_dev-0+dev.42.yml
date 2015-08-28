@@ -1,0 +1,69 @@
+---
+packages:
+- name: mariadb
+  version: !binary |-
+    ZjdmY2FhNThjOWJmNjEwNWE4MGQ0MmQ3MmEwMmEzYTM4YThmOWQwNA==
+  fingerprint: !binary |-
+    ZjdmY2FhNThjOWJmNjEwNWE4MGQ0MmQ3MmEwMmEzYTM4YThmOWQwNA==
+  sha1: !binary |-
+    OTBjNTFlZWJlZmNmOGNkZDg4MWE0MDZlZDdmMTczYTNkNDBkMzdlNw==
+  dependencies: []
+- name: mysql_connector_java
+  version: !binary |-
+    YjkwMGZlMjVkMDYxZWMxMThmYmQwY2VhZDM5MzY2ZGUwNDZkOWE2OA==
+  fingerprint: !binary |-
+    YjkwMGZlMjVkMDYxZWMxMThmYmQwY2VhZDM5MzY2ZGUwNDZkOWE2OA==
+  sha1: !binary |-
+    ODFkYWU1ZDY0ZTBjNmE0ODRhNzMwMTA2NzllZjU2ZTZhNWJlNGNkZg==
+  dependencies: []
+- name: bam
+  version: !binary |-
+    YjY1OWQ1NjhiMWUyMWIzYzNmMzMxODc1ZDRlMjUxNDE3OTEzMmJjOA==
+  fingerprint: !binary |-
+    YjY1OWQ1NjhiMWUyMWIzYzNmMzMxODc1ZDRlMjUxNDE3OTEzMmJjOA==
+  sha1: !binary |-
+    Mzk1MWVjOGJlYzRiMDkyMjY0YjQwYWEyNjJmMmU1YWRhNDhjMWQ0MA==
+  dependencies: []
+- name: apimanager
+  version: !binary |-
+    ODA3MGY5ZWI4ZGE0YmNjNTI4ZWNhOTE3ZGYxYjViOTc0YTVjOTNkMw==
+  fingerprint: !binary |-
+    ODA3MGY5ZWI4ZGE0YmNjNTI4ZWNhOTE3ZGYxYjViOTc0YTVjOTNkMw==
+  sha1: !binary |-
+    ZWNjMjdhYzkwYjhmZmZkNDI0ZjZmYTJiNWQwYWI5NWM5OTFmYzIwZA==
+  dependencies:
+  - mysql_connector_java
+- name: java7
+  version: !binary |-
+    NWUxZTdkNjc2OTkwMjk1YzA5NWI2MzJiZGRjNWM0MmMwZGExZmNjZA==
+  fingerprint: !binary |-
+    NWUxZTdkNjc2OTkwMjk1YzA5NWI2MzJiZGRjNWM0MmMwZGExZmNjZA==
+  sha1: !binary |-
+    OGE4NmM2Zjc2YzRjODAzNjNhNmE2YWE4MTIyMDJlMGU5YzJhMjlkYg==
+  dependencies: []
+jobs:
+- name: mariadb
+  version: !binary |-
+    NWUzMmU1Zjg5MDMxOTQ4MGMyNTFkZWJiZjVmOWQ1YjBlYmQ2YjRmYQ==
+  fingerprint: !binary |-
+    NWUzMmU1Zjg5MDMxOTQ4MGMyNTFkZWJiZjVmOWQ1YjBlYmQ2YjRmYQ==
+  sha1: !binary |-
+    NWE0NjE3NzRlMjE3ODA1NDRkYzY0NmVkNWJiMWI3MDg0ZGE4ZWZjYg==
+- name: bam
+  version: !binary |-
+    ZDZjY2UwNWYxMDMwMzYwMjhmZjZlODQ1MDk4YmFiNjcyZmEzYTk0Ng==
+  fingerprint: !binary |-
+    ZDZjY2UwNWYxMDMwMzYwMjhmZjZlODQ1MDk4YmFiNjcyZmEzYTk0Ng==
+  sha1: !binary |-
+    YmQzOTViYjRkNTVmNTY4YjJhZWNjZTkxZTdjNDA0NmI0ZjAzNGE5Ng==
+- name: apimanager
+  version: !binary |-
+    MTE3MmQwYTI3ZTRlYmM5ZTI0MDQyZTk4Y2Q3YzU5YmI5ZDE3MWYwNQ==
+  fingerprint: !binary |-
+    MTE3MmQwYTI3ZTRlYmM5ZTI0MDQyZTk4Y2Q3YzU5YmI5ZDE3MWYwNQ==
+  sha1: !binary |-
+    NGNiOTU2MTdhYjg0YTU0OTBjYzg4ODkxZDJiMGU2YzIwMjQwNGZhNQ==
+commit_hash: '00000000'
+uncommitted_changes: false
+name: apiplatform_dev
+version: 0+dev.42

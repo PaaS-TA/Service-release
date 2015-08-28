@@ -1,0 +1,13 @@
+---
+name: apiplatform-broker
+
+templates:
+  apiplatform_ctl: bin/apiplatform_ctl
+  bosh_application-mvc.properties: config/application-mvc.properties
+  bosh_datasource.properties: config/datasource.properties
+  bosh_logback.xml: config/logback.xml
+
+
+packages:
+  - jre7
+  - apiplatform-broker

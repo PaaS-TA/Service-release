@@ -1,0 +1,12 @@
+---
+name: bam
+
+templates:
+  bam_ctl: bin/bam_ctl
+  bam-datasources.xml.erb: conf/bam-datasources.xml
+
+packages:
+  - java7
+  - mysql_connector_java
+  - bam
+

@@ -1,0 +1,15 @@
+GRANT ALL PRIVILEGES ON *.* TO '<%= properties.admin_username %>'@'%' WITH GRANT OPTION;
+UPDATE mysql.user SET Password=PASSWORD('<%= properties.admin_password %>') WHERE User='<%= properties.admin_username %>';
+DELETE FROM mysql.user WHERE User='';
+FLUSH PRIVILEGES;
+DROP DATABASE IF EXISTS test;
+
+
+CREATE DATABASE IF NOT EXISTS stats_db;
+GRANT ALL PRIVILEGES ON stats_db.* TO '<%= properties.apiplatform_username %>'@'%' IDENTIFIED BY  '<%= properties.apiplatform_password %>' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+
+CREATE DATABASE IF NOT EXISTS apiplatform;
+GRANT ALL PRIVILEGES ON stats_db.* TO '<%= properties.apiplatform_broker_username %>'@'%' IDENTIFIED BY  '<%= properties.apiplatform_broker_password %>' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

@@ -1,0 +1,55 @@
+---
+packages:
+- name: mariadb
+  version: !binary |-
+    ZTkzYjY5Y2RlYTNmMzQ5MWU2Y2UzMDU4Y2FmM2EwMTA5ZmMwYjNjNw==
+  fingerprint: !binary |-
+    ZTkzYjY5Y2RlYTNmMzQ5MWU2Y2UzMDU4Y2FmM2EwMTA5ZmMwYjNjNw==
+  sha1: !binary |-
+    NGJlMWM5OTlmZWY0MmIwMDg5NWE4MjkxMjRlZjRlMjRiMTRmOGRhYQ==
+  dependencies: []
+- name: mysql_connector_java
+  version: !binary |-
+    YjkwMGZlMjVkMDYxZWMxMThmYmQwY2VhZDM5MzY2ZGUwNDZkOWE2OA==
+  fingerprint: !binary |-
+    YjkwMGZlMjVkMDYxZWMxMThmYmQwY2VhZDM5MzY2ZGUwNDZkOWE2OA==
+  sha1: !binary |-
+    ODFkYWU1ZDY0ZTBjNmE0ODRhNzMwMTA2NzllZjU2ZTZhNWJlNGNkZg==
+  dependencies: []
+- name: bam
+  version: !binary |-
+    YjY1OWQ1NjhiMWUyMWIzYzNmMzMxODc1ZDRlMjUxNDE3OTEzMmJjOA==
+  fingerprint: !binary |-
+    YjY1OWQ1NjhiMWUyMWIzYzNmMzMxODc1ZDRlMjUxNDE3OTEzMmJjOA==
+  sha1: !binary |-
+    Mzk1MWVjOGJlYzRiMDkyMjY0YjQwYWEyNjJmMmU1YWRhNDhjMWQ0MA==
+  dependencies: []
+- name: apimanager
+  version: !binary |-
+    ODA3MGY5ZWI4ZGE0YmNjNTI4ZWNhOTE3ZGYxYjViOTc0YTVjOTNkMw==
+  fingerprint: !binary |-
+    ODA3MGY5ZWI4ZGE0YmNjNTI4ZWNhOTE3ZGYxYjViOTc0YTVjOTNkMw==
+  sha1: !binary |-
+    ZWNjMjdhYzkwYjhmZmZkNDI0ZjZmYTJiNWQwYWI5NWM5OTFmYzIwZA==
+  dependencies:
+  - mysql_connector_java
+- name: java7
+  version: !binary |-
+    NWUxZTdkNjc2OTkwMjk1YzA5NWI2MzJiZGRjNWM0MmMwZGExZmNjZA==
+  fingerprint: !binary |-
+    NWUxZTdkNjc2OTkwMjk1YzA5NWI2MzJiZGRjNWM0MmMwZGExZmNjZA==
+  sha1: !binary |-
+    OGE4NmM2Zjc2YzRjODAzNjNhNmE2YWE4MTIyMDJlMGU5YzJhMjlkYg==
+  dependencies: []
+jobs:
+- name: apimanager
+  version: !binary |-
+    NDgxNGU0NTliMjViZDJmYzY3YjQ2YTg1YmY1YzY5ZTczMGFmOGZhZA==
+  fingerprint: !binary |-
+    NDgxNGU0NTliMjViZDJmYzY3YjQ2YTg1YmY1YzY5ZTczMGFmOGZhZA==
+  sha1: !binary |-
+    ZjQwZGQwZjEyYWFhNzUyMDI4OTVhZjBlOWExOGNlODM2NGViM2E1MQ==
+commit_hash: '00000000'
+uncommitted_changes: false
+name: apiplatform_dev
+version: 0+dev.33

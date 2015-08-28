@@ -1,0 +1,135 @@
+<!-- BOSH Release -->
+<datasources-configuration xmlns:svns="http://org.wso2.securevault/configuration">
+
+    <providers>
+        <provider>org.wso2.carbon.ndatasource.rdbms.RDBMSDataSourceReader</provider>
+        <provider>org.wso2.carbon.bam.cassandra.hector.datareader.HectorBasedCassandraDataSourceReader</provider>
+    </providers>
+
+    <datasources>
+
+        <datasource>
+            <name>WSO2BAM_DATASOURCE</name>
+            <description>The datasource used for analyzer data</description>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>jdbc:h2:repository/database/samples/BAM_STATS_DB;AUTO_SERVER=TRUE</url>
+                    <username>wso2carbon</username>
+                    <password>wso2carbon</password>
+                    <driverClassName>org.h2.Driver</driverClassName>
+                    <maxActive>50</maxActive>
+                    <maxWait>60000</maxWait>
+                    <testOnBorrow>true</testOnBorrow>
+                    <validationQuery>SELECT 1</validationQuery>
+                    <validationInterval>30000</validationInterval>
+                </configuration>
+            </definition>
+        </datasource>
+
+
+        <datasource>
+            <name>WSO2BAM_CASSANDRA_EVENT_INDEX_SOURCE</name>
+            <description>The datasource used for Cassandra data</description>
+            <definition type="CASSANDRA">
+                <configuration>
+                    <hosts>localhost</hosts>
+                    <port>9160</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <keySpace>EVENT_INDEX_KS</keySpace>
+                    <externalCassandra>false</externalCassandra>
+                    <replicationFactor>1</replicationFactor>
+                    <strategyClass>org.apache.cassandra.locator.SimpleStrategy</strategyClass>
+                    <readConsistencyLevel>QUORUM</readConsistencyLevel>
+                    <writeConsistencyLevel>QUORUM</writeConsistencyLevel>
+                    <gcGraceInterval>864000</gcGraceInterval>
+                </configuration>
+            </definition>
+        </datasource>
+
+        <datasource>
+            <name>WSO2BAM_CASSANDRA_DATASOURCE</name>
+            <description>The datasource used for Cassandra data</description>
+            <definition type="CASSANDRA">
+                <configuration>
+                    <hosts>localhost</hosts>
+                    <port>9160</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <keySpace>EVENT_KS</keySpace>
+                    <externalCassandra>false</externalCassandra>
+                    <replicationFactor>1</replicationFactor>
+                    <strategyClass>org.apache.cassandra.locator.SimpleStrategy</strategyClass>
+                    <readConsistencyLevel>QUORUM</readConsistencyLevel>
+                    <writeConsistencyLevel>QUORUM</writeConsistencyLevel>
+                    <gcGraceInterval>864000</gcGraceInterval>
+                </configuration>
+            </definition>
+        </datasource>
+
+
+        <datasource>
+            <name>WSO2BAM_UTIL_DATASOURCE</name>
+            <description>The datasource used for BAM utilities, such as message store etc..</description>
+            <definition type="CASSANDRA">
+                <configuration>
+                    <hosts>localhost</hosts>
+                    <port>9160</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <keySpace>BAM_UTIL_KS</keySpace>
+                    <externalCassandra>false</externalCassandra>
+                    <replicationFactor>1</replicationFactor>
+                    <strategyClass>org.apache.cassandra.locator.SimpleStrategy</strategyClass>
+                    <readConsistencyLevel>QUORUM</readConsistencyLevel>
+                    <writeConsistencyLevel>QUORUM</writeConsistencyLevel>
+                    <gcGraceInterval>864000</gcGraceInterval>
+                </configuration>
+            </definition>
+        </datasource>
+
+        <!-- The URL configs are loaded from hector-config.xml -->
+        <datasource>
+            <name>WSO2BAM_HIVE_INCREMENTAL_DATASOURCE</name>
+            <definition type="CASSANDRA">
+                <configuration>
+                    <hosts>localhost</hosts>
+                    <port>9160</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <keySpace>HIVE_INCREMENTAL_KS</keySpace>
+                    <externalCassandra>false</externalCassandra>
+                    <replicationFactor>1</replicationFactor>
+                    <strategyClass>org.apache.cassandra.locator.SimpleStrategy</strategyClass>
+                    <readConsistencyLevel>QUORUM</readConsistencyLevel>
+                    <writeConsistencyLevel>QUORUM</writeConsistencyLevel>
+                    <gcGraceInterval>864000</gcGraceInterval>
+                </configuration>
+            </definition>
+        </datasource>
+
+         <datasource>
+            <name>WSO2AM_STATS_DB</name>
+            <description>The datasource used for getting statistics to API Manager</description>
+            <jndiConfig>
+                <name>jdbc/WSO2AM_STATS_DB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>jdbc:mysql://10.30.60.210:3306/stats_db?autoReconnect=true&amp;</url>
+                    <username>wso2</username>
+                    <password>openpaas</password>
+                    <!--defaultAutoCommit>false</defaultAutoCommit-->
+                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                    <maxActive>50</maxActive>
+                    <maxWait>60000</maxWait>
+                    <testOnBorrow>true</testOnBorrow>
+                    <validationQuery>SELECT 1</validationQuery>
+                    <validationInterval>30000</validationInterval>
+                </configuration>
+            </definition>
+         </datasource>
+
+    </datasources>
+
+</datasources-configuration>

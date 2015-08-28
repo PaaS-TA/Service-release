@@ -1,0 +1,20 @@
+---
+name: apimanager
+
+templates: 
+  apimanager_ctl: bin/apimanager_ctl
+  api-manager.xml.erb: conf/api-manager.xml
+  master-datasources.xml.erb: conf/master-datasources.xml
+
+packages:
+  - java7
+  - mysql_connector_java
+  - apimanager
+
+properties:
+  apimanager.url:
+    description: URL
+    default: localhost
+  BAM_URL:
+    description: 'BAM server url information. protocl://ip or domain:port number'
+    default: 'tcp://localhost:7612/'
