@@ -4,4 +4,4 @@ blobs
 .dev_builds
 .final_builds
 src
-!src/REAMDME.md
+!src/README.md
