@@ -1,9 +1,0 @@
-.idea
-.DS_Store
-*.test
-*.swp
-*~
-*#
-#*
-node_modules
-tmp
