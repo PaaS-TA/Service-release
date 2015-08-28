@@ -1,0 +1,21 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+rsync -a cf-mysql-broker/ ${BOSH_INSTALL_TARGET}
+
+# install gems from cache
+# some more comment to force pre-packaging and make a new package
+(
+  cd ${BOSH_INSTALL_TARGET}
+
+  export PATH=/var/vcap/packages/ruby/bin:$PATH;
+
+  mysqlclient_dir=/var/vcap/packages/mysqlclient
+
+  /var/vcap/packages/ruby/bin/bundle config build.mysql2 \
+    --with-mysql-config=$mysqlclient_dir/bin/mariadb_config \
+    --with-mysql-lib=$mysqlclient_dir/lib \
+    --with-mysql-include=$mysqlclient_dir/include
+
+  /var/vcap/packages/ruby/bin/bundle install --local --deployment --without development test
+)
