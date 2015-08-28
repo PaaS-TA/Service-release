@@ -1,0 +1,264 @@
+---
+packages:
+- name: mariadb_ctrl
+  version: !binary |-
+    NzY1ODI5MGRhOThlMmNhZDIwOTQ1NmYxNzRkM2I5ZmExNDNjODdmYw==
+  fingerprint: !binary |-
+    NzY1ODI5MGRhOThlMmNhZDIwOTQ1NmYxNzRkM2I5ZmExNDNjODdmYw==
+  sha1: !binary |-
+    NDc4ZjUxNzY2OWViNDA2MDAxODdjMWRmZTc3MzI1NTc0NzQ5ODMzZg==
+  dependencies:
+  - golang
+- name: ruby
+  version: !binary |-
+    ZmY3OWM5NjUyMjRiNDE2MGMxNTI2YmQ3MDRiM2IyMWU0YWQ3YzM2Mg==
+  fingerprint: !binary |-
+    ZmY3OWM5NjUyMjRiNDE2MGMxNTI2YmQ3MDRiM2IyMWU0YWQ3YzM2Mg==
+  sha1: !binary |-
+    MGI2NDk2ZmZlNmVmOGJiNmJiZWFlOWZhNDlmNDNmNzRkMGY5Njc3Mw==
+  dependencies: []
+- name: scons
+  version: !binary |-
+    MTFlN2FkM2IyOGI0M2E5NmRlM2RmN2FhNDFhZmRkZGU1ODJmY2MzOA==
+  fingerprint: !binary |-
+    MTFlN2FkM2IyOGI0M2E5NmRlM2RmN2FhNDFhZmRkZGU1ODJmY2MzOA==
+  sha1: !binary |-
+    MjI1ODYzZDhlMjU4YWFiMGE5MjA0MmZiMGRmYzFmNzI4ODA3OTUwOA==
+  dependencies:
+  - python
+- name: boost
+  version: !binary |-
+    M2ViOGJkYjFhYmI3ZWZmNWI2M2M0YzViZGI0MWMwYTc3ODkyNWMzMQ==
+  fingerprint: !binary |-
+    M2ViOGJkYjFhYmI3ZWZmNWI2M2M0YzViZGI0MWMwYTc3ODkyNWMzMQ==
+  sha1: !binary |-
+    MmEzNGU4NGMzNjE5MGU3OTIzN2UxZDIxNzE1NjA5ZmIyNjM5NjNjMQ==
+  dependencies: []
+- name: python
+  version: !binary |-
+    NGUyNTVlZmE3NTRkOTFiODI1NDc2YjU3ZTExMTM0NWYyMDA5NDRlMQ==
+  fingerprint: !binary |-
+    NGUyNTVlZmE3NTRkOTFiODI1NDc2YjU3ZTExMTM0NWYyMDA5NDRlMQ==
+  sha1: !binary |-
+    Y2U1OWNmMGFkMzdmMThjMzA5MWNhYzkyYzllZjhmZDE1NTI5NWI0ZQ==
+  dependencies: []
+- name: cf-mysql-broker
+  version: !binary |-
+    ZWE4ZTgwYjJiOTc2YzdhYmIzMDVmN2ZhMjg1MDY4ODVlNGQyNmExNw==
+  fingerprint: !binary |-
+    ZWE4ZTgwYjJiOTc2YzdhYmIzMDVmN2ZhMjg1MDY4ODVlNGQyNmExNw==
+  sha1: !binary |-
+    NDFiNDg2Y2MxMTQ5NGVlMzVjMDQ5NDAwMzdkMDRjYWEwMDAwY2E1NA==
+  dependencies:
+  - mysqlclient
+  - ruby
+- name: mariadb
+  version: !binary |-
+    NDNhYTM1NDdiYzVhMDFkZDUxZjE1MDFlNmI5M2MyMTVkZDcyNTVlOQ==
+  fingerprint: !binary |-
+    NDNhYTM1NDdiYzVhMDFkZDUxZjE1MDFlNmI5M2MyMTVkZDcyNTVlOQ==
+  sha1: !binary |-
+    ZDAwMzE2YTgzNzljOTg1M2FjZDkzYjdkNmZlN2ZmYmIxNzdiMjE0ZQ==
+  dependencies:
+  - galera
+- name: acceptance-tests
+  version: !binary |-
+    NWY2ODMwZjBlMzQ5ZjUzYWI2NThmOTRlY2U4NWRhZGJiMjViYzUxNA==
+  fingerprint: !binary |-
+    NWY2ODMwZjBlMzQ5ZjUzYWI2NThmOTRlY2U4NWRhZGJiMjViYzUxNA==
+  sha1: !binary |-
+    YzU1NDFjNzk3NDEyZDVlYzQwNzhlZjQwMDBmNmQyYjU4MzViMWQ5YQ==
+  dependencies:
+  - cli
+  - golang
+- name: syslog_aggregator
+  version: !binary |-
+    MDc4ZGE2ZGNiOTk5YzFlNmY1Mzk4YTZlYjczOTE4MmNjYjRhYmEyNQ==
+  fingerprint: !binary |-
+    MDc4ZGE2ZGNiOTk5YzFlNmY1Mzk4YTZlYjczOTE4MmNjYjRhYmEyNQ==
+  sha1: !binary |-
+    OTY1ZjU3ZDNmYjJlZDJhODMxNzAwZDMxODI0MzIyZjA4ZWE2Nzk2OQ==
+  dependencies: []
+- name: xtrabackup
+  version: !binary |-
+    MmU3MDFlN2E5ZTQyNDFiMjgwNTJkOTg0NzMzZGUzNmFhZTE1MjI3NQ==
+  fingerprint: !binary |-
+    MmU3MDFlN2E5ZTQyNDFiMjgwNTJkOTg0NzMzZGUzNmFhZTE1MjI3NQ==
+  sha1: !binary |-
+    YmNjNzQ4YzEyMmRiZDI1MDFiMjI5YzE0MTlhOTJhMDcxYWNkOGU2YQ==
+  dependencies:
+  - mariadb
+- name: check
+  version: !binary |-
+    ZDY4MTFmMjVlOWQ1NjQyOGE5Yjk0MjYzMWMyN2M5YjI0ZjUwNjRkYw==
+  fingerprint: !binary |-
+    ZDY4MTFmMjVlOWQ1NjQyOGE5Yjk0MjYzMWMyN2M5YjI0ZjUwNjRkYw==
+  sha1: !binary |-
+    N2YwMTA0MDlmOGRkYjJkOGIwMGEwOWU4OTVhMjZjNDg3YWJmNDRhNw==
+  dependencies: []
+- name: gra-log-purger
+  version: !binary |-
+    ZjAyZmE1Nzc0YWI1NGRiYjFiMWMzNzAyZDAzY2I5MjliODVkNjBlNg==
+  fingerprint: !binary |-
+    ZjAyZmE1Nzc0YWI1NGRiYjFiMWMzNzAyZDAzY2I5MjliODVkNjBlNg==
+  sha1: !binary |-
+    YTNhMmQ4NzVjNmUwNTcyYWNiMjQ1ZDk0OTAwODljMmQ5MDMwYmFhMQ==
+  dependencies:
+  - golang
+- name: mysqlclient
+  version: !binary |-
+    Y2U5NWY4YWM1NjZmNzZiNjUwOTkyOTg3ZDUyODJlZTQ3MzM1NmU0Mw==
+  fingerprint: !binary |-
+    Y2U5NWY4YWM1NjZmNzZiNjUwOTkyOTg3ZDUyODJlZTQ3MzM1NmU0Mw==
+  sha1: !binary |-
+    OTc2NGYzOGZmMzQyM2YwYWUwNzBkOTlhMzUwODhjZDMzOWI3ZmMyNQ==
+  dependencies: []
+- name: galera-healthcheck
+  version: !binary |-
+    M2RhNGRlZGJjZDdkOWY0MDRhMTllNzcyMGUyMjZmZDQ3MjAwMjI2Ng==
+  fingerprint: !binary |-
+    M2RhNGRlZGJjZDdkOWY0MDRhMTllNzcyMGUyMjZmZDQ3MjAwMjI2Ng==
+  sha1: !binary |-
+    ZDIwNTM1ZTU4MjRiY2ViMDBkMzA2ZjliM2JlNTE3MTVhZWU5YTI2Yw==
+  dependencies:
+  - golang
+- name: openjdk-1.8.0_45
+  version: !binary |-
+    NTdlMGVlODc2ZWE5ZDkwZjU0NzBlMzc4NGFlMTE3MWJjY2VlODUwYQ==
+  fingerprint: !binary |-
+    NTdlMGVlODc2ZWE5ZDkwZjU0NzBlMzc4NGFlMTE3MWJjY2VlODUwYQ==
+  sha1: !binary |-
+    MjFkNDAwZThmODI4ZWQ0ZDU5MzVkYTFkOGQ3ZmViMTAyZjU4YjIyOA==
+  dependencies: []
+- name: common
+  version: !binary |-
+    YmE0ODBhNDZjNGIyYWE5NDg0ZmIyNGVkMDFhODY0OTQ1MzU3M2U2Zg==
+  fingerprint: !binary |-
+    YmE0ODBhNDZjNGIyYWE5NDg0ZmIyNGVkMDFhODY0OTQ1MzU3M2U2Zg==
+  sha1: !binary |-
+    YmU1YzM0ZjM1ODg4YTk0MTk0YzM2OTc1YzFiOGI0NjBlM2U1YjU0Zg==
+  dependencies: []
+- name: cli
+  version: !binary |-
+    MjQzMDVlNTBhNjM4ZWNlMmNhY2U0ZWY0ODAzNzQ2YzBjOWZlNGJiMA==
+  fingerprint: !binary |-
+    MjQzMDVlNTBhNjM4ZWNlMmNhY2U0ZWY0ODAzNzQ2YzBjOWZlNGJiMA==
+  sha1: !binary |-
+    MjljMjM0OTZlMTQ0NTEwZDc4NjE0MWI3YzBkNjA2ODIyY2IxOWRjNA==
+  dependencies: []
+- name: switchboard
+  version: !binary |-
+    ZmFkNTY1ZGFkYmIzNzQ3MDc3MTgwMTk1MjAwMWM3MDcxZTU1YTM2NA==
+  fingerprint: !binary |-
+    ZmFkNTY1ZGFkYmIzNzQ3MDc3MTgwMTk1MjAwMWM3MDcxZTU1YTM2NA==
+  sha1: !binary |-
+    ODk4ZTk2ZGM0NzE3OGUyY2MxZDI0YmIwMzY4MjU0Njk2OGFiM2E4NQ==
+  dependencies:
+  - golang
+- name: route-registrar
+  version: !binary |-
+    ZjNmZGZiOGM5NDBlNzIyN2E5NmMwNmU0MTNhZTY4MjdhYmE4ZWVkYQ==
+  fingerprint: !binary |-
+    ZjNmZGZiOGM5NDBlNzIyN2E5NmMwNmU0MTNhZTY4MjdhYmE4ZWVkYQ==
+  sha1: !binary |-
+    MGVkMDFmZGIzMTRkODZhMmU0NmQ5N2U1ZjQzZmUyY2I5ZjYxNWQyZQ==
+  dependencies:
+  - golang
+- name: quota-enforcer
+  version: !binary |-
+    ZTJjNGM5ZTdkN2JiYmU0YmZkYzA4NjY5NjI0NjFiMDBlNjU0Y2NhMw==
+  fingerprint: !binary |-
+    ZTJjNGM5ZTdkN2JiYmU0YmZkYzA4NjY5NjI0NjFiMDBlNjU0Y2NhMw==
+  sha1: !binary |-
+    NjhkYjA2ZmM3NWY4YTE4ZjQyMzdkMzhjNGIyNzNiNjEwMzBjNDIyOA==
+  dependencies:
+  - golang
+- name: golang
+  version: !binary |-
+    ZjU3ZGRiYzhkNTVkN2EwZjA4Nzc1YmY3NmJiNmEyN2RjOThjN2VhNw==
+  fingerprint: !binary |-
+    ZjU3ZGRiYzhkNTVkN2EwZjA4Nzc1YmY3NmJiNmEyN2RjOThjN2VhNw==
+  sha1: !binary |-
+    NDcyNTkxMzEyNmVlNDIyZjQwNWFjOWYxMDI3N2Q4YTBjOWYwNDllZA==
+  dependencies: []
+- name: op-mysql-java-broker
+  version: !binary |-
+    NzJjNDE2MzBhNGNmNzc0Mzk2NjM2YzNhMGQxZTUxNjM5ZTQ3NDE5Zg==
+  fingerprint: !binary |-
+    NzJjNDE2MzBhNGNmNzc0Mzk2NjM2YzNhMGQxZTUxNjM5ZTQ3NDE5Zg==
+  sha1: !binary |-
+    MTYxNmU5YzUxMjY4NjM4N2MwOTQwMzI5Mjg5Y2RiMWIxYmM0MDAxMg==
+  dependencies: []
+- name: galera
+  version: !binary |-
+    ZDE1YTFkMmQxNWU1ZTc0MTcyNzhkNGFhMWI5MDg1NjYwMjJiOTYyMw==
+  fingerprint: !binary |-
+    ZDE1YTFkMmQxNWU1ZTc0MTcyNzhkNGFhMWI5MDg1NjYwMjJiOTYyMw==
+  sha1: !binary |-
+    NjQ5MDkxODAwYjI5MDRkZTA0NWQ3MjIyNzkzNGRiMzNhZTM4MmU4YQ==
+  dependencies:
+  - boost
+  - check
+  - python
+  - scons
+jobs:
+- name: proxy
+  version: !binary |-
+    NzkwN2Q4NzU5YWExMWRmY2JiZTc5MjIwZGM5NDVjOTZiNTU2MmFjMQ==
+  fingerprint: !binary |-
+    NzkwN2Q4NzU5YWExMWRmY2JiZTc5MjIwZGM5NDVjOTZiNTU2MmFjMQ==
+  sha1: !binary |-
+    ZTUxZGYzMWMyNzVhOTViOTI1N2VkNDJhNGMwZDhmMmE0NGQ2ZDNiMg==
+- name: cf-mysql-broker
+  version: !binary |-
+    OTgyOGVhZDE1ZWFiZGMzM2IyYzI3ZmUyNzViNDYzNzM1ZWRiMTE1ZA==
+  fingerprint: !binary |-
+    OTgyOGVhZDE1ZWFiZGMzM2IyYzI3ZmUyNzViNDYzNzM1ZWRiMTE1ZA==
+  sha1: !binary |-
+    MDA2NDgwNDMzNDlmNjcyMmRhMzQ3OGE1MDcxY2NkODc5ODc2MjJmZA==
+- name: acceptance-tests
+  version: !binary |-
+    NDhjMDBjMzZlYzUyMTBjYmRkM2IxMjVhZTZhNzJjZmRmNmVhZjRlMg==
+  fingerprint: !binary |-
+    NDhjMDBjMzZlYzUyMTBjYmRkM2IxMjVhZTZhNzJjZmRmNmVhZjRlMg==
+  sha1: !binary |-
+    NGE0MjgwNDc0ZDJjYmZjMWMyOGY0ZjU4YWZmNGIzNmI2OWRmODM2MA==
+- name: broker-deregistrar
+  version: !binary |-
+    YjVmNmY3NzZkNDZlYjFhYzU2MWFiMWU4ZjU4ZDhkZGVkYjk3Zjg2ZQ==
+  fingerprint: !binary |-
+    YjVmNmY3NzZkNDZlYjFhYzU2MWFiMWU4ZjU4ZDhkZGVkYjk3Zjg2ZQ==
+  sha1: !binary |-
+    MDQxYWM4OGMyNmJjNDA4ZTk2ZTg2ZDc3ZjE2OWViOTVhMTJjMmRmNQ==
+- name: broker-registrar
+  version: !binary |-
+    ZTFmNWUzMGI4N2U3MGU5MTZlYTc0ZWE4ZWI2M2E3YjZmZjZmZjY0Mw==
+  fingerprint: !binary |-
+    ZTFmNWUzMGI4N2U3MGU5MTZlYTc0ZWE4ZWI2M2E3YjZmZjZmZjY0Mw==
+  sha1: !binary |-
+    YTJlMGI4ODQxZjk1ZWI5ODU0MDViYmU1NzEwZDMxZjkzMDcxYmQxZQ==
+- name: mysql
+  version: !binary |-
+    MDc4NTYxZjAyZjI1MTYyMTJlZDU5YzQ4ZTFkZDQ1MzYwZjkzODcxYw==
+  fingerprint: !binary |-
+    MDc4NTYxZjAyZjI1MTYyMTJlZDU5YzQ4ZTFkZDQ1MzYwZjkzODcxYw==
+  sha1: !binary |-
+    MTJkOGU1ZTc4YmUxOTc1MTAxYWE2NDU4ZGQ4Yjg4MmNmZDUzZWUxOA==
+- name: op-mysql-java-broker
+  version: !binary |-
+    MGU1YWQ4ZDY1NjBjNjNkODQ0MmMxODQzYjM5ZGY4MmIyNzMyZmJhNQ==
+  fingerprint: !binary |-
+    MGU1YWQ4ZDY1NjBjNjNkODQ0MmMxODQzYjM5ZGY4MmIyNzMyZmJhNQ==
+  sha1: !binary |-
+    ZWQ0ZjEyOTkzMzFhNTVlNzllMzZiNDNlYWViZjk1NTg1YzI0NDk2ZQ==
+license:
+  version: !binary |-
+    OTAyOTlhZDMyOTBjNjkxMTgxMmEyOGJkMjMwMTk2NjE4ZTI5YjZmYw==
+  fingerprint: !binary |-
+    OTAyOTlhZDMyOTBjNjkxMTgxMmEyOGJkMjMwMTk2NjE4ZTI5YjZmYw==
+  sha1: !binary |-
+    ZjJjZWJlZmU5YjhiMzk4YzVkNWZkNGQyZWMzY2MxOGVlM2M4MmQzNg==
+commit_hash: d130702d
+uncommitted_changes: true
+name: op-mysql
+version: '1'
