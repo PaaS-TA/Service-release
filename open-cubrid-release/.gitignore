@@ -6,3 +6,4 @@ blobs
 .final_builds
 src/*
 !src/README.md
+!src/java7
