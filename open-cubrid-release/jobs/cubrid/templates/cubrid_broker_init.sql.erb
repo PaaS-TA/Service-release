@@ -1,0 +1,15 @@
+CREATE TABLE service_instances (
+    guid      VARCHAR(50) NOT NULL PRIMARY KEY,
+    plan_id   VARCHAR(50) NOT NULL,
+    db_name   VARCHAR(20) NOT NULL UNIQUE,
+    INDEX index_db_name(db_name desc)
+);
+
+CREATE TABLE service_instance_bindings (
+    guid      VARCHAR(50) NOT NULL PRIMARY KEY,
+    service_instance_id   VARCHAR(50) NOT NULL,
+    db_user_name VARCHAR(50) NOT NULL UNIQUE,
+    INDEX index_db_user_name(db_user_name desc)
+);
+
+ALTER USER dba PASSWORD '<%= p('cubrid_broker.cubrid_db_passwd')%>'

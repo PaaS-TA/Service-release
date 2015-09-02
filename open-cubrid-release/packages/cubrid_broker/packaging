@@ -1,0 +1,4 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+  cp -a cubrid_broker/openpaas-cf-service-java-broker-cubrid.jar ${BOSH_INSTALL_TARGET}

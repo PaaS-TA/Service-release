@@ -1,0 +1,60 @@
+#!/bin/bash
+
+#cubrid env
+if [[ ! `cat /etc/bash.bashrc|grep '#cubrid env'` ]];
+then
+  echo '#cubrid env' >> /etc/bash.bashrc
+  echo '. /var/vcap/jobs/cubrid/config/.cubrid.sh' >> /etc/bash.bashrc
+fi
+
+if [ ! $CUBRID ]
+then
+  . /var/vcap/jobs/cubrid/config/.cubrid.sh
+fi
+
+#ssh setting. use root
+if [[ `cat /etc/ssh/sshd_config|grep 'PermitRootLogin no'` ]];
+then
+  sed -i -e s/'PermitRootLogin no'/'PermitRootLogin yes'/g /etc/ssh/sshd_config
+  service ssh restart
+fi
+
+export CUBRID_JOB_DIR=/var/vcap/jobs/cubrid
+export CUBRID_PACKAGE_DIR=/var/vcap/packages/cubrid
+RUN_DIR=/var/vcap/sys/run/cubrid
+LOG_DIR=/var/vcap/sys/log/cubrid
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    #if cubrid_broker database not exitst, create database for cubrid_broker
+    if [[ ! -f $CUBRID_DATABASES/databases.txt || !`cat $CUBRID_DATABASES/databases.txt|grep <%= p('cubrid_broker.cubrid_db_name')%>` ]]
+    then
+        mkdir -p $CUBRID_DATABASES/<%= p('cubrid_broker.cubrid_db_name')%>
+        cd $CUBRID_DATABASES/<%= p('cubrid_broker.cubrid_db_name')%>
+        cubrid createdb --csql-initialization-file=$CUBRID_JOB_DIR/config/cubrid_broker_init.sql <%= p('cubrid_broker.cubrid_db_name')%> ko_KR.utf8
+    fi
+
+    #link config file
+    ln -sf $CUBRID_JOB_DIR/config/cubrid.conf $CUBRID_PACKAGE_DIR/CUBRID/conf/cubrid.conf
+    ln -sf $CUBRID_JOB_DIR/config/cubrid_broker.conf $CUBRID_PACKAGE_DIR/CUBRID/conf/cubrid_broker.conf
+
+    #link log directory
+    ln -sf $CUBRID_PACKAGE_DIR/CUBRID/log $LOG_DIR
+
+    #start script
+    cubrid service start
+    cubrid server start <%= p('cubrid_broker.cubrid_db_name')%>
+    ;;
+
+  stop)
+    cubrid service stop
+    ;;
+
+  *)
+    echo "Usage: cubrid_ctl {start|stop}" ;;
+
+esac

@@ -1,0 +1,81 @@
+---
+name: cubrid_vsphere
+director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4 
+
+release:
+  name: cubrid
+  version: latest
+
+compilation:
+  workers: 4
+  network: default
+  cloud_properties:
+    ram: 2048
+    disk: 8096
+    cpu: 2
+
+# this section describes how updates are handled
+update:
+  canaries: 1
+  canary_watch_time: 30000
+  update_watch_time: 30000
+  max_in_flight: 4
+networks:
+- name: default
+  subnets:
+  - cloud_properties:
+      name: Internal
+    dns:
+    - 10.30.20.24
+    - 8.8.8.8
+    gateway: 10.30.20.23
+    name: default_unused
+    range: 10.30.0.0/16
+    reserved:
+    - 10.30.0.1 - 10.30.0.5
+    - 10.30.60.5 - 10.30.60.10
+    - 10.30.60.71 - 10.30.60.100
+    static:
+    - 10.30.60.11 - 10.30.60.70
+
+resource_pools:
+  - name: cubrid_resource_pools
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      cpu: 1
+      disk: 8192
+      ram: 4096
+
+jobs:
+  - name: cubrid
+    template: cubrid
+    instances: 1
+    resource_pool: cubrid_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.23
+  - name: cubrid_broker
+    template: cubrid_broker
+    instances: 1
+    resource_pool: cubrid_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.22
+properties:
+  cubrid:
+    max_clients: 200
+  cubrid_broker:
+    cubrid_ip: 10.30.60.23
+    cubrid_db_port: 30000
+    cubrid_db_name: cubrid_service_broker
+    cubrid_db_user: dba
+    cubrid_ssh_port: 22
+    cubrid_ssh_user: root
+    cubrid_ssh_passwd: c1oudc0w

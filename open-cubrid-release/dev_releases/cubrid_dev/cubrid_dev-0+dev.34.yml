@@ -1,0 +1,46 @@
+---
+packages:
+- name: cubrid
+  version: !binary |-
+    MzYwNjViYjIyZDFlODE2NjU3ZDE3NmM5MDIyNDYyMzEzNDczNjFlMg==
+  fingerprint: !binary |-
+    MzYwNjViYjIyZDFlODE2NjU3ZDE3NmM5MDIyNDYyMzEzNDczNjFlMg==
+  sha1: !binary |-
+    N2IwZmE5NDZkMjlmMjkxOWY1Zjg3Y2QwOGFhMjZjNjFkZDQyNGQ2NA==
+  dependencies: []
+- name: cubrid_broker
+  version: !binary |-
+    YjY4YTZiNGMxNzI2YmZkYjQzZDY0M2E4MjM5YmFmMmM1Y2VjOTcxNw==
+  fingerprint: !binary |-
+    YjY4YTZiNGMxNzI2YmZkYjQzZDY0M2E4MjM5YmFmMmM1Y2VjOTcxNw==
+  sha1: !binary |-
+    OGNhN2Y0ODJlZWIzMDUzYzkzY2E4NDM0NDkxNWFmYjc2MDk2ODBjNg==
+  dependencies:
+  - java7
+- name: java7
+  version: !binary |-
+    Y2IyODUwMmY2ZTg5ODcwMjU1MTgyZWE3NmU5MDI5YzdlOWVjMTg2Mg==
+  fingerprint: !binary |-
+    Y2IyODUwMmY2ZTg5ODcwMjU1MTgyZWE3NmU5MDI5YzdlOWVjMTg2Mg==
+  sha1: !binary |-
+    MTQyMmU1MDllMzBkNTE3Y2NmODgxODYxMzA1ODk3MWZhMjA1MzI3MQ==
+  dependencies: []
+jobs:
+- name: cubrid
+  version: !binary |-
+    YzkxZDk4YTRmNTVlNzM4NmU2OTk1MzYxZjkzZGRjN2U3NzgwM2I3NA==
+  fingerprint: !binary |-
+    YzkxZDk4YTRmNTVlNzM4NmU2OTk1MzYxZjkzZGRjN2U3NzgwM2I3NA==
+  sha1: !binary |-
+    MjA3NjZhMmVkYWJhNDAyMGIyOTY0MTc3ODAyMWI5N2YxN2QwZmRjYg==
+- name: cubrid_broker
+  version: !binary |-
+    YTM3YmI4ZDdmMjFhOWNkNmNhOWQ0MjBkZmQyNDhhOTk0NGExZDA3Mg==
+  fingerprint: !binary |-
+    YTM3YmI4ZDdmMjFhOWNkNmNhOWQ0MjBkZmQyNDhhOTk0NGExZDA3Mg==
+  sha1: !binary |-
+    Y2RiZWJjYjdjNzY2OGMwZWY1MDg2NWVhODVkMTFjMmZiYjVkNmE2OA==
+commit_hash: '00000000'
+uncommitted_changes: false
+name: cubrid_dev
+version: 0+dev.34
