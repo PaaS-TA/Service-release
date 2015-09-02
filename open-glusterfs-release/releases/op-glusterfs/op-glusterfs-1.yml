@@ -1,0 +1,67 @@
+---
+packages:
+- name: cli
+  version: !binary |-
+    MjQzMDVlNTBhNjM4ZWNlMmNhY2U0ZWY0ODAzNzQ2YzBjOWZlNGJiMA==
+  fingerprint: !binary |-
+    MjQzMDVlNTBhNjM4ZWNlMmNhY2U0ZWY0ODAzNzQ2YzBjOWZlNGJiMA==
+  sha1: !binary |-
+    NWQwZGYxNDgwODY0ODdiYjQ1Y2VjZTE2NTQyNzc1YmYxNjAxYTFhMg==
+  dependencies: []
+- name: mariadb
+  version: !binary |-
+    NzZkMDAwODlmMWM3ZWUxMTIyZjZiNTg0ZDI2ZDIxYTE0MjU0ZTFmMA==
+  fingerprint: !binary |-
+    NzZkMDAwODlmMWM3ZWUxMTIyZjZiNTg0ZDI2ZDIxYTE0MjU0ZTFmMA==
+  sha1: !binary |-
+    YmJhYzk1NWYxNDYxMzVjZjliOGIyZGE1YmY5NGM4ZTViYjI1YjY0Ng==
+  dependencies: []
+- name: op-gluster-java-broker
+  version: !binary |-
+    MTYzZDExMzUzNzc4MWNiNjJhM2U1ZjU5ZjA4OTY5MmQzMDM2OThlMA==
+  fingerprint: !binary |-
+    MTYzZDExMzUzNzc4MWNiNjJhM2U1ZjU5ZjA4OTY5MmQzMDM2OThlMA==
+  sha1: !binary |-
+    ODJlN2EyNDY2YjAwOTA3NTk1OWY3MmIyNjQzNDI1NzkyMDgwOTUzNw==
+  dependencies: []
+- name: openjdk
+  version: !binary |-
+    NTY2ZGZhZTM4M2M2MWRmZjBjOWU4MmJlZTM3M2JiNjhiYWMzZTEwZQ==
+  fingerprint: !binary |-
+    NTY2ZGZhZTM4M2M2MWRmZjBjOWU4MmJlZTM3M2JiNjhiYWMzZTEwZQ==
+  sha1: !binary |-
+    MzE1ZDY4YzBjNGE0Njg5NWRmNDdhYzU0NjcxN2UzZGI0ZDBhZDk0Yg==
+  dependencies: []
+jobs:
+- name: broker-deregistrar
+  version: !binary |-
+    YjVmNmY3NzZkNDZlYjFhYzU2MWFiMWU4ZjU4ZDhkZGVkYjk3Zjg2ZQ==
+  fingerprint: !binary |-
+    YjVmNmY3NzZkNDZlYjFhYzU2MWFiMWU4ZjU4ZDhkZGVkYjk3Zjg2ZQ==
+  sha1: !binary |-
+    N2FmMmMyNzQ4YjlkMjAwOGI3NmQ0YjM5YzQ5NjVjMzY4MzE2YzViMw==
+- name: mysql
+  version: !binary |-
+    YWNjODg3MzM1YjNkMDExM2MwMWU5Y2I3YmY4NGIyMjBiNzczZTUxMA==
+  fingerprint: !binary |-
+    YWNjODg3MzM1YjNkMDExM2MwMWU5Y2I3YmY4NGIyMjBiNzczZTUxMA==
+  sha1: !binary |-
+    MzFiMzRiMTQ4MDZmMmU2YmVhNzE0MDdiZWI2N2MwMGJiY2QwZTE4MA==
+- name: op-glusterfs-java-broker
+  version: !binary |-
+    NWZjNjc2NzRjNGRiNGE1ODA1OTE0YmU1M2IzNjM0ODZlNzMyOTUxOQ==
+  fingerprint: !binary |-
+    NWZjNjc2NzRjNGRiNGE1ODA1OTE0YmU1M2IzNjM0ODZlNzMyOTUxOQ==
+  sha1: !binary |-
+    OGU2MzkzZTQ1ODU3MjgwZGFjZWU4MjhkNTJiMmVhZmI2NmM0MWMxOA==
+- name: broker-registrar
+  version: !binary |-
+    ZTFmNWUzMGI4N2U3MGU5MTZlYTc0ZWE4ZWI2M2E3YjZmZjZmZjY0Mw==
+  fingerprint: !binary |-
+    ZTFmNWUzMGI4N2U3MGU5MTZlYTc0ZWE4ZWI2M2E3YjZmZjZmZjY0Mw==
+  sha1: !binary |-
+    ZGFiMmU1ZGVmOTU5Y2JjNmRlMDc3N2NmOTg4YjRmZmY4NjVlYjM4Ng==
+commit_hash: c180b0f9
+uncommitted_changes: true
+name: op-glusterfs
+version: '1'
