@@ -3,5 +3,5 @@ blobs
 .blobs
 .dev_builds
 .final_builds
-src
+src/*
 !src/README.md

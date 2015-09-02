@@ -1,0 +1,7 @@
+---
+name: cubrid
+
+dependencies:
+
+files:
+- cubrid/CUBRID-9.3.2.0016-linux.x86_64.tar.gz

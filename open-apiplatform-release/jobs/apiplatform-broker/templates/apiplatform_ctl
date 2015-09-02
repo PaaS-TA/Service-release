@@ -7,7 +7,8 @@ export CLASSPATH=$CLASSPATH:/var/vcap/jobs/apiplatform_broker/config
 case "$1" in
 start)
   echo "Starting the APIPlatform Service broker ....."
-  java -jar /var/vcap/packages/apiplatform-broker/openpaas-service-java-broker-apiplatform.jar &
+#  java -jar /var/vcap/packages/apiplatform-broker/openpaas-service-java-broker-apiplatform.jar &
+  java -cp "/var/vcap/packages/apiplatform-broker/openpaas-service-java-broker-apiplatform.jar:/var/vcap/jobs/apiplatform_broker/config" org.springframework.boot.loader.JarLauncher &
 ;;
 stop)
   echo "Stopping the WSO2 BAM Server ..."

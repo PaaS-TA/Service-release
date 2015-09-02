@@ -1,0 +1,5 @@
+check process cubrid_broker
+  with pidfile /var/vcap/sys/run/cubrid_broker/cubrid_broker.pid
+  start program "/var/vcap/jobs/cubrid_broker/bin/monit_debugger cubrid_broker_ctl '/var/vcap/jobs/cubrid_broker/bin/cubrid_broker_ctl start'"
+  stop program "/var/vcap/jobs/cubrid_broker/bin/monit_debugger cubrid_broker_ctl '/var/vcap/jobs/cubrid_broker/bin/cubrid_broker_ctl stop'"
+  group vcap

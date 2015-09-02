@@ -1,0 +1,9 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+# Percona binary Linux build
+tar zxvf cubrid/CUBRID-9.3.2.0016-linux.x86_64.tar.gz
+(
+    cp -a CUBRID ${BOSH_INSTALL_TARGET}
+)
+

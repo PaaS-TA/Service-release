@@ -1,0 +1,9 @@
+dev_releases/*/*.tgz
+releases/*/*.tgz
+blobs
+.blobs
+.dev_builds
+.final_builds
+src/*
+!src/README.md
+!src/java7
