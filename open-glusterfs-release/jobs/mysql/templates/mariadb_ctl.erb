@@ -1,0 +1,65 @@
+#!/bin/bash -e
+
+set -e
+
+MY_NAME=mysql
+LOG_DIR=/var/vcap/sys/log/$MY_NAME
+PIDFILE=/var/vcap/sys/run/mysql/mysql.pid
+RUN_DIR=/var/vcap/sys/run/$MY_NAME
+TMP_DIR=/var/vcap/data/mysql/tmp
+
+
+
+case $1 in
+
+  start)
+    echo "start script: starting mcaridb..."
+
+    if [[ ! -d "$RUN_DIR" ]]; then
+      mkdir -p $RUN_DIR
+      chown -R vcap:vcap $RUN_DIR
+    fi
+
+    if [[ ! -d "$TMP_DIR" ]]; then
+      mkdir -p $TMP_DIR
+      chown -R vcap:vcap $TMP_DIR
+    fi
+
+    mkdir -p $LOG_DIR
+    touch $LOG_DIR/mysql.log
+    chown -R vcap:vcap $LOG_DIR
+
+    cd /var/vcap/packages/mariadb 
+
+    if ! test -d /var/vcap/store/mysql; then
+      echo "start script: making and running /var/vcap/packages/mariadb/scripts/mysql_install_db"
+      mkdir -p /var/vcap/store/mysql
+      ./scripts/mysql_install_db \
+             --basedir=/var/vcap/packages/mariadb \
+             --user=vcap \
+             --datadir=/var/vcap/store/mysql 
+
+    fi
+ 
+    mkdir -p /etc/mysql
+    ln -sf /var/vcap/jobs/mysql/config/my.cnf /etc/mysql/my.cnf 
+
+    chown -R vcap:vcap /var/vcap/store/mysql
+
+    ./bin/mysqld_safe &
+    ;;
+
+  stop)
+
+    echo "stop script: stopping " 
+    #kill_and_wait $PIDFILE
+    kill -9 `cat $PIDFILE`
+    rm -f $PIDFILE
+    echo "stop script: completed stopping mariadb_ctrl"
+    ;;
+
+  *)
+    echo "Usage: mysql_ctl {start|stop}"
+    ;;
+
+esac

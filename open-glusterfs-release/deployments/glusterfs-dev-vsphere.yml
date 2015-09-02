@@ -1,0 +1,122 @@
+name: op-glusterfs-service
+director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
+
+releases:
+- name: op-glusterfs-dev
+  version: latest
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-600000
+  max_in_flight: 1
+  update_watch_time: 30000-600000
+
+compilation:
+  cloud_properties:
+    cpu: 4
+    disk: 20480
+    ram: 4096
+  network: op_dev_network
+  reuse_compilation_vms: true
+  workers: 2 
+
+jobs:
+- instances: 1
+  name: mysql
+  networks:
+  - name: op_dev_network
+    static_ips: 10.30.40.196
+  persistent_disk: 10000
+  properties:
+    admin_username: root
+    admin_password: c1oudc0w
+  release: op-glusterfs-dev
+  resource_pool: services-small
+  template: mysql
+
+- instances: 1
+  name: op-glusterfs-java-broker
+  networks:
+  - name: op_dev_network
+    static_ips: 10.30.40.197
+  properties:
+    jdbc_ip: 10.30.40.196
+    jdbc_pwd: c1oudc0w
+    jdbc_port: 3306
+    log_dir: op-glusterfs-java-broker
+    log_file: op-glusterfs-java-broker
+    log_level: INFO
+  release: op-glusterfs-dev
+  resource_pool: services-small
+  template: op-glusterfs-java-broker
+
+- instances: 1
+  lifecycle: errand
+  name: broker-registrar
+  networks:
+  - name: op_dev_network
+  properties:
+    broker:
+      host: 10.30.40.197
+      name: Glusterfs
+      password: cloudfoundry
+      username: admin
+      protocol: http
+      port: 8080
+    cf:
+      admin_password: eaa139af583c
+      admin_username: admin
+      api_url: http://api.cf.open-paas.com
+  release: op-glusterfs-dev
+  resource_pool: services-small
+  template: broker-registrar
+
+- instances: 1
+  lifecycle: errand
+  name: broker-deregistrar
+  networks:
+  - name: op_dev_network
+  properties:
+    broker:
+      host: 10.30.40.197
+      name: Glusterfs
+      password: cloudfoundry
+      username: admin
+      protocol: http
+      port: 8080
+    cf:
+      admin_password: eaa139af583c
+      admin_username: admin
+      api_url: http://api.cf.open-paas.com
+  release: op-glusterfs-dev
+  resource_pool: services-small
+  template: broker-deregistrar
+
+networks: 
+- name: op_dev_network
+  subnets:
+  - cloud_properties:
+      name: Internal
+    dns:
+    - 10.30.20.24
+    - 8.8.8.8
+    gateway: 10.30.20.23
+    name: default_unused
+    range: 10.30.0.0/16
+    reserved:
+    - 10.30.0.1 - 10.30.0.5
+    static:
+    - 10.30.40.110 - 10.30.40.200
+  type: manual
+properties: {}
+resource_pools:
+- cloud_properties:
+    cpu: 2
+    disk: 10480
+    ram: 4096
+  name: services-small
+  #size: 5
+  network: op_dev_network
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: "3012"

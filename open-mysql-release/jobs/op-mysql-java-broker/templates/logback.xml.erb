@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern> %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -17,7 +18,7 @@
         </encoder>
     </appender>
     
-	<root level="<%= p('log_level')%>">
+   <root level="<%= p('log_level')%>">
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>
     </root>

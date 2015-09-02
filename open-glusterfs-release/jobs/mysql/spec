@@ -1,0 +1,17 @@
+---
+name: mysql
+templates:
+  mariadb_ctl.erb: bin/mariadb_ctl
+  my.cnf.erb: config/my.cnf
+  mariadb_init.erb: config/mariadb_init
+
+packages:
+ - mariadb
+
+properties:
+  admin_username:
+    description: 'Username for the MySQL server admin user'
+    default: 'root'
+  admin_password:
+    description: 'Password for the MySQL server admin user'
+    default: 'openpaas'

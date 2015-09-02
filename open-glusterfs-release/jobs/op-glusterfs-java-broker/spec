@@ -1,0 +1,26 @@
+---
+name: op-glusterfs-java-broker
+templates:
+  op-glusterfs-java-broker_ctl.erb: bin/op-glusterfs-java-broker_ctl
+  datasource.properties.erb: config/datasource.properties
+  logback.xml.erb: config/logback.xml
+
+packages:
+- openjdk
+- op-gluster-java-broker
+
+properties:
+  jdbc_ip:
+    description: 'MySQL server ip'
+  jdbc_pwd:
+    description: 'MySQL server pwd'
+  jdbc_port:
+    description: 'MySQL server port'
+    default: 3306
+  log_dir:
+    description: 'log directory'
+  log_file:
+    description: 'log file'
+  log_level:
+    description: 'log level'
+    default: 'DEBUG'
