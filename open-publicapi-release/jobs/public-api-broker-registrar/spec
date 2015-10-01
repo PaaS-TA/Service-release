@@ -1,0 +1,6 @@
+---
+name: public-api-broker-registrar
+packages:
+  - cf-cli
+templates:
+  errand.sh.erb: bin/run

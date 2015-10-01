@@ -1,0 +1,5 @@
+check process public-api-service-broker
+  with pidfile /var/vcap/sys/run/public-api-service-broker/public-api-service-broker.pid
+  start program "/var/vcap/jobs/public-api-service-broker/bin/public-api-service-broker-ctl start"
+  stop program "/var/vcap/jobs/public-api-service-broker/bin/public-api-service-broker-ctl stop"
+  group vcap

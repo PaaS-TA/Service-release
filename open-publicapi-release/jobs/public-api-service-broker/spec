@@ -1,0 +1,13 @@
+---
+name: public-api-service-broker
+
+templates:
+  bin/public-api-service-broker-ctl: bin/public-api-service-broker-ctl
+  config/application-mvc.properties: config/application-mvc.properties
+  config/datasource.properties: config/datasource.properties
+  config/logback.xml: config/logback.xml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - jre7
+  - public-api-service-broker

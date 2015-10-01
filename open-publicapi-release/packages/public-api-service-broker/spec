@@ -1,0 +1,8 @@
+---
+name: public-api-service-broker
+
+dependencies:
+  - jre7
+
+files:
+  - public-api-service-broker/openpaas-service-java-broker-publicapi.jar

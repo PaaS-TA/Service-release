@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+set -u
+
+export JOB_NAME='public-api-service-broker'
+source /var/vcap/jobs/$JOB_NAME/helpers/ctl_setup.sh $JOB_NAME
+
+export PORT=${PORT:-5000}
+export LANG=en_US.UTF-8
+
+case $1 in
+
+start)
+  pid_guard $PIDFILE $JOB_NAME
+
+  export JOB_DIR=/var/vcap/jobs/$JOB_NAME
+  export PKG_DIR=/var/vcap/packages/$JOB_NAME
+
+  cd $JOB_DIR
+  echo "Starting the public API Service broker ....."
+#  java -jar /var/vcap/packages/publicapi-sb/openpaas-service-java-broker-publicapi.jar &
+  exec java -cp "${PKG_DIR}/openpaas-service-java-broker-publicapi.jar:/var/vcap/jobs/$JOB_NAME/config" org.springframework.boot.loader.JarLauncher &
+  echo $! > $PIDFILE
+;;
+stop)
+  echo "Stopping public API service broker ..."
+  kill_and_wait $PIDFILE
+;;
+*)
+  echo "Usage: $0 {start|stop}"
+exit 1
+esac

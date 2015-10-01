@@ -1,0 +1,8 @@
+---
+name: naver-api-service-broker
+
+dependencies:
+  - jre7
+
+files:
+  - naver-api-service-broker/openpaas-service-java-broker-naverapi.jar

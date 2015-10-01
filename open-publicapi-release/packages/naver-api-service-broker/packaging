@@ -1,0 +1,4 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+cp naver-api-service-broker/openpaas-service-java-broker-naverapi.jar ${BOSH_INSTALL_TARGET}

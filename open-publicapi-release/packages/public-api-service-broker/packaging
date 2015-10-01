@@ -1,0 +1,4 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+cp public-api-service-broker/openpaas-service-java-broker-publicapi.jar ${BOSH_INSTALL_TARGET}

@@ -1,0 +1,4 @@
+---
+name: jre7
+files:
+  - jre7/jre-7u80-linux-x64.gz
