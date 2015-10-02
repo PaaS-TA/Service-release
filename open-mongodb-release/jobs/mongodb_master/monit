@@ -1,0 +1,5 @@
+check process mongodb_master
+  with pidfile /var/vcap/sys/run/mongodb_master/mongodb_master.pid
+  start program "/var/vcap/jobs/mongodb_master/bin/mongodb_master_ctl start"
+  stop program "/var/vcap/jobs/mongodb_master/bin/mongodb_master_ctl stop"
+  group vcap

@@ -1,0 +1,32 @@
+---
+name: mongodb_broker
+packages: 
+  - mongodb_broker
+  - java7
+templates:
+  bin/mongodb_broker_ctl: bin/mongodb_broker_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  config/mongodb_broker.yml.erb: config/mongodb_broker.yml
+  config/application-mvc.properties.erb: config/application-mvc.properties
+  config/datasource.properties.erb: config/datasource.properties
+  config/logback.xml.erb: config/logback.xml
+properties:
+  mongodb.port:          
+    description: ''
+    default: 27017
+  mongodb.user:          
+    description: ''
+    default: root
+  mongodb.passwd:        
+    description: ''
+  mongodb_broker.db_name:
+    description: ''
+    default: mongo-broker
+  mongodb_broker.authSource:          
+    description: ''
+    default: admin
+  mongodb_broker.hosts:          
+    description: ''
