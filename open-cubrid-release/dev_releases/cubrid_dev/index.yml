@@ -94,4 +94,10 @@ builds:
     version: 0+dev.46
   60f410c0-48f0-4326-9e45-bb8d086fdaf2:
     version: 0+dev.47
+  8192db4c-b65e-4b1e-8610-5c0595758158:
+    version: 0+dev.48
+  9ca19c32-9071-4c47-bfde-d502116d4d38:
+    version: 0+dev.49
+  0d398416-b2b4-4a52-99ab-aaf33613c410:
+    version: 0+dev.50
 format-version: '2'

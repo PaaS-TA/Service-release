@@ -2,6 +2,6 @@
 blobstore:
   provider: local
   options:
-    blobstore_path: /tmp/cubrid-blobs
+    blobstore_path: ~/openpaas-service-release/open-cubrid-release/src/
 final_name: cubrid
 

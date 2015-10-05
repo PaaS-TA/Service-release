@@ -74,7 +74,7 @@ properties:
   cubrid_broker:
     cubrid_ip: 10.30.60.23
     cubrid_db_port: 30000
-    cubrid_db_name: cubrid_service_broker
+    cubrid_db_name: cubrid_broker
     cubrid_db_user: dba
     cubrid_ssh_port: 22
     cubrid_ssh_user: root

@@ -1,6 +1,6 @@
 ---
-blobstore_secret: 'does-not-matter'
+secret: 'does-not-matter'
 blobstore:
   local:
-    blobstore_path: /tmp/cubrid-blobs
+    blobstore_path: ~/openpaas-service-release/open-cubrid-release/src/
 
