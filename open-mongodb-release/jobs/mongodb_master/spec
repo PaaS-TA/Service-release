@@ -14,21 +14,21 @@ packages:
   - mongodb
 properties:
   mongodb.key:
-    description: ''
+    description: 'mongodb replication key'
   mongodb.replSet_hosts:
-    description: ''
+    description: 'list of mongodb replication set host'
   mongodb.user:
-    description: ''
+    description: 'mongodb admin username'
     default: root
   mongodb.passwd:
-    description: ''
+    description: 'mongodb password'
     default: openpaas
   mongodb.replSetName:
     description: 'Replica Set Name.'
     default: openpaas
   mongodb.bindIp:
-    description: ''
+    description: 'The IP address that mongos or mongod binds to in order to listen for connections from applications.'
     default: 0.0.0.0
   mongodb.port:
-    description: ''
+    description: 'mongodb port'
     default: 27017

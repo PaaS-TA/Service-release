@@ -15,18 +15,18 @@ templates:
   config/logback.xml.erb: config/logback.xml
 properties:
   mongodb.port:          
-    description: ''
+    description: 'mongodb port'
     default: 27017
-  mongodb.user:          
-    description: ''
+  mongodb.user: 
+    description: 'mongodb admin username'
     default: root
   mongodb.passwd:        
-    description: ''
+    description: 'mongodb admin password'
   mongodb_broker.db_name:
-    description: ''
+    description: 'mongodb broker management database name'
     default: mongo-broker
   mongodb_broker.authSource:          
-    description: ''
+    description: 'authentication source'
     default: admin
   mongodb_broker.hosts:          
-    description: ''
+    description: 'mongodb hosts (for replication set or  shard set.)'

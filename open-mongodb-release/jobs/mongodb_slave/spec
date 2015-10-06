@@ -11,13 +11,13 @@ packages:
   - mongodb
 properties:
   mongodb.key:
-    description: ''
+    description: 'mongodb replication key'
   mongodb.replSetName:
     description: 'Replica Set Name.'
     default: openpaas
   mongodb.bindIp:
-    description: ''
+    description: 'The IP address that mongos or mongod binds to in order to listen for connections from applications.'
     default: 0.0.0.0
   mongodb.port:
-    description: ''
+    description: 'mongodb port'
     default: 27017
