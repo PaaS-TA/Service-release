@@ -1,9 +1,13 @@
 ---
 name: op-glusterfs-java-broker
 templates:
-  op-glusterfs-java-broker_ctl.erb: bin/op-glusterfs-java-broker_ctl
-  datasource.properties.erb: config/datasource.properties
-  logback.xml.erb: config/logback.xml
+  bin/op-glusterfs-java-broker_ctl.erb: bin/op-glusterfs-java-broker_ctl
+  bin/monit_debugger: bin/monit_debugger
+  config/datasource.properties.erb: config/datasource.properties
+  config/logback.xml.erb: config/logback.xml
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
 packages:
 - openjdk

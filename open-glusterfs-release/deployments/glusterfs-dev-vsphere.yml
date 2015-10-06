@@ -1,4 +1,4 @@
-name: op-glusterfs-service
+name: op-glusterfs-service-dev
 director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
 
 releases:
@@ -112,7 +112,7 @@ properties: {}
 resource_pools:
 - cloud_properties:
     cpu: 2
-    disk: 10480
+    disk: 10240
     ram: 4096
   name: services-small
   #size: 5

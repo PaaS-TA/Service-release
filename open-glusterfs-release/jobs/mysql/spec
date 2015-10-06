@@ -1,9 +1,14 @@
 ---
 name: mysql
 templates:
-  mariadb_ctl.erb: bin/mariadb_ctl
-  my.cnf.erb: config/my.cnf
-  mariadb_init.erb: config/mariadb_init
+  bin/mariadb_ctl.erb: bin/mariadb_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  config/my.cnf.erb: config/my.cnf
+  config/mariadb_init.erb: config/mariadb_init
+  
 
 packages:
  - mariadb
