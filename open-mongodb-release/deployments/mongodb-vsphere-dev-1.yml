@@ -77,8 +77,8 @@ jobs:
     - name: default
       static_ips:
       - 10.30.60.34
-  - name : broker-registrar
-    template : broker-registrar
+  - name : mongodb_broker_registrar
+    template : mongodb_broker_registrar
     instances: 1
     lifecycle: errand
     resource_pool: mongodb_resource_pools
@@ -97,8 +97,8 @@ jobs:
         admin_username: admin
         api_url: http://api.cf.open-paas.com
     release: mongodb_dev
-  - name : broker-deregistrar
-    template : broker-deregistrar
+  - name : mongodb_broker_deregistrar
+    template : mongodb_broker_deregistrar
     instances: 1
     lifecycle: errand
     resource_pool: mongodb_resource_pools
