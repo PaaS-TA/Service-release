@@ -2,12 +2,35 @@
 name: apiplatform-broker
 
 templates:
-  apiplatform_ctl: bin/apiplatform_ctl
-  bosh_application-mvc.properties: config/application-mvc.properties
-  bosh_datasource.properties: config/datasource.properties
-  bosh_logback.xml: config/logback.xml
-
-
+  bin/apiplatform-broker-ctl: bin/apiplatform-broker-ctl
+  config/bosh_application-mvc.properties: config/application-mvc.properties
+  config/bosh_datasource.properties: config/datasource.properties
+  config/bosh_logback.xml: config/logback.xml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
 packages:
   - jre7
   - apiplatform-broker
+properties:
+  cf.api_url:
+    description: 'Full URL of Cloud Foundry API'
+  cf.admin_username:
+    description: 'Username of the admin user'
+  cf.admin_password:
+    description: 'Password of the admin user'
+  cf.skip_ssl_validation:
+    description: 'SSL Validation'
+  broker.name:
+    description: 'Name of the service broker'
+  broker.protocol:
+    description: 'Protocol (http/https) provided to the Cloud Controller when registering/deregistering the broker'
+    default: https
+  broker.host:
+    description: 'Host address of the service broker'
+  broker.port:
+    description: 'Port for the service broker'
+    default: 443
+  broker.username:
+    description: 'Basic Auth username for the service broker'
+  broker.password:
+    description: 'Basic Auth password for the service broker'
