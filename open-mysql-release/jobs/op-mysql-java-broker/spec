@@ -1,9 +1,13 @@
 ---
 name: op-mysql-java-broker
 templates:
-  op-mysql-java-broker_ctl.erb: bin/op-mysql-java-broker_ctl
-  datasource.properties.erb: config/datasource.properties
-  logback.xml.erb: config/logback.xml
+  bin/op-mysql-java-broker_ctl.erb: bin/op-mysql-java-broker_ctl
+  config/datasource.properties.erb: config/datasource.properties
+  config/logback.xml.erb: config/logback.xml
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
 packages:
 - openjdk-1.8.0_45

@@ -4,7 +4,7 @@ name: apiplatform
 director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
 
 releases:
-- {name: apiplatform_dev, version: 0+dev.69}
+- {name: apiplatform_dev, version: latest}
 #- {name: apiplatform, version: 2}
 
 update:
@@ -120,11 +120,16 @@ jobs:
   networks:
   - name: default
   properties:
+    cf:
+      api_url: http://api.cf.open-paas.com
+      admin_username: "admin"
+      admin_password: "eaa139af583c"
+      skip_ssl_validation: "true"
     broker:
       protocol: http
-      host: 10.30.60.201
-      port: 4567
+      host: 10.30.60.200
+      port: 8080
       name: apiplatform
       username: "admin"
-      password: "eaa139af583c"
+      password: "cloudfoundry"
 

@@ -2,32 +2,15 @@
 
 set -e
 
-MY_NAME=mysql
-LOG_DIR=/var/vcap/sys/log/$MY_NAME
-PIDFILE=/var/vcap/sys/run/mysql/mysql.pid
-RUN_DIR=/var/vcap/sys/run/$MY_NAME
-TMP_DIR=/var/vcap/data/mysql/tmp
-
-
+export JOB_NAME='mysql'
+source /var/vcap/jobs/mysql/helpers/ctl_setup.sh $JOB_NAME
 
 case $1 in
 
   start)
     echo "start script: starting mcaridb..."
 
-    if [[ ! -d "$RUN_DIR" ]]; then
-      mkdir -p $RUN_DIR
-      chown -R vcap:vcap $RUN_DIR
-    fi
-
-    if [[ ! -d "$TMP_DIR" ]]; then
-      mkdir -p $TMP_DIR
-      chown -R vcap:vcap $TMP_DIR
-    fi
-
-    mkdir -p $LOG_DIR
-    touch $LOG_DIR/mysql.log
-    chown -R vcap:vcap $LOG_DIR
+    pid_guard $PIDFILE $JOB_NAME
 
     cd /var/vcap/packages/mariadb 
 
@@ -52,9 +35,9 @@ case $1 in
   stop)
 
     echo "stop script: stopping " 
-    #kill_and_wait $PIDFILE
-    kill -9 `cat $PIDFILE`
-    rm -f $PIDFILE
+    
+    kill_and_wait $PIDFILE
+    
     echo "stop script: completed stopping mariadb_ctrl"
     ;;
 

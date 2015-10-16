@@ -1,0 +1,5 @@
+check process apiplatform-broker
+  with pidfile /var/vcap/sys/run/apiplatform-broker/apiplatform-broker.pid
+  start program "/var/vcap/jobs/apiplatform-broker/bin/apiplatform-broker-ctl start"
+  stop program "/var/vcap/jobs/apiplatform-broker/bin/apiplatform-broker-ctl stop"
+  group vcap
