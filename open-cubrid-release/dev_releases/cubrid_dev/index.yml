@@ -100,4 +100,8 @@ builds:
     version: 0+dev.49
   0d398416-b2b4-4a52-99ab-aaf33613c410:
     version: 0+dev.50
+  030e9166-2053-4cea-a1e5-71c8a6b5b064:
+    version: 0+dev.51
+  ad783385-b3f6-4218-9325-ee893e342cb1:
+    version: 0+dev.52
 format-version: '2'

@@ -68,6 +68,60 @@ jobs:
     - name: default
       static_ips:
       - 10.30.60.22
+  - name : cubrid_broker_registrar
+    template : cubrid_broker_registrar
+    instances: 1
+    lifecycle: errand
+    resource_pool: cubrid_resource_pools
+    networks:
+    - name: default
+    properties:
+      broker:
+        host: 10.30.60.22
+        name: CubridDB
+        password: cloudfoundry
+        username: admin
+        protocol: http
+        port: 8088
+      cf:
+        admin_password: eaa139af583c
+        admin_username: admin
+        api_url: http://api.cf.open-paas.com
+    release: cubrid_dev
+  - name : cubrid_broker_deregistrar
+    template : cubrid_broker_deregistrar
+    instances: 1
+    lifecycle: errand
+    resource_pool: cubrid_resource_pools
+    networks:
+    - name: default
+    properties:
+      broker:
+        host: 10.30.60.22
+        name: CubridDB
+        password: cloudfoundry
+        username: admin
+        protocol: http
+        port: 8088
+      cf:
+        admin_password: eaa139af583c
+        admin_username: admin
+        api_url: http://api.cf.open-paas.com
+    release: cubrid_dev
+
+meta:
+  apps_domain: cf.open-paas.com
+  environment: null
+  external_domain: cf.open-paas.com
+  nats:
+    machines:
+    - 10.30.40.11
+    password: eaa139af583c
+    port: 4222
+    user: nats
+  syslog_aggregator: null
+
+
 properties:
   cubrid:
     max_clients: 200
