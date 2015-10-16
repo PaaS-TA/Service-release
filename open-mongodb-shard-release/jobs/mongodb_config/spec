@@ -1,0 +1,28 @@
+---
+name: mongodb_config
+templates:
+  bin/createUser.js.erb: bin/createUser.js
+  bin/mongodb_config_ctl.erb: bin/mongodb_config_ctl
+  config/mongod_noAuth.conf.erb: config/mongod_noAuth.conf
+  config/mongod_configsvr.conf.erb: config/mongod_configsvr.conf
+  config/security_key.erb: config/security_key
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - mongodb
+properties:
+  mongodb.key:
+    description: 'mongodb replication key'
+  mongodb.user:
+    description: 'mongodb admin username'
+    default: root
+  mongodb.passwd:
+    description: 'mongodb password'
+    default: openpaas
+  mongodb.bindIp:
+    description: 'The IP address that mongos or mongod binds to in order to listen for connections from applications.'
+    default: 0.0.0.0
+  mongodb.port:
+    description: 'mongodb port'
+    default: 27017

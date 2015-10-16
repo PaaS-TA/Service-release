@@ -1,0 +1,56 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+export JOB_NAME='mongodb_master'
+source /var/vcap/jobs/${JOB_NAME}/helpers/ctl_setup.sh ${JOB_NAME}
+
+export PORT=${PORT:-5000}
+export LANG=en_US.UTF-8
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE $JOB_NAME
+
+    chmod 600 ${JOB_DIR}/config/security_key
+
+    if [[ ! `ls ${STORE_DIR}` ]]
+    then
+      echo "mongodb_master init..."
+      echo "start mongodb with noAuth."
+      mongod --config ${JOB_DIR}/config/mongod_noAuth.conf
+
+      pid=$(head -1 "${PIDFILE}")
+      echo "${pid}"
+
+      sleep 5
+
+      echo "create root user."
+      mongo localhost:<%= p('mongodb.port')%>/admin --shell ${JOB_DIR}/bin/createUser.js
+      echo "stop mongodb."
+
+      kill_and_wait $PIDFILE
+
+      echo "start mongodb with auth."
+      mongod --config ${JOB_DIR}/config/mongod_repl.conf
+
+      sleep 5
+
+      echo "init replicaSet..."
+      mongo localhost:<%= p('mongodb.port')%>/admin --shell ${JOB_DIR}/bin/initReplSet.js
+    else
+      echo "mongodb_master already inited.. start mongodb with auth."
+      mongod --config ${JOB_DIR}/config/mongod_repl.conf
+    fi
+
+    ;;
+  stop)
+      kill_and_wait $PIDFILE
+    ;;
+
+  *)
+    echo "Usage: mongodb_ctl {start|stop}" ;;
+
+esac 

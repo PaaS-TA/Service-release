@@ -1,0 +1,7 @@
+---
+name: mongodb
+
+dependencies:
+
+files:
+- mongodb/mongodb-linux-x86_64-3.0.6.tgz

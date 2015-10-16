@@ -1,0 +1,18 @@
+#mongod_noAuth.confg
+systemLog:
+   destination: file
+   path: "/var/vcap/sys/log/mongodb_config/mongodb_config.log"
+   logAppend: true
+storage:
+   dbPath: "/var/vcap/store/mongodb_config"
+   journal:
+      enabled: true
+processManagement:
+   fork: true
+   pidFilePath: "/var/vcap/sys/run/mongodb_config/mongodb_config.pid"
+net:
+#   bindIp: <%= p('mongodb.bindIp')%>
+   bindIp: 0.0.0.0
+   port: <%= p('mongodb.port')%>
+setParameter:
+   enableLocalhostAuthBypass: false

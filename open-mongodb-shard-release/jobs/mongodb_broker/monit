@@ -1,0 +1,5 @@
+check process mongodb_broker
+  with pidfile /var/vcap/sys/run/mongodb_broker/mongodb_broker.pid
+  start program "/var/vcap/jobs/mongodb_broker/bin/monit_debugger mongodb_broker_ctl '/var/vcap/jobs/mongodb_broker/bin/mongodb_broker_ctl start'"
+  stop program "/var/vcap/jobs/mongodb_broker/bin/monit_debugger mongodb_broker_ctl '/var/vcap/jobs/mongodb_broker/bin/mongodb_broker_ctl stop'"
+  group vcap

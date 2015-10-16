@@ -1,0 +1,89 @@
+---
+packages:
+- name: mongodb_broker
+  version: !binary |-
+    YjljZTVhZTFiYTUzZjk0NTEyZWJhNGM0ODczMzQxNDU2NjRiMjg3Mg==
+  fingerprint: !binary |-
+    YjljZTVhZTFiYTUzZjk0NTEyZWJhNGM0ODczMzQxNDU2NjRiMjg3Mg==
+  sha1: !binary |-
+    NzNkYmEwZjg3ODJhYTZlMDY1NDM2MmQ4YTlhMjAzZDk5NjY1NGMwMw==
+  dependencies:
+  - java7
+- name: mongodb
+  version: !binary |-
+    YjM1NWFjMDQ1YjI1N2U2YTBjZWM4NTg3NGM2ZmI2ZTdhYmU5MmI2ZA==
+  fingerprint: !binary |-
+    YjM1NWFjMDQ1YjI1N2U2YTBjZWM4NTg3NGM2ZmI2ZTdhYmU5MmI2ZA==
+  sha1: !binary |-
+    NGU3NWQxZDNiZDY1MzE0NGM2ZTAwMWY1ZGM5OGRjNDFiYzgyMTk1OA==
+  dependencies: []
+- name: cli
+  version: !binary |-
+    MjQzMDVlNTBhNjM4ZWNlMmNhY2U0ZWY0ODAzNzQ2YzBjOWZlNGJiMA==
+  fingerprint: !binary |-
+    MjQzMDVlNTBhNjM4ZWNlMmNhY2U0ZWY0ODAzNzQ2YzBjOWZlNGJiMA==
+  sha1: !binary |-
+    ODdmZWRjZDFkZDRjOTBmMzI3ODhiM2M2OTM4NjIyODUyY2Q4NTFkMg==
+  dependencies: []
+- name: java7
+  version: !binary |-
+    Y2IyODUwMmY2ZTg5ODcwMjU1MTgyZWE3NmU5MDI5YzdlOWVjMTg2Mg==
+  fingerprint: !binary |-
+    Y2IyODUwMmY2ZTg5ODcwMjU1MTgyZWE3NmU5MDI5YzdlOWVjMTg2Mg==
+  sha1: !binary |-
+    MjE4ODIxNGZmMDdhNWFiNTVlZjE0NjdiY2ZhZGUzMzMyOGZhOWMxMw==
+  dependencies: []
+jobs:
+- name: mongodb_broker
+  version: !binary |-
+    MTBkYTJmM2MwZTM3NGIwMWY4MThiMjhmZjVlY2I4MDQ0ZmQwY2QxYQ==
+  fingerprint: !binary |-
+    MTBkYTJmM2MwZTM3NGIwMWY4MThiMjhmZjVlY2I4MDQ0ZmQwY2QxYQ==
+  sha1: !binary |-
+    MTY2MzY4NjhjN2YzYzg2Y2IxMGFiZWM4MTQ4NTM4NTM2MWZjZmZlOQ==
+- name: mongodb_config
+  version: !binary |-
+    OThkZjNiNjhiZDViMjllYTk5NmYwMWVmYTdjYWJjYWI3NzI2YzVjZg==
+  fingerprint: !binary |-
+    OThkZjNiNjhiZDViMjllYTk5NmYwMWVmYTdjYWJjYWI3NzI2YzVjZg==
+  sha1: !binary |-
+    ZmUyNGZlNmI2ODZkNzI3OGZiOGRiNDMzOWU5ODAwNTI0ZjU2ZDMyMg==
+- name: mongodb_shard
+  version: !binary |-
+    OTk3YTM3ODAxOTlmNTIwMjE2NjZkYTA0NDhlZDlmMmYwODZjNzAzMg==
+  fingerprint: !binary |-
+    OTk3YTM3ODAxOTlmNTIwMjE2NjZkYTA0NDhlZDlmMmYwODZjNzAzMg==
+  sha1: !binary |-
+    ZmEzMGU0ZmYwMWRiMTQ5OGQ5ZjE2NWEwMWExYWM2ODkyMzY1M2U5NA==
+- name: mongodb_master
+  version: !binary |-
+    NGU5MzE3Zjg5MmM4NjBkNzgzOTY3ZDIxZDYxY2EwMzI2YTk5MTBlZQ==
+  fingerprint: !binary |-
+    NGU5MzE3Zjg5MmM4NjBkNzgzOTY3ZDIxZDYxY2EwMzI2YTk5MTBlZQ==
+  sha1: !binary |-
+    NjZmZjNiNTM3NjAwOTI5MTFiOGNkMDkzMTBiODk1ODdiNjg3NGE0NQ==
+- name: mongodb_slave
+  version: !binary |-
+    YjYzMzEwOTc2ZmY0MGFlNTVmYWE2NDMyOGNmYTU3MzRiM2VjODIwZg==
+  fingerprint: !binary |-
+    YjYzMzEwOTc2ZmY0MGFlNTVmYWE2NDMyOGNmYTU3MzRiM2VjODIwZg==
+  sha1: !binary |-
+    MDQyNjI1MTQyMDM1OTljZTJhNDBkMzdmOGY2YzA5MjNhNmUyMDZjZg==
+- name: mongodb_broker_registrar
+  version: !binary |-
+    YTQ4OTJhN2RmZWM3YWNkYzdiYTBjZDI2MThhNzllZTNiMmY4MGQ5Yg==
+  fingerprint: !binary |-
+    YTQ4OTJhN2RmZWM3YWNkYzdiYTBjZDI2MThhNzllZTNiMmY4MGQ5Yg==
+  sha1: !binary |-
+    ZjJkNGU1OGI2Yzg1MTJmMDkyMzUwODI4ZjEyYzY3MzVjZjY2MTJlNA==
+- name: mongodb_broker_deregistrar
+  version: !binary |-
+    ZDc5N2YwNjhlODkyNjUzMTM0MzZiN2M2NDM5ZDkzMjg4ZDBmYWZiZQ==
+  fingerprint: !binary |-
+    ZDc5N2YwNjhlODkyNjUzMTM0MzZiN2M2NDM5ZDkzMjg4ZDBmYWZiZQ==
+  sha1: !binary |-
+    YTVkYzQyYzdiNjU1ZGUzYTEyM2E5NDVjYjE3OWUxZDg3YzFkZDEzYg==
+commit_hash: bbb5d475
+uncommitted_changes: true
+name: op-mongodb-shard-dev
+version: 0+dev.4

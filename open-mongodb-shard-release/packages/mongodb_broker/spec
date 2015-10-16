@@ -1,0 +1,7 @@
+---
+name: mongodb_broker
+
+dependencies:
+- java7
+files:
+- mongodb_broker/openpaas-cf-service-java-broker-mongodb.jar

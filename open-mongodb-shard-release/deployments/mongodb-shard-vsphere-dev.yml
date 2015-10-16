@@ -1,0 +1,252 @@
+---
+name: op-mongodb-shard-dev
+director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4 
+
+release:
+  name: op-mongodb-shard-dev
+  version: latest
+
+compilation:
+  workers: 4
+  network: default
+  cloud_properties:
+    ram: 2048
+    disk: 8096
+    cpu: 2
+
+# this section describes how updates are handled
+update:
+  canaries: 1
+  canary_watch_time: 30000
+  update_watch_time: 30000
+  max_in_flight: 4
+networks:
+- name: default
+  subnets:
+  - cloud_properties:
+      name: Internal
+    dns:
+    - 10.30.20.24
+    - 8.8.8.8
+    gateway: 10.30.20.23
+    name: default_unused
+    range: 10.30.0.0/16
+    reserved:
+    - 10.30.0.1 - 10.30.0.5
+    - 10.30.60.5 - 10.30.60.40
+    - 10.30.60.71 - 10.30.60.100
+    static:
+    - 10.30.60.41 - 10.30.60.70
+
+resource_pools:
+  - name: mongodb_shard_resource_pools
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      cpu: 1
+      disk: 20480
+      ram: 4096
+
+jobs:
+  - name: mongodb_slave1
+    template: mongodb_slave
+    instances: 2
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.42
+      - 10.30.60.43
+    properties:
+      replSetName: op1 # mongodb_master1 replSetName
+
+  - name: mongodb_slave2
+    template: mongodb_slave
+    instances: 2
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.45
+      - 10.30.60.46
+    properties:
+      replSetName: op2 # mongodb_master2 replSetName
+
+  - name: mongodb_slave3
+    template: mongodb_slave
+    instances: 2
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.48
+      - 10.30.60.49
+    properties:
+      replSetName: op3 # mongodb_master3 replSetName
+
+  - name: mongodb_master1
+    template: mongodb_master
+    instances: 1
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.41
+    properties:
+      replSet_hosts: ["10.30.60.41","10.30.60.42","10.30.60.43"] # first host is master.
+      replSetName: op1
+
+  - name: mongodb_master2
+    template: mongodb_master
+    instances: 1
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.44
+    properties:
+      replSet_hosts: ["10.30.60.44","10.30.60.45","10.30.60.46"] # first host is master.
+      replSetName: op2
+
+  - name: mongodb_master3
+    template: mongodb_master
+    instances: 1
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.47
+    properties:
+      replSet_hosts: ["10.30.60.47","10.30.60.48","10.30.60.49"] # first host is master.
+      replSetName: op3
+
+  - name: mongodb_config
+    template: mongodb_config
+    instances: 3
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.50 - 10.30.60.52
+
+  - name: mongodb_shard
+    template: mongodb_shard
+    instances: 1
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.53
+    properties:
+      bindIp: 0.0.0.0
+      configsvr_hosts: # mongodb_config hosts
+      - 10.30.60.50
+      - 10.30.60.51
+      - 10.30.60.52
+      repl_name_host_list: # mongodb_master properties
+      - op1/10.30.60.41 # master1 replSetName/host
+      - op2/10.30.60.44 # master2 replSetName/host
+      - op3/10.30.60.47 # master3 replSetName/host
+
+  - name: mongodb_broker
+    template: mongodb_broker
+    instances: 1
+    resource_pool: mongodb_shard_resource_pools
+    persistent_disk: 16384
+    networks:
+    - name: default
+      static_ips:
+      - 10.30.60.54
+  - name : mongodb_broker_registrar
+    template : mongodb_broker_registrar
+    instances: 1
+    lifecycle: errand
+    resource_pool: mongodb_shard_resource_pools
+    networks:
+    - name: default
+    properties:
+      broker:
+        host: 10.30.60.54
+        name: Mongo-DB
+        password: cloudfoundry
+        username: admin
+        protocol: http
+        port: 8080
+      cf:
+        admin_password: eaa139af583c
+        admin_username: admin
+        api_url: http://api.cf.open-paas.com
+    release: op-mongodb-shard-dev
+
+  - name : mongodb_broker_deregistrar
+    template : mongodb_broker_deregistrar
+    instances: 1
+    lifecycle: errand
+    resource_pool: mongodb_shard_resource_pools
+    networks:
+    - name: default
+    properties:
+      broker:
+        host: 10.30.60.54
+        name: Mongo-DB
+        password: cloudfoundry
+        username: admin
+        protocol: http
+        port: 8080
+      cf:
+        admin_password: eaa139af583c
+        admin_username: admin
+        api_url: http://api.cf.open-paas.com
+    release: op-mongodb-shard-dev
+
+meta:
+  apps_domain: cf.open-paas.com
+  environment: null
+  external_domain: cf.open-paas.com
+  nats:
+    machines:
+    - 10.30.40.11
+    password: eaa139af583c
+    port: 4222
+    user: nats
+  syslog_aggregator: null
+
+properties:
+  mongodb:
+    key: |
+      +Qy+1icfeV8D2WXIfCojRjvYlryMVI2Ry+dAi8mYZ1H1Z9pDstRkOC0/oJYs0L/i
+      +Dj/3PurWo8MJuqBYrWVGsRnsx31um0SVAgFZM2GQEKvHIByX5hq/MuHlulSLM0h
+      GKkMT19zqDwFBFIN53jN0PLuuOnJ6FxZSb4cTLymfWM543WGpYx/31b8ehPYyeRp
+      T7P2o2vUd9hecb8mQFxcjsBN7PTLwuPb5lK0BRL4Ze7rh6qeC8j7M3zimV8lX2X5
+      9EtWlQP0ORYIlFpqijatZhS8Bf5AfI1EW6kZgfqwycl2ghxmSIbeleiqyQgYZNKQ
+      yBXV9disuBXcKy4tsOjSFvKw7y61kjjQOn8KXElefokefdLbcrpeARP6LR9WwR1v
+      ZTHcChfzWA4apHo6gJZkoqGVPjF4ArXTYxZfC+hHrsa5oe3XZjNapwV6XQfBNCuQ
+      EihT3Td/B7iAUWJnGQvugFJwYKJ5EYOYubhk8QtO9QIvoZxQPDq9tgUsVgiQ6gty
+      ZT83oxFAIgm3vky9l3uPwYi6jQ2FvsEJvDyiZl7gulOaC5UD/BdcM4Y5n/dxy/6Y
+      qphWWuPsJwnYBXLJgwtTZ/NkYDYyX/tL9gyzXGPkpMMD7DofFjWEpJvHlVRKIxp1
+      /zlxbVOMAmASgZDaqFperSQQyrfQqpuvAA8pRkWgorROyrsiRYYWlJZWWa4qHlI9
+      OZ1dDp8o71l3v0SqsKbEtxINpdiUNx4OdafsMNN/KVxw9oGdrPXnDl5DomtmAoKZ
+      uaCf3AQ3RsDeymgVX3j5EpLCHBhcPj+0B5tv4Yln652HAzDissOUKPyDf+PJaVRo
+      OfDOkUvmuqnwl45DOoOtZ0BMw7hXGdgm6Xfv5jEmtSjJzQ1pfwHOOfiY+zZWhHAi
+      ow/WNvLtUgNUhobi+OQb11bMMNNtmGWe+cZft6QzBsnd2xa/tAYTZDfAJ8OCvYQK
+      e46UrHd54ZJFzdzicRZ8DeuU9G4K
+    user: root
+    passwd: openpaas
+#    replSetName: op
+#    bindIp: 10.30.60.53 # shard server ip
+    port: 27017
+
+  mongodb_broker:
+    db_name: mongodb-broker
+    authsource: admin
+    hosts: 10.30.60.53
