@@ -4,8 +4,8 @@ DELETE FROM mysql.user WHERE User='';
 FLUSH PRIVILEGES;
 DROP DATABASE IF EXISTS test;
 
-CREATE DATABASE IF NOT EXISTS broker;
-USE broker;
+CREATE DATABASE IF NOT EXISTS gfbroker;
+USE gfbroker;
 CREATE TABLE IF NOT EXISTS `service_binding` (
   `binding_id` varchar(100) NOT NULL DEFAULT '',
   `instance_id` varchar(100) DEFAULT NULL,

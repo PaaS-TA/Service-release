@@ -46,6 +46,10 @@ jobs:
     log_dir: op-glusterfs-java-broker
     log_file: op-glusterfs-java-broker
     log_level: INFO
+    glusterfs_url: 54.199.136.22
+    glusterfs_tenantname: service
+    glusterfs_username: swift
+    glusterfs_password: password
   release: op-glusterfs-dev
   resource_pool: services-small
   template: op-glusterfs-java-broker
