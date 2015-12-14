@@ -64,4 +64,4 @@ jobs:
 commit_hash: ae74f0b1
 uncommitted_changes: true
 name: op-glusterfs
-version: '1'
+version: '2'

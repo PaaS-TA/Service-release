@@ -1,5 +1,7 @@
 ---
 builds:
-  bbf8df42-c0b9-4dd9-ae52-52f9b503e8ce:
+  a3e6953e-af21-4906-b25d-e602c0bc0ff4:
     version: '1'
+  cc8c2ac0-0e00-48ed-b43c-b5f596c216ad:
+    version: '2'
 format-version: '2'
