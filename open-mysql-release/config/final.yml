@@ -1,5 +1,5 @@
 ---
-final_name: op-mysql
+final_name: openpass-mysql
 min_cli_version: 1.5.0.pre.1113
 blobstore:
  # provider: s3

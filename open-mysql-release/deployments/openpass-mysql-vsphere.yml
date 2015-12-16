@@ -1,8 +1,8 @@
-name: op-mysql-dev-service
+name: openpaas-mysql-service
 director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
 
 releases:
-- name: op-mysql-dev
+- name: openpaas-mysql
   version: latest
 
 update:
@@ -16,7 +16,7 @@ compilation:
     cpu: 4
     disk: 20480
     ram: 4096
-  network: op_dev_network
+  network: openpass_network
   reuse_compilation_vms: true
   workers: 3
 
@@ -24,7 +24,7 @@ jobs:
 - instances: 1
   name: mysql_z1
   networks:
-  - name: op_dev_network
+  - name: openpass_network
     static_ips: 10.30.40.191
   persistent_disk: 10000
   properties:
@@ -33,19 +33,19 @@ jobs:
     - 10.30.40.191
     - 10.30.40.192
     - 10.30.40.193
-    network_name: op_dev_network
+    network_name: openpass_network
     seeded_databases: null
     syslog_aggregator: null
     collation_server: utf8_unicode_ci
     character_set_server: utf8
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
   template: mysql
 
 - instances: 1
   name: mysql_z2
   networks:
-  - name: op_dev_network
+  - name: openpass_network
     static_ips: 10.30.40.192
   persistent_disk: 10000
   properties:
@@ -54,19 +54,19 @@ jobs:
     - 10.30.40.191
     - 10.30.40.192
     - 10.30.40.193
-    network_name: op_dev_network
+    network_name: openpass_network
     seeded_databases: null
     syslog_aggregator: null
     collation_server: utf8_unicode_ci
     character_set_server: utf8
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
   template: mysql
 
 - instances: 1
   name: mysql_z3
   networks:
-  - name: op_dev_network
+  - name: openpass_network
     static_ips: 10.30.40.193
   persistent_disk: 10000
   properties:
@@ -75,19 +75,19 @@ jobs:
     - 10.30.40.191
     - 10.30.40.192
     - 10.30.40.193
-    network_name: op_dev_network
+    network_name: openpass_network
     seeded_databases: null
     syslog_aggregator: null
     collation_server: utf8_unicode_ci
     character_set_server: utf8
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
   template: mysql
 
 - instances: 1
   name: proxy
   networks:
-  - name: op_dev_network
+  - name: openpass_network
     static_ips: 10.30.40.194
   properties:
     cluster_ips:
@@ -101,37 +101,37 @@ jobs:
       password: eaa139af583c
       port: 4222
       user: nats
-    network_name: op_dev_network
+    network_name: openpass_network
     proxy:
       api_password: eaa139af583c
       api_username: api
       api_force_https: false
     syslog_aggregator: null
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
   template: proxy
 
 - instances: 1
-  name: op-mysql-java-broker
+  name: openpaas-mysql-java-broker
   networks:
-  - name: op_dev_network
+  - name: openpass_network
     static_ips: 10.30.40.195
   properties:
     jdbc_ip: 10.30.40.194
     jdbc_pwd: c1oudc0w
     jdbc_port: 3306
-    log_dir: op-mysql-java-broker
-    log_file: op-mysql-java-broker
+    log_dir: openpaas-mysql-java-broker
+    log_file: openpaas-mysql-java-broker
     log_level: INFO
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
-  template: op-mysql-java-broker
+  template: openpaas-mysql-java-broker
 
 - instances: 1
   lifecycle: errand
   name: broker-registrar
   networks:
-  - name: op_dev_network
+  - name: openpass_network
   properties:
     broker:
       host: 10.30.40.195
@@ -144,7 +144,7 @@ jobs:
       admin_password: eaa139af583c
       admin_username: admin
       api_url: http://api.cf.open-paas.com
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
   template: broker-registrar
 
@@ -152,7 +152,7 @@ jobs:
   lifecycle: errand
   name: broker-deregistrar
   networks:
-  - name: op_dev_network
+  - name: openpass_network
   properties:
     broker:
       host: 10.30.40.195
@@ -165,7 +165,7 @@ jobs:
       admin_password: eaa139af583c
       admin_username: admin
       api_url: http://api.cf.open-paas.com
-  release: op-mysql-dev
+  release: openpaas-mysql
   resource_pool: services-small
   template: broker-deregistrar
 
@@ -182,7 +182,7 @@ meta:
   syslog_aggregator: null
 
 networks:
-- name: op_dev_network
+- name: openpass_network
   subnets:
   - cloud_properties:
       name: Internal
@@ -208,7 +208,7 @@ resource_pools:
     ram: 4096
   name: services-small
   #size: 5
-  network: op_dev_network
+  network: openpass_network
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
     version: "3012"
