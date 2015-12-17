@@ -94,7 +94,7 @@ jobs:
     - 10.30.40.191
     - 10.30.40.192
     - 10.30.40.193
-    external_host: cf.open-paas.com
+    external_host: controller.open-paas.com
     nats:
       machines:
       - 10.30.40.11
@@ -156,12 +156,7 @@ jobs:
   - name: openpass_network
   properties:
     broker:
-      host: 10.30.40.195
       name: mysql-service
-      password: cloudfoundry
-      username: admin
-      protocol: http
-      port: 8080
     cf:
       admin_password: admin
       admin_username: admin

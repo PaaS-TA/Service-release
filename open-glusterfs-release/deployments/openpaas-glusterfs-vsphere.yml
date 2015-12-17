@@ -62,7 +62,7 @@ jobs:
   properties:
     broker:
       host: 10.30.40.197
-      name: glusterfs
+      name: glusterfs-service
       password: cloudfoundry
       username: admin
       protocol: http
@@ -83,12 +83,7 @@ jobs:
   - name: openpaas_network
   properties:
     broker:
-      host: 10.30.40.197
-      name: glusterfs
-      password: cloudfoundry
-      username: admin
-      protocol: http
-      port: 8080
+      name: glusterfs-service
     cf:
       admin_password: admin
       admin_username: admin
