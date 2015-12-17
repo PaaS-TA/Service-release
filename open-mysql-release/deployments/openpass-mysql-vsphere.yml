@@ -28,7 +28,7 @@ jobs:
     static_ips: 10.30.40.191
   persistent_disk: 10000
   properties:
-    admin_password: c1oudc0w
+    admin_password: admin
     cluster_ips:
     - 10.30.40.191
     - 10.30.40.192
@@ -49,7 +49,7 @@ jobs:
     static_ips: 10.30.40.192
   persistent_disk: 10000
   properties:
-    admin_password: c1oudc0w
+    admin_password: admin
     cluster_ips:
     - 10.30.40.191
     - 10.30.40.192
@@ -70,7 +70,7 @@ jobs:
     static_ips: 10.30.40.193
   persistent_disk: 10000
   properties:
-    admin_password: c1oudc0w
+    admin_password: admin
     cluster_ips:
     - 10.30.40.191
     - 10.30.40.192
@@ -176,7 +176,7 @@ meta:
   nats:
     machines:
     - 10.30.40.11
-    password: eaa139af583c
+    password: admin
     port: 4222
     user: nats
   syslog_aggregator: null
