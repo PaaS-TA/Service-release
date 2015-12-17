@@ -3,7 +3,7 @@ director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
 - name: openpaas-mysql
-  version: latest
+  version: beta-1.0
 
 update:
   canaries: 1
@@ -18,7 +18,7 @@ compilation:
     ram: 4096
   network: openpass_network
   reuse_compilation_vms: true
-  workers: 3
+  workers: 4
 
 jobs:
 - instances: 1
@@ -98,12 +98,12 @@ jobs:
     nats:
       machines:
       - 10.30.40.11
-      password: eaa139af583c
+      password: admin
       port: 4222
       user: nats
     network_name: openpass_network
     proxy:
-      api_password: eaa139af583c
+      api_password: admin
       api_username: api
       api_force_https: false
     syslog_aggregator: null
@@ -118,7 +118,7 @@ jobs:
     static_ips: 10.30.40.195
   properties:
     jdbc_ip: 10.30.40.194
-    jdbc_pwd: c1oudc0w
+    jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: openpaas-mysql-java-broker
     log_file: openpaas-mysql-java-broker
@@ -141,7 +141,7 @@ jobs:
       protocol: http
       port: 8080
     cf:
-      admin_password: eaa139af583c
+      admin_password: admin
       admin_username: admin
       api_url: http://api.cf.open-paas.com
   release: openpaas-mysql
@@ -162,7 +162,7 @@ jobs:
       protocol: http
       port: 8080
     cf:
-      admin_password: eaa139af583c
+      admin_password: admin
       admin_username: admin
       api_url: http://api.cf.open-paas.com
   release: openpaas-mysql
@@ -194,9 +194,6 @@ networks:
     range: 10.30.0.0/16
     reserved:
     - 10.30.0.1 - 10.30.0.5
-    #- 10.30.0.1 - 10.30.10.254
-    #- 10.30.40.1 - 10.30.40.100
-    #- 10.30.40.201 - 10.30.254.254
     static:
     - 10.30.40.110 - 10.30.40.200
   type: manual
@@ -207,7 +204,6 @@ resource_pools:
     disk: 10480
     ram: 4096
   name: services-small
-  #size: 5
   network: openpass_network
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
