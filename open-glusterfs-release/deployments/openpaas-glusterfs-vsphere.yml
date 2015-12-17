@@ -1,5 +1,5 @@
 name: openpaas-glusterfs-service
-director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
+director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
 - name: openpaas-glusterfs
@@ -52,7 +52,7 @@ jobs:
     glusterfs_password: password
   release: openpaas-glusterfs
   resource_pool: services-small
-  template: openpaas-glusterfs-java-broker
+  template: op-glusterfs-java-broker
 
 - instances: 1
   lifecycle: errand
@@ -123,4 +123,4 @@ resource_pools:
   network: openpaas_network
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
-    version: "3012"
+    version: "3147"
