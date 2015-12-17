@@ -125,7 +125,7 @@ jobs:
     log_level: INFO
   release: openpaas-mysql
   resource_pool: services-small
-  template: openpaas-mysql-java-broker
+  template: op-mysql-java-broker
 
 - instances: 1
   lifecycle: errand
@@ -193,7 +193,7 @@ networks:
     name: default_unused
     range: 10.30.0.0/16
     reserved:
-    - 10.30.0.1 - 10.30.0.5
+    - 10.30.0.1 - 10.30.0.10
     static:
     - 10.30.40.110 - 10.30.40.200
   type: manual
