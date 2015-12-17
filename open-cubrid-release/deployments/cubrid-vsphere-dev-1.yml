@@ -62,7 +62,6 @@ jobs:
     template: cubrid_broker
     instances: 1
     resource_pool: cubrid_resource_pools
-    persistent_disk: 16384
     networks:
     - name: default
       static_ips:
