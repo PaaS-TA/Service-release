@@ -92,7 +92,7 @@ jobs:
     cf:
       admin_password: admin
       admin_username: admin
-      api_url: http://api.controller.open-paas.com
+      api_url: https://api.controller.open-paas.com
       skip_ssl_validation: true
   release: openpaas-glusterfs
   resource_pool: services-small
