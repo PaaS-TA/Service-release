@@ -1,6 +1,6 @@
 ---
 name: cubrid_vsphere
-director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4 
+director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc 
 
 release:
   name: cubrid_dev
@@ -32,9 +32,8 @@ networks:
     name: default_unused
     range: 10.30.0.0/16
     reserved:
-    - 10.30.0.1 - 10.30.0.5
-    - 10.30.60.5 - 10.30.60.10
-    - 10.30.60.71 - 10.30.60.100
+    - 10.30.0.1 - 10.30.20.22
+    - 10.30.20.24 - 10.30.40.255
     static:
     - 10.30.60.11 - 10.30.60.70
 
@@ -84,9 +83,9 @@ jobs:
         protocol: http
         port: 8088
       cf:
-        admin_password: eaa139af583c
+        admin_password: admin
         admin_username: admin
-        api_url: http://api.cf.open-paas.com
+        api_url: https://api.controller.open-paas.com
     release: cubrid_dev
   - name : cubrid_broker_deregistrar
     template : cubrid_broker_deregistrar
@@ -104,9 +103,9 @@ jobs:
         protocol: http
         port: 8088
       cf:
-        admin_password: eaa139af583c
+        admin_password: admin
         admin_username: admin
-        api_url: http://api.cf.open-paas.com
+        api_url: https://api.controller.open-paas.com
     release: cubrid_dev
 
 meta:
@@ -116,7 +115,7 @@ meta:
   nats:
     machines:
     - 10.30.40.11
-    password: eaa139af583c
+    password: admin
     port: 4222
     user: nats
   syslog_aggregator: null
