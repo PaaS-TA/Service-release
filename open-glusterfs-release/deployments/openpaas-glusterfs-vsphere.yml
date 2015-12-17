@@ -29,7 +29,7 @@ jobs:
   persistent_disk: 10000
   properties:
     admin_username: root
-    admin_password: c1oudc0w
+    admin_password: admin
   release: openpaas-glusterfs
   resource_pool: services-small
   template: mysql
@@ -62,15 +62,16 @@ jobs:
   properties:
     broker:
       host: 10.30.40.197
-      name: Glusterfs
+      name: glusterfs
       password: cloudfoundry
       username: admin
       protocol: http
       port: 8080
     cf:
-      admin_password: eaa139af583c
+      admin_password: admin
       admin_username: admin
-      api_url: http://api.cf.open-paas.com
+      api_url: https://api.controller.open-paas.com
+      skip_ssl_validation: true
   release: openpaas-glusterfs
   resource_pool: services-small
   template: broker-registrar
@@ -83,15 +84,16 @@ jobs:
   properties:
     broker:
       host: 10.30.40.197
-      name: Glusterfs
+      name: glusterfs
       password: cloudfoundry
       username: admin
       protocol: http
       port: 8080
     cf:
-      admin_password: eaa139af583c
+      admin_password: admin
       admin_username: admin
-      api_url: http://api.cf.open-paas.com
+      api_url: https://api.controller.open-paas.com
+      skip_ssl_validation: true
   release: openpaas-glusterfs
   resource_pool: services-small
   template: broker-deregistrar
