@@ -1,92 +1,94 @@
+# openpaas-cubrid-vsphere 설정 파일 내용
 ---
-name: cubrid_vsphere
-director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc 
+name: cubrid_vsphere  # 서비스 배포이름(필수)
+director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc #bosh status 에서 확인한 Director UUID을 입력(필수)
 
 release:
-  name: cubrid_dev
-  version: latest
+  name: cubrid_dev  #서비스 릴리즈 이름(필수)
+  version: latest   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
-compilation:
-  workers: 4
-  network: default
-  cloud_properties:
+compilation:          # 컴파일시 필요한 가상머신의 속성(필수)
+  workers: 4          # 컴파일 하는 가상머신의 최대수(필수)
+  network: default    # Networks block에서 선언한 network 이름(필수)
+  cloud_properties:   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
     ram: 2048
     disk: 8096
     cpu: 2
 
 # this section describes how updates are handled
 update:
-  canaries: 1
-  canary_watch_time: 30000
-  update_watch_time: 30000
-  max_in_flight: 4
-networks:
+  canaries: 1                 # canary 인스턴스 수(필수)
+  canary_watch_time: 30000    # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 30000    # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 4            # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+
+networks:                     # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
 - name: default
   subnets:
   - cloud_properties:
-      name: Internal
-    dns:
+      name: Internal          # vsphere 에서 사용하는 network 이름(필수)
+    dns:                      # DNS 정보
     - 10.30.20.24
     - 8.8.8.8
     gateway: 10.30.20.23
     name: default_unused
     range: 10.30.0.0/16
-    reserved:
+    reserved:                 # 설치시 제외할 IP 설정
     - 10.30.0.1 - 10.30.20.22
     - 10.30.20.24 - 10.30.40.255
     static:
-    - 10.30.60.11 - 10.30.60.70
+    - 10.30.60.11 - 10.30.60.70 #사용 가능한 IP 설정
 
-resource_pools:
-  - name: cubrid_resource_pools
+resource_pools:               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
+  - name: cubrid_resource_pools # 고유한 resource pool 이름
     network: default
     stemcell:
-      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
-      version: latest
-    cloud_properties:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  #stemcell 이름(필수)
+      version: 3147 # stemcell 버전(필수)
+    cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
       cpu: 1
       disk: 8192
       ram: 4096
 
 jobs:
-  - name: cubrid
-    template: cubrid
-    instances: 1
-    resource_pool: cubrid_resource_pools
-    persistent_disk: 16384
-    networks:
-    - name: default
+  - name: cubrid  #작업 이름(필수): Cubrid 서버
+    template: cubrid  # job template 이름(필수)
+    instances: 1  # job 인스턴스 수(필수)
+    resource_pool: cubrid_resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
+    persistent_disk: 16384  # 영구적 디스크 사이즈 정의(옵션): 16G
+    networks:     # 네트워크 구성정보
+    - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
-      - 10.30.60.23
-  - name: cubrid_broker
-    template: cubrid_broker
-    instances: 1
-    resource_pool: cubrid_resource_pools
-    networks:
-    - name: default
+      - 10.30.60.23   # 사용할 IP addresses 정의(필수): MySQL 서버 IP
+  - name: cubrid_broker   #작업 이름(필수): Cubrid 서비스 브로커
+    template: cubrid_broker  # job template 이름(필수)
+    instances: 1  # job 인스턴스 수(필수)
+    resource_pool: cubrid_resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
+    networks: # 네트워크 구성정보
+    - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
-      - 10.30.60.22
-  - name : cubrid_broker_registrar
+      - 10.30.60.22   # 사용할 IP addresses 정의(필수): MySQL 서버 IP
+  - name : cubrid_broker_registrar  # 작업 이름: 서비스 브로커 등록
     template : cubrid_broker_registrar
     instances: 1
-    lifecycle: errand
+    lifecycle: errand   # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
     resource_pool: cubrid_resource_pools
     networks:
     - name: default
     properties:
-      broker:
-        host: 10.30.60.22
+      broker: # 서비스 브로커 설정 정보
+        host: 10.30.60.22 # 서비스 브로커 IP 
         name: CubridDB
-        password: cloudfoundry
-        username: admin
+        password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
+        username: admin   # 브로커 접근 아이디(필수)
         protocol: http
-        port: 8088
+        port: 8088  # 브로커 포트
       cf:
-        admin_password: admin
-        admin_username: admin
-        api_url: https://api.controller.open-paas.com
+        admin_password: admin   # CF 사용자의 패스워드
+        admin_username: admin   # CF 사용자 이름
+        api_url: https://api.controller.open-paas.com   # CF 설치시 설정한 api uri 정보(필수)
     release: cubrid_dev
-  - name : cubrid_broker_deregistrar
+  - name : cubrid_broker_deregistrar  # 작업 이름: 서비스 브로커 삭제
     template : cubrid_broker_deregistrar
     instances: 1
     lifecycle: errand
@@ -108,10 +110,10 @@ jobs:
     release: cubrid_dev
 
 meta:
-  apps_domain: cf.open-paas.com
+  apps_domain: controller.open-paas.com   # CF 설치시 설정한 apps 도메인 정보
   environment: null
-  external_domain: cf.open-paas.com
-  nats:
+  external_domain: controller.open-paas.com   # CF 설치시 설정한 외부 도메인 정보
+  nats: # CF 설치시 설정한 nats 정보
     machines:
     - 10.30.40.11
     password: admin
@@ -121,14 +123,14 @@ meta:
 
 
 properties:
-  cubrid:
+  cubrid:   # Cubrid 설정 정보
     max_clients: 200
-  cubrid_broker:
-    cubrid_ip: 10.30.60.23
-    cubrid_db_port: 30000
-    cubrid_db_name: cubrid_broker
-    cubrid_db_user: dba
-    cubrid_db_passwd: openpaas
-    cubrid_ssh_port: 22
-    cubrid_ssh_user: root
-    cubrid_ssh_passwd: c1oudc0w
+  cubrid_broker:  # Cubrid Servcice Broker 설정 정보
+    cubrid_ip: 10.30.60.23 # Cubrid IP
+    cubrid_db_port: 30000 # Cubrid Port
+    cubrid_db_name: cubrid_broker   # Cubrid service 관리를 위한 데이터베이스 이름
+    cubrid_db_user: dba   # 데스터베이스 접근 사용자이름
+    cubrid_db_passwd: openpaas  # 데이터베이스 접근 사용자 비밀번호
+    cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
+    cubrid_ssh_user: root # Cubrid가 설치된 서버 SSH 접속 사용자 이름
+    cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
