@@ -43,7 +43,7 @@ resource_pools:               # 배포시 사용하는 resource pools를 명시�
   - name: cubrid_resource_pools # 고유한 resource pool 이름
     network: default
     stemcell:
-      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  #stemcell 이름(필수)
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
       version: 3147 # stemcell 버전(필수)
     cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
       cpu: 1
@@ -67,7 +67,7 @@ jobs:
     networks: # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
-      - 10.30.60.22   # 사용할 IP addresses 정의(필수): MySQL 서버 IP
+      - 10.30.60.22   # 사용할 IP addresses 정의(필수)
   - name : cubrid_broker_registrar  # 작업 이름: 서비스 브로커 등록
     template : cubrid_broker_registrar
     instances: 1
@@ -78,7 +78,7 @@ jobs:
     properties:
       broker: # 서비스 브로커 설정 정보
         host: 10.30.60.22 # 서비스 브로커 IP 
-        name: CubridDB
+        name: CubridDB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
         password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
         username: admin   # 브로커 접근 아이디(필수)
         protocol: http
@@ -129,8 +129,8 @@ properties:
     cubrid_ip: 10.30.60.23 # Cubrid IP
     cubrid_db_port: 30000 # Cubrid Port
     cubrid_db_name: cubrid_broker   # Cubrid service 관리를 위한 데이터베이스 이름
-    cubrid_db_user: dba   # 데스터베이스 접근 사용자이름
-    cubrid_db_passwd: openpaas  # 데이터베이스 접근 사용자 비밀번호
+    cubrid_db_user: dba   # 브로커 관리용 데이터베이스 접근 사용자이름
+    cubrid_db_passwd: openpaas  # 브로커 관리용 데이터베이스 접근 사용자 비밀번호
     cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
     cubrid_ssh_user: root # Cubrid가 설치된 서버 SSH 접속 사용자 이름
     cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
