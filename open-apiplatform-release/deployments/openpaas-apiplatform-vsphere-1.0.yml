@@ -1,10 +1,10 @@
 ---
-name: apiplatform
+name: apiplatform_vsphere
 
-director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4
+director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
-- {name: apiplatform_dev, version: latest}
+- {name: apiplatform_vsphere, version: latest}
 #- {name: apiplatform, version: 2}
 
 update:
@@ -48,7 +48,7 @@ resource_pools:
   # Association with Ubuntu Trusty stemcell for AWS
   stemcell:
     name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
-    version: 3012
+    version: 3147
 
   # IaaS specific properties
   cloud_properties:
@@ -76,6 +76,7 @@ jobs:
   - name: default
     static_ips: 10.30.60.210
   properties:
+    admin_username: root
     admin_password: openpaas
     apiplatform_username: wso2
     apiplatform_password: openpaas
@@ -106,6 +107,8 @@ jobs:
   - name: default
     static_ips: 10.30.60.200
   properties:
+    catalog_login_id: admin
+    catalog_login_password: admin
     apimanager_url: http://10.30.60.201
     database_ip: 10.30.60.210
     apiplatform_broker_username: apiplatform
@@ -121,9 +124,9 @@ jobs:
   - name: default
   properties:
     cf:
-      api_url: http://api.cf.open-paas.com
+      api_url: http://api.controller.open-paas.com
       admin_username: "admin"
-      admin_password: "eaa139af583c"
+      admin_password: "admin"
       skip_ssl_validation: "true"
     broker:
       protocol: http

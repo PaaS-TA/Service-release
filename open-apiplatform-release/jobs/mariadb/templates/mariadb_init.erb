@@ -11,5 +11,5 @@ FLUSH PRIVILEGES;
 
 
 CREATE DATABASE IF NOT EXISTS apiplatform;
-GRANT ALL PRIVILEGES ON stats_db.* TO '<%= properties.apiplatform_broker_username %>'@'%' IDENTIFIED BY  '<%= properties.apiplatform_broker_password %>' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON apiplatform.* TO '<%= properties.apiplatform_broker_username %>'@'%' IDENTIFIED BY  '<%= properties.apiplatform_broker_password %>' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
