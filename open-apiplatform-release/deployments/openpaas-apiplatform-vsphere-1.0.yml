@@ -1,11 +1,10 @@
 ---
-name: apiplatform_vsphere
+name: apiplatform-vsphere
 
 director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
-- {name: apiplatform_vsphere, version: latest}
-#- {name: apiplatform, version: 2}
+- {name: apiplatform-vsphere, version: beta-1.0}
 
 update:
   canaries: 1
