@@ -1,6 +1,6 @@
 ---
 name: op-mongodb-shard-dev
-director_uuid: 6e0f7c41-2415-4319-98aa-38109597aff4 
+director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc 
 
 release:
   name: op-mongodb-shard-dev
@@ -32,7 +32,7 @@ networks:
     name: default_unused
     range: 10.30.0.0/16
     reserved:
-    - 10.30.0.1 - 10.30.0.5
+    - 10.30.0.1 - 10.30.0.10
     - 10.30.60.5 - 10.30.60.40
     - 10.30.60.71 - 10.30.60.100
     static:
@@ -45,8 +45,8 @@ resource_pools:
       name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
       version: latest
     cloud_properties:
-      cpu: 1
-      disk: 20480
+      cpu: 2
+      disk: 8192
       ram: 4096
 
 jobs:
@@ -142,7 +142,6 @@ jobs:
     template: mongodb_shard
     instances: 1
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
     networks:
     - name: default
       static_ips:
@@ -162,11 +161,11 @@ jobs:
     template: mongodb_broker
     instances: 1
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
     networks:
     - name: default
       static_ips:
       - 10.30.60.54
+
   - name : mongodb_broker_registrar
     template : mongodb_broker_registrar
     instances: 1
@@ -183,9 +182,9 @@ jobs:
         protocol: http
         port: 8080
       cf:
-        admin_password: eaa139af583c
+        admin_password: admin
         admin_username: admin
-        api_url: http://api.cf.open-paas.com
+        api_url: https://api.controller.open-paas.com
     release: op-mongodb-shard-dev
 
   - name : mongodb_broker_deregistrar
@@ -204,9 +203,9 @@ jobs:
         protocol: http
         port: 8080
       cf:
-        admin_password: eaa139af583c
+        admin_password: admin
         admin_username: admin
-        api_url: http://api.cf.open-paas.com
+        api_url: https://api.controller.open-paas.com
     release: op-mongodb-shard-dev
 
 meta:
@@ -216,7 +215,7 @@ meta:
   nats:
     machines:
     - 10.30.40.11
-    password: eaa139af583c
+    password: admin
     port: 4222
     user: nats
   syslog_aggregator: null
