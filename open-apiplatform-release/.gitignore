@@ -4,5 +4,6 @@ blobs
 .dev_builds
 dev_releases
 .final_builds
+releases
 src/*
 !src/README.md
