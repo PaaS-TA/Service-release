@@ -18,8 +18,7 @@ start)
 
   cd $JOB_DIR
   echo "Starting the APIPlatform Service broker ....."
-#  java -jar /var/vcap/packages/apiplatform-broker/openpaas-service-java-broker-apiplatform.jar &
-  java -cp "/var/vcap/packages/apiplatform-broker/openpaas-service-java-broker-apiplatform.jar:/var/vcap/jobs/apiplatform_broker/config" org.springframework.boot.loader.JarLauncher &
+  java -cp "$PKG_DIR/openpaas-service-java-broker-apiplatform.jar:$JOB_DIR/config" org.springframework.boot.loader.JarLauncher &
   echo $! > $PIDFILE
 ;;
 stop)

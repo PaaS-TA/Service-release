@@ -6,7 +6,7 @@ set -e
 case $1 in
 
   start)
-    echo "start script: starting mcaridb..."
+    echo "start script: starting mariadb..."
     cd /var/vcap/packages/mariadb 
 
     if ! test -d /var/vcap/store/mysql; then
