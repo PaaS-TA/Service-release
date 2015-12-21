@@ -18,4 +18,6 @@ builds:
     version: 0+dev.8
   0b998215-9135-490f-9a7c-77988678f278:
     version: 0+dev.9
+  afc69028-060c-4aff-b598-697f2b0dbadb:
+    version: 0+dev.10
 format-version: '2'
