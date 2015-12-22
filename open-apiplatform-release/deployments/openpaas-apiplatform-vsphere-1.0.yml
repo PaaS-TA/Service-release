@@ -131,7 +131,23 @@ jobs:
       protocol: http
       host: 10.30.60.200
       port: 8080
-      name: apiplatform
+      name: apiplatform-service-broker
       username: "admin"
       password: "cloudfoundry"
+
+- name: broker-deregistrar
+  template: broker-deregistrar
+  instances: 1
+  lifecycle: errand
+  resource_pool: apiplatform-servers
+  networks:
+  - name: default
+  properties:
+    cf:
+      api_url: http://api.controller.open-paas.com
+      admin_username: "admin"
+      admin_password: "admin"
+      skip_ssl_validation: "true"
+    broker:
+      name: apiplatform-service-broker
 
