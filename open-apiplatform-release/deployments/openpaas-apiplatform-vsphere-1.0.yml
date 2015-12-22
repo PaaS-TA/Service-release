@@ -4,7 +4,7 @@ name: apiplatform-vsphere
 director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
-- {name: apiplatform-vsphere, version: beta-1.0}
+- {name: openpaas-apiplatform-release, version: latest}
 
 update:
   canaries: 1
