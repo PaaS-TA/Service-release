@@ -1,6 +1,5 @@
 ---
 name: apimanager
-
 dependencies:
   - mysql_connector_java
 

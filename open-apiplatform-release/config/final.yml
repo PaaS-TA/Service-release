@@ -3,4 +3,4 @@ blobstore:
   provider: local
   options:
     blobstore_path: /tmp/apiplatform-blobs
-final_name: apiplatform
+final_name: openpaas-apiplatform-release

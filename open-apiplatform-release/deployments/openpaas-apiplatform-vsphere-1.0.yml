@@ -1,11 +1,10 @@
 ---
-name: apiplatform_vsphere
+name: apiplatform-vsphere
 
 director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
-- {name: apiplatform_vsphere, version: latest}
-#- {name: apiplatform, version: 2}
+- {name: openpaas-apiplatform-release, version: latest}
 
 update:
   canaries: 1
@@ -132,7 +131,23 @@ jobs:
       protocol: http
       host: 10.30.60.200
       port: 8080
-      name: apiplatform
+      name: apiplatform-service-broker
       username: "admin"
       password: "cloudfoundry"
+
+- name: broker-deregistrar
+  template: broker-deregistrar
+  instances: 1
+  lifecycle: errand
+  resource_pool: apiplatform-servers
+  networks:
+  - name: default
+  properties:
+    cf:
+      api_url: http://api.controller.open-paas.com
+      admin_username: "admin"
+      admin_password: "admin"
+      skip_ssl_validation: "true"
+    broker:
+      name: apiplatform-service-broker
 

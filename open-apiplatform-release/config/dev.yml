@@ -1,3 +1,3 @@
 ---
-dev_name: apiplatform_dev
-latest_release_filename: /home/ahnchan/bosh/bosh-apiplatform-release/dev_releases/apiplatform_dev/apiplatform_dev-0+dev.69.yml
+dev_name: apiplatform_vsphere
+latest_release_filename: /mnt/kimdojun/bosh/openpaas-service-release/open-apiplatform-release/releases/openpaas-apiplatform-release/openpaas-apiplatform-release-beta-1.0.yml
