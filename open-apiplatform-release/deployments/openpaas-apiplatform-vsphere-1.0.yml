@@ -97,6 +97,9 @@ jobs:
   networks:
   - name: default
     static_ips: 10.30.60.201
+  properties:
+    bam_ip: 10.30.60.203
+    database_ip: 10.30.60.210
 
 - name: apiplatform-broker
   instances: 1
