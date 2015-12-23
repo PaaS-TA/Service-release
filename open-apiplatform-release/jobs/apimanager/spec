@@ -18,3 +18,7 @@ properties:
   BAM_URL:
     description: 'BAM server url information. protocl://ip or domain:port number'
     default: 'tcp://localhost:7612/'
+  database_ip:
+    default: localhost
+  bam_ip:
+    default: localhost

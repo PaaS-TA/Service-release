@@ -10,3 +10,6 @@ packages:
   - mysql_connector_java
   - bam
 
+properties:
+  database_ip:
+    default: localhost
