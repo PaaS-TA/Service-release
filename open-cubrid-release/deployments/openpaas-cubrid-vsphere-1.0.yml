@@ -1,11 +1,11 @@
 # openpaas-cubrid-vsphere 설정 파일 내용
 ---
-name: cubrid_vsphere  # 서비스 배포이름(필수)
+name: openpaas-cubrid-service  # 서비스 배포이름(필수)
 director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc #bosh status 에서 확인한 Director UUID을 입력(필수)
 
 release:
-  name: cubrid_dev  #서비스 릴리즈 이름(필수)
-  version: latest   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+  name: openpaas-cubrid  #서비스 릴리즈 이름(필수)
+  version: beta-1.0   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
 compilation:          # 컴파일시 필요한 가상머신의 속성(필수)
   workers: 4          # 컴파일 하는 가상머신의 최대수(필수)
@@ -87,7 +87,7 @@ jobs:
         admin_password: admin   # CF 사용자의 패스워드
         admin_username: admin   # CF 사용자 이름
         api_url: https://api.controller.open-paas.com   # CF 설치시 설정한 api uri 정보(필수)
-    release: cubrid_dev
+    release: openpaas-cubrid
   - name : cubrid_broker_deregistrar  # 작업 이름: 서비스 브로커 삭제
     template : cubrid_broker_deregistrar
     instances: 1
@@ -107,7 +107,7 @@ jobs:
         admin_password: admin
         admin_username: admin
         api_url: https://api.controller.open-paas.com
-    release: cubrid_dev
+    release: openpaas-cubrid
 
 meta:
   apps_domain: controller.open-paas.com   # CF 설치시 설정한 apps 도메인 정보
