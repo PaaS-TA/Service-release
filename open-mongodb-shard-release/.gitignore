@@ -1,5 +1,5 @@
-dev_releases/*/*.tgz
-releases/*/*.tgz
+dev_releases/*
+releases/*
 blobs
 .blobs
 .dev_builds
