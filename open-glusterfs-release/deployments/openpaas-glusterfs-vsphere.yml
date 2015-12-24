@@ -41,7 +41,7 @@ jobs:
     static_ips: 10.30.40.197
   properties:
     jdbc_ip: 10.30.40.196
-    jdbc_pwd: c1oudc0w
+    jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: openpaas-glusterfs-java-broker
     log_file: openpaas-glusterfs--java-broker

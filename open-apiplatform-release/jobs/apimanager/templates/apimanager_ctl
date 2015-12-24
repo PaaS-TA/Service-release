@@ -11,16 +11,16 @@ stopcmd='<PRODUCT_HOME>/bin/wso2server.sh stop > /dev/null &'
 case "$1" in
 start)
    echo "Configuration"
-   cp /var/vcap/jobs/apimanager/conf/api-manager.xml /var/vcap/packages/apimanager/wso2am-1.8.0/repository/conf
-   cp /var/vcap/jobs/apimanager/conf/master-datasources.xml /var/vcap/packages/apimanager/wso2am-1.8.0/repository/conf/datasources
-   cp /var/vcap/packages/mysql_connector_java/mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar /var/vcap/packages/apimanager/wso2am-1.8.0/repository/components/lib
+   cp /var/vcap/jobs/apimanager/conf/api-manager.xml $PRODUCT_HOME/repository/conf
+   cp /var/vcap/jobs/apimanager/conf/master-datasources.xml $PRODUCT_HOME/repository/conf/datasources
+   cp /var/vcap/packages/mysql_connector_java/mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar $PRODUCT_HOME/repository/components/lib
 
    echo "Starting the WSO2 API Manager Server ..."
-   /var/vcap/packages/apimanager/wso2am-1.8.0/bin/wso2server.sh start > /dev/null &
+   $PRODUCT_HOME/bin/wso2server.sh start > /dev/null &
 ;;
 stop)
    echo "Stopping the WSO2 API Manager Server ..."
-   /var/vcap/packages/apimanager/wso2am-1.8.0/bin/wso2server.sh stop > /dev/null &
+   $PRODUCT_HOME/bin/wso2server.sh stop > /dev/null &
 ;;
 *)
    echo "Usage: $0 {start|stop}"
