@@ -58,7 +58,7 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://<% p("database_ip")%>:3306/stats_db?autoReconnect=true&amp;</url>
+                    <url>jdbc:mysql://<%= p("database_ip")%>:3306/stats_db?autoReconnect=true&amp;</url>
                     <username>wso2</username>
                     <password>openpaas</password>
                     <!--defaultAutoCommit>false</defaultAutoCommit-->
