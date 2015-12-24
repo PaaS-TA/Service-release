@@ -1,4 +1,4 @@
-# openpaas-mongodb-shard-vsphere 설정 파일 내용
+# openpaas-mongodb-shard-lite 설정 파일 내용
 ---
 name: openpaas-mongodb-shard-service  # 서비스 배포이름(필수)
 director_uuid: 46965538-fe7f-4260-b5df-ef9411558b99   #bosh status 에서 확인한 Director UUID을 입력(필수)
@@ -27,19 +27,11 @@ networks:     # 네트워크 블록에 나열된 각 서브 블록이 참조 할
   subnets:
   - cloud_properties:
       name: random
-    range: 10.244.14.0/24
+    range: 10.244.14.0/24 # 사용할 네트워크 범위 
     reserved:
-    - 10.244.14.1
-    static:
+    - 10.244.14.1   # 범위 중에 사용금지 아이피
+    static:   # 범위 중에 사용할 아이피
     - 10.244.14.2 - 10.244.14.54
-#  - cloud_properties:
-#      name: random
-#    range: 10.244.14.0/24
-#    reserved:
-#    - 10.244.14.10 - 10.244.14.40
-#    static: 
-#    - 10.244.14.41 - 10.244.14.70
-
 
 resource_pools:   # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
   - name: mongodb_shard_resource_pools  # 고유한 resource pool 이름
