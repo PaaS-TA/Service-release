@@ -13,6 +13,7 @@ templates:
   config/application-mvc.properties.erb: config/application-mvc.properties
   config/datasource.properties.erb: config/datasource.properties
   config/logback.xml.erb: config/logback.xml
+  config/bosh.pem: config/bosh.pem
 properties:
   cubrid_broker.cubrid_ip:
     description: 'cubrid server ip'
@@ -33,4 +34,10 @@ properties:
     description: 'The user name used in the ssh.'
   cubrid_broker.cubrid_ssh_passwd: 
     description: 'The password of ssh_user'
-
+    default: ''
+  cubrid_broker.cubrid_ssh_identity: 
+    description: 'The identity of ssh_user'
+    default: ''
+  cubrid_broker.cubrid_ssh_sudo_passwd: 
+    description: 'The password of sudo'
+    default: ''

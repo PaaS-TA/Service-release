@@ -132,5 +132,6 @@ properties:
     cubrid_db_user: dba   # 브로커 관리용 데이터베이스 접근 사용자이름
     cubrid_db_passwd: openpaas  # 브로커 관리용 데이터베이스 접근 사용자 비밀번호
     cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
-    cubrid_ssh_user: root # Cubrid가 설치된 서버 SSH 접속 사용자 이름
+    cubrid_ssh_user: vcap # Cubrid가 설치된 서버 SSH 접속 사용자 이름
     cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
+    cubrid_ssh_sudo_passwd: c1oudc0w # Cubrid가 설치된 서버 sudo 비밀번호
