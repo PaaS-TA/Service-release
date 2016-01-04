@@ -5,5 +5,4 @@ blobs
 dev_releases
 .final_builds
 releases
-src/apimanager/.gitignore
 !src/README.md
