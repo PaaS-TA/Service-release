@@ -1,9 +1,9 @@
 name: openpaas-glusterfs-service
-director_uuid: 2fd8deae-00ec-4675-8ed4-d2b3b51d161b 
+director_uuid: 3475c880-8836-4a73-9309-c65bc9ac20c6 
 
 releases:
 - name: openpaas-glusterfs
-  version: latest
+  version: beta-1.0
 
 update:
   canaries: 1
@@ -13,7 +13,7 @@ update:
 
 compilation:
   cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   network: openpaas_network
   reuse_compilation_vms: true
   workers: 2
@@ -23,11 +23,11 @@ jobs:
   name: mysql
   networks:
   - name: openpaas_network
-    static_ips: 192.168.100.196 
+    static_ips: 10.20.0.70
   persistent_disk: 10000
   properties:
     admin_username: root 
-    admin_password: c1oudc0w 
+    admin_password: admin 
   release: openpaas-glusterfs
   resource_pool: services-small
   template: mysql
@@ -36,10 +36,10 @@ jobs:
   name: openpaas-glusterfs-java-broker
   networks:
   - name: openpaas_network
-    static_ips: 192.168.100.197 
+    static_ips: 10.20.0.71 
   properties:
-    jdbc_ip: 192.168.100.196 
-    jdbc_pwd: c1oudc0w 
+    jdbc_ip: 10.20.0.70 
+    jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: openpaas-glusterfs-java-broker
     log_file: openpaas-glusterfs-java-broker
@@ -50,7 +50,7 @@ jobs:
     glusterfs_password: password
   release: openpaas-glusterfs
   resource_pool: services-small
-  template: openpaas-glusterfs-java-broker
+  template: op-glusterfs-java-broker
 
 - instances: 1
   lifecycle: errand
@@ -59,16 +59,16 @@ jobs:
   - name: openpaas_network
   properties:
     broker:
-      host:  192.168.100.197 
+      host: 10.20.0.71 
       name: Glusterfs
       password: cloudfoundry 
       username: admin 
       protocol: http
       port: 8080
     cf:
-      api_url: http://api.os.paasxpert.com 
+      api_url: https://api.controller.open-paas.com 
       admin_username: admin 
-      admin_password: 1eaa460cc15e76a198ee 
+      admin_password: admin 
   release: openpaas-glusterfs
   resource_pool: services-small
   template: broker-registrar
@@ -79,17 +79,10 @@ jobs:
   networks:
   - name: openpaas_network
   properties:
-    broker:
-      host: 192.168.100.197 
-      name: Glusterfs
-      password: cloudfoundry 
-      username: admin 
-      protocol: http
-      port: 8080
     cf:
-      api_url: http://api.os.paasxpert.com 
+      api_url: https://api.controller.open-paas.com 
       admin_username: admin 
-      admin_password: 1eaa460cc15e76a198ee 
+      admin_password: admin 
   release: openpaas-glusterfs
   resource_pool: services-small
   template: broker-deregistrar
@@ -98,13 +91,21 @@ networks:
 - name: openpaas_network
   subnets:
   - cloud_properties:
-      net_id: 9419d285-e5b2-4917-ab01-4f37c607d95a 
-      security_groups: [cf,bosh]
-    dns: [8.8.8.8] 
-    gateway: 192.168.100.1 
-    range: 192.168.100.0/24 
-    reserved: [192.168.100.2-192.168.100.195] 
-    static: [192.168.100.196-192.168.100.200] 
+      net_id: 7b49e746-161a-4f90-9ed6-c93e27122a1a 
+      security_groups:
+      - cf-security
+      - bosh
+      - default
+    dns:
+    - 10.20.0.3
+    - 8.8.8.8 
+    gateway: 10.20.0.1 
+    range: 10.20.0.0/24 
+    reserved:
+    - 10.20.0.2 - 10.20.0.69 
+    static:
+    - 10.20.0.70
+    - 10.20.0.71
   type: manual
 
 
@@ -112,9 +113,9 @@ properties: {}
 
 resource_pools:
 - cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   name: services-small
   network: openpaas_network
   stemcell:
     name: bosh-openstack-kvm-ubuntu-trusty-go_agent
-    version: "3016"
+    version: "3147"
