@@ -5,7 +5,4 @@ blobs
 dev_releases
 .final_builds
 releases
-src/apimanager/wso2am-1.8.0.zip
-src/bam/wso2bam-2.5.0.zip
-src/java7/jdk-7u75-linux-x64.gz
 !src/README.md

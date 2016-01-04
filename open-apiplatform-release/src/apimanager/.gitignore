@@ -1,4 +1,4 @@
 #gitignore all files in this dir...
-*
+wso2am-1.8.0.zip
 #... except for this one.
 !.gitignore
