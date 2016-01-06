@@ -12,7 +12,6 @@ src <br>
 │     └── jre-7u45-linux-x64.gz <br>
 └── README.md <br>
 
-<span style="color:red;">Word up</span>
 
 =======
 -----
