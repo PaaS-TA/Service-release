@@ -13,8 +13,6 @@ src <br>
 └── README.md <br>
 
 
-=======
------
 ```
 $ cd ~/
 $ git clone https://github.com/OpenPaaSRnD/openpaas-service-release
