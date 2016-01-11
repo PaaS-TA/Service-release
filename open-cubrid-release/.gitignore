@@ -4,7 +4,5 @@ blobs
 .blobs
 .dev_builds
 .final_builds
-src/*
+src/cubrid
 !src/cubrid_broker
-!src/README.md
-!src/java7
