@@ -3,7 +3,7 @@ director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
 - name: openpaas-glusterfs
-  version: latest
+  version: 1.0
 
 update:
   canaries: 1
