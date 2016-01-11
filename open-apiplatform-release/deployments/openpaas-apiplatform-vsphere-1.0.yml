@@ -1,10 +1,10 @@
 ---
-name: apiplatform-vsphere
+name: openpaas-apiplatform-service
 
 director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc
 
 releases:
-- {name: openpaas-apiplatform-release, version: latest}
+- {name: openpaas-apiplatform, version: 1.0}
 
 update:
   canaries: 1
@@ -14,15 +14,6 @@ update:
 
 networks:
 - name: default
-#  type: manual
-#  subnets:
-#  - range:    10.30.0.0/16
-#    gateway:  10.30.20.23
-#    dns:      [10.30.20.23]
-#    reserved: [10.30.0.1-10.30.0.10]
-    # IaaS specific properties
-#    cloud_properties:
-#      name: Internal
   subnets:
   - cloud_properties:
       name: Internal
@@ -89,6 +80,8 @@ jobs:
   networks:
   - name: default
     static_ips: 10.30.60.203
+  properties:
+    database_ip: 10.30.60.210
 
 - name: apimanager
   instances: 1
