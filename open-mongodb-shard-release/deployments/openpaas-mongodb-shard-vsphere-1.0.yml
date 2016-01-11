@@ -5,7 +5,7 @@ director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc   #bosh status 에서 확인
 
 release:
   name: openpaas-mongodb-shard  #서비스 릴리즈 이름(필수)
-  version: beta-1.0   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+  version: 1.0   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
 compilation:  # 컴파일시 필요한 가상머신의 속성(필수)
   workers: 4  # 컴파일 하는 가상머신의 최대수(필수)
