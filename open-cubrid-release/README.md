@@ -12,8 +12,7 @@ src <br>
 │     └── jre-7u45-linux-x64.gz <br>
 └── README.md <br>
 
-=======
------
+
 ```
 $ cd ~/
 $ git clone https://github.com/OpenPaaSRnD/openpaas-service-release
