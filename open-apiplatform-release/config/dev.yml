@@ -1,3 +1,3 @@
 ---
-dev_name: apiplatform_vsphere
-latest_release_filename: /mnt/kimdojun/bosh/openpaas-service-release/open-apiplatform-release/dev_releases/apiplatform_vsphere/apiplatform_vsphere-1.0.yml
+dev_name: oepnpaas-apiplatform
+latest_release_filename: /home/kimdojun/git/openpaas-service-release/open-apiplatform-release/dev_releases/apiplatform_vsphere/apiplatform_vsphere-0+dev.1.yml
