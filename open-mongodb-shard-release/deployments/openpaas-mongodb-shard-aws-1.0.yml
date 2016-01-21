@@ -1,4 +1,4 @@
-# openpaas-mongodb-shard-vsphere 설정 파일 내용
+# openpaas-mongodb-shard-aws 설정 파일 내용
 ---
 name: openpaas-mongodb-shard-service  # 서비스 배포이름(필수)
 director_uuid: aafb8d2d-d7e8-4346-a8f2-e746e7b21b87   #bosh status 에서 확인한 Director UUID을 입력(필수)
@@ -10,7 +10,7 @@ release:
 compilation:  # 컴파일시 필요한 가상머신의 속성(필수)
   workers: 4  # 컴파일 하는 가상머신의 최대수(필수)
   network: default  # Networks block에서 선언한 network 이름(필수)
-  cloud_properties:   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
+  cloud_properties:   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone)
     instance_type: m1.medium
   reuse_compilation_vms: true
 
