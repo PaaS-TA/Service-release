@@ -1,7 +1,7 @@
 # openpaas-cubrid-vsphere 설정 파일 내용
 ---
 name: openpaas-cubrid-service  # 서비스 배포이름(필수)
-director_uuid: 3d139c62-6669-4804-adb0-990b16446c37 #bosh status 에서 확인한 Director UUID을 입력(필수)
+director_uuid: aafb8d2d-d7e8-4346-a8f2-e746e7b21b87 #bosh status 에서 확인한 Director UUID을 입력(필수)
 
 release:
   name: openpaas-cubrid  #서비스 릴리즈 이름(필수)
@@ -25,20 +25,21 @@ networks:                     # 네트워크 블록에 나열된 각 서브 블�
 - name: default
   subnets:
   - cloud_properties:
-      subnet: subnet-71ff185b
+      subnet: subnet-e300eabb
       security_groups:
       - cf-security
       - bosh-security
     dns:                      # DNS 정보
     - 10.0.0.6
     - 8.8.8.8
-    gateway: 10.0.60.1
-    range: 10.0.60.0/24
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
     reserved:                 # 설치시 제외할 IP 설정
-    - 10.0.60.2 - 10.0.60.21
+    - 10.0.0.2 - 10.0.0.19
     static:
-    - 10.0.60.22 #사용 가능한 IP 설정
-    - 10.0.60.23
+    - 10.0.0.22 #사용 가능한 IP 설정
+    - 10.0.0.23
+  type: manual
 
 resource_pools:               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
   - name: cubrid_resource_pools # 고유한 resource pool 이름
@@ -58,7 +59,7 @@ jobs:
     networks:     # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
-      - 10.0.60.23   # 사용할 IP addresses 정의(필수): MySQL 서버 IP
+      - 10.0.0.23   # 사용할 IP addresses 정의(필수): MySQL 서버 IP
   - name: cubrid_broker   #작업 이름(필수): Cubrid 서비스 브로커
     template: cubrid_broker  # job template 이름(필수)
     instances: 1  # job 인스턴스 수(필수)
@@ -66,7 +67,7 @@ jobs:
     networks: # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
-      - 10.0.60.22   # 사용할 IP addresses 정의(필수)
+      - 10.0.0.22   # 사용할 IP addresses 정의(필수)
   - name : cubrid_broker_registrar  # 작업 이름: 서비스 브로커 등록
     template : cubrid_broker_registrar
     instances: 1
@@ -76,7 +77,7 @@ jobs:
     - name: default
     properties:
       broker: # 서비스 브로커 설정 정보
-        host: 10.0.60.22 # 서비스 브로커 IP 
+        host: 10.0.0.22 # 서비스 브로커 IP 
         name: CubridDB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
         password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
         username: admin   # 브로커 접근 아이디(필수)
@@ -96,7 +97,7 @@ jobs:
     - name: default
     properties:
       broker:
-        host: 10.0.60.22
+        host: 10.0.0.22
         name: CubridDB
         password: cloudfoundry
         username: admin
@@ -114,7 +115,7 @@ meta:
   external_domain: controller.open-paas.com   # CF 설치시 설정한 외부 도메인 정보
   nats: # CF 설치시 설정한 nats 정보
     machines:
-    - 10.0.16.11
+    - 10.0.0.199
     password: admin
     port: 4222
     user: nats
@@ -125,36 +126,37 @@ properties:
   cubrid:   # Cubrid 설정 정보
     max_clients: 200
   cubrid_broker:  # Cubrid Servcice Broker 설정 정보
-    cubrid_ip: 10.0.60.23 # Cubrid IP
+    cubrid_ip: 10.0.0.23 # Cubrid IP
     cubrid_db_port: 30000 # Cubrid Port
     cubrid_db_name: cubrid_broker   # Cubrid service 관리를 위한 데이터베이스 이름
     cubrid_db_user: dba   # 브로커 관리용 데이터베이스 접근 사용자이름
     cubrid_db_passwd: openpaas  # 브로커 관리용 데이터베이스 접근 사용자 비밀번호
     cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
     cubrid_ssh_user: vcap # Cubrid가 설치된 서버 SSH 접속 사용자 이름
-    cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
-    cubrid_ssh_sudo_passwd: c1oudc0w # Cubrid가 설치된 서버 sudo 비밀번호
+    #cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
+    cubrid_ssh_sudo_passwd: cloudc0w # Cubrid가 설치된 서버 sudo 비밀번호
+    cubrid_ssh_identity: /var/vcap/jobs/cubrid_broker/config/bosh.pem # Cubrid가 설치된 서버 SSH 접속 인증 키
     cubrid_ssh_key: |
       -----BEGIN RSA PRIVATE KEY-----
-      MIIEowIBAAKCAQEAiRaj2BceTsEOJfBPP+LRCMyYiOSHG7m1ZbIGGsDp4SH+Rqcz7CmLaQ6d60y3
-      aC0qT5YtvosHs4/L7dNzZeMqlRBpuvel95r+8CmmAz49otNTDvVco0d8He6ZAsaRqAIeqxJrWrPN
-      dck40ZWGGMxay6fkoq2wjDrVOlfRO+JwfmL/3zQB3WgevzdYmqBWQK9oZEhjnw5BbvUod60szJJe
-      evZa327cLwoGfXpspSkMFJxbET+cduJkPC8XRz4urK/9xvx3teigRmh8SE2ZD+BOA+bmZiXojiUt
-      qPiPTZ2Uvqo3UIqXd4aaPup6mFPLWd5kPpYlg8644RnYXL3hC+EI9QIDAQABAoIBAHl+AAzFSE3h
-      WEmVNJbYzAqxT8maRobyyWlsIW7aYyvrtW8mRaTZmLytgJUE81I3HNVVsgq5KkUffkqyaAX3Ekjz
-      N9DEI2lSCvgK4R7krTk9cdHC76ug8cWRLDfChVnRLx7LfyruSHtHrrxHeIVHrnvoun7V0a4lgc1o
-      AH3DC5FlnPAfAuUNwDcNjzspl2aisDTSc6RVQ+Kc7OWrR4PxDfb5l7MqlpDZkbIeJZF9B2ziRM+L
-      Dyo3QVX/T88SBreyl47Z2FGDPx6IsPAzeP3J9Og9c/d2KlrliGptYgIO3R1aqyXPSQUAPZlZ1ngZ
-      DFt6q1l4qdyJuWT+c74wzyO+3G0CgYEAxglpIshKzGvpzMN+gzl5ZRg9Zaf6wWy2+NoEzdXAG6/8
-      PWvX99n2VLGcdX4xvYMF0nvl9HyHjJm5qtrx3h99dYbj9UbYUTFi44r9pKAtHPifiyAUU0AVyZDY
-      NWntEq66YwC75AyxmenwObIb9x0rr4sbirLCwjGWlSBtAnafJP8CgYEAsTZ3JNQiYV+6ok/NAXPr
-      qmEoMw06t94GtG7X6TIMdJKWcBCfm2SPdERhobvaePdV1Kxb0TONCLiqeYZ3i7LoY+YM4sUezqhi
-      HGIE/2kCaC/otd5g4J9TALYEhPabjaqmeIeG4Q/BgPCWV4vHpxU7Yg/Ju81uDS3T1v6SPxp7jgsC
-      gYEApQMSZ7kdGliQ5929fPpW/LXF8v6VIrbDf3eqqRiCio+JTmSeABfN+aRFCmGscIzMPSaf5age
-      CjnNS2BESSFUGKndKHNvq7fK/m7CCnqtHIbN6c9BIF01yk622Ur6D6coB3aFGPC6y9TyJiESzEWy
-      MQNoX5m0TrujDX+HVZYh5WECgYAP44ZDMxHyERc2vljvLGmQ2S01hpYhLjMDsnyBWA9t1EbQvWzS
-      De4eypLGYYVxGxwC+YEx/KFEiuoeA0RsrhnP+yxkmK/ub4J8cP1puQySMtl2lP2yphZXFfrJwSKp
-      TQen/t7FBxieavPP3aSFAo5UeH3p7L1VSSqZODH8nm89iQKBgF4kHziKDiXApQ3sx787Kj8N+6uU
-      qBHRQec0F4V1wVOTHFJnKykdBnegewa82Tc7blBv1RUxUuzrAATz/e2Bv9ZRY/6ePL3ehIktvPaE
-      ZnN0/mOwGQo4Mgi/QKcyubVCQnSbjEQWFhM6/N0pMGYJA6sXzQF2U0Umm2FUoJxxH5cJ
+      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
       -----END RSA PRIVATE KEY-----

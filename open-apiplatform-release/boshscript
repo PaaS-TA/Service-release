@@ -1,6 +1,0 @@
-bosh -n delete deployment apiplatform_vsphere
-bosh delete release apiplatform_vsphere
-bosh create release
-bosh upload release
-bosh deployment deployments/apiplatform_vshpere.yml
-bosh -n deploy
