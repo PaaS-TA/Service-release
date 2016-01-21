@@ -1,6 +1,6 @@
 # copy of openstack
 name: openpaas-glusterfs-service
-director_uuid: 3475c880-8836-4a73-9309-c65bc9ac20c6 
+director_uuid: aafb8d2d-d7e8-4346-a8f2-e746e7b21b87 
 
 releases:
 - name: openpaas-glusterfs
@@ -14,7 +14,7 @@ update:
 
 compilation:
   cloud_properties:
-    instance_type: m1.small
+    instance_type: m1.medium
   network: openpaas_network
   reuse_compilation_vms: true
   workers: 2
@@ -24,7 +24,7 @@ jobs:
   name: mysql
   networks:
   - name: openpaas_network
-    static_ips: 10.20.0.70
+    static_ips: 10.0.0.70
   persistent_disk: 10000
   properties:
     admin_username: root 
@@ -37,9 +37,9 @@ jobs:
   name: openpaas-glusterfs-java-broker
   networks:
   - name: openpaas_network
-    static_ips: 10.20.0.71 
+    static_ips: 10.0.0.71 
   properties:
-    jdbc_ip: 10.20.0.70 
+    jdbc_ip: 10.0.0.70 
     jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: openpaas-glusterfs-java-broker
@@ -60,7 +60,7 @@ jobs:
   - name: openpaas_network
   properties:
     broker:
-      host: 10.20.0.71 
+      host: 10.0.0.71 
       name: Glusterfs
       password: cloudfoundry 
       username: admin 
@@ -92,21 +92,20 @@ networks:
 - name: openpaas_network
   subnets:
   - cloud_properties:
-      net_id: 7b49e746-161a-4f90-9ed6-c93e27122a1a 
+      subnet: subnet-e300eabb
       security_groups:
       - cf-security
-      - bosh
-      - default
+      - bosh-security
     dns:
-    - 10.20.0.3
+    - 10.0.0.6
     - 8.8.8.8 
-    gateway: 10.20.0.1 
-    range: 10.20.0.0/24 
+    gateway: 10.0.0.1 
+    range: 10.0.0.0/24 
     reserved:
-    - 10.20.0.2 - 10.20.0.69 
+    - 10.0.0.2 - 10.0.0.69 
     static:
-    - 10.20.0.70
-    - 10.20.0.71
+    - 10.0.0.70
+    - 10.0.0.71
   type: manual
 
 
@@ -118,5 +117,5 @@ resource_pools:
   name: services-small
   network: openpaas_network
   stemcell:
-    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+    name: bosh-aws-xen-ubuntu-trusty-go_agent
     version: "3147"

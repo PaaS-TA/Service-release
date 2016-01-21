@@ -1,7 +1,7 @@
 # openpaas-mongodb-shard-vsphere 설정 파일 내용
 ---
 name: openpaas-mongodb-shard-service  # 서비스 배포이름(필수)
-director_uuid: 3d139c62-6669-4804-adb0-990b16446c37   #bosh status 에서 확인한 Director UUID을 입력(필수)
+director_uuid: aafb8d2d-d7e8-4346-a8f2-e746e7b21b87   #bosh status 에서 확인한 Director UUID을 입력(필수)
 
 release:
   name: openpaas-mongodb-shard  #서비스 릴리즈 이름(필수)
@@ -25,26 +25,20 @@ networks:     # 네트워크 블록에 나열된 각 서브 블록이 참조 할
 - name: default
   subnets:
   - cloud_properties:
-      subnet: subnet-71ff185b
+      subnet: subnet-e300eabb
       security_groups:
       - cf-security
       - bosh-security
     dns:                      # DNS 정보
     - 10.0.0.6
     - 8.8.8.8
-    gateway: 10.0.14.1
-    range: 10.0.14.0/24
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
     reserved:
-    - 10.0.14.1
+    - 10.0.0.2 - 10.0.0.100
     static:
-    - 10.0.14.2 - 10.0.14.54
-#  - cloud_properties:
-#      name: random
-#    range: 10.0.14.0/24
-#    reserved:
-#    - 10.0.14.10 - 10.0.14.40
-#    static: 
-#    - 10.0.14.41 - 10.0.14.70
+    - 10.0.0.101 - 10.0.0.114
+    type: manual
 
 
 resource_pools:   # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
@@ -65,8 +59,8 @@ jobs:
     networks:   # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:   # 사용할 IP addresses 정의(필수)
-      - 10.0.14.6
-      - 10.0.14.10
+      - 10.0.0.102
+      - 10.0.0.103
     properties:
       replSetName: op1 # replicaSet1 의 이름
 
@@ -78,8 +72,8 @@ jobs:
     networks:
     - name: default
       static_ips:
-      - 10.0.14.18
-      - 10.0.14.22
+      - 10.0.0.105
+      - 10.0.0.106
     properties:
       replSetName: op2 # replicaSet2 의 이름
 
@@ -91,8 +85,8 @@ jobs:
     networks:
     - name: default
       static_ips:
-      - 10.0.14.30
-      - 10.0.14.34
+      - 10.0.0.108
+      - 10.0.0.109
     properties:
       replSetName: op3 # replicaSet3 의 이름
 
@@ -104,9 +98,9 @@ jobs:
     networks:   # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
-      - 10.0.14.2   # 사용할 IP addresses 정의(필수)
+      - 10.0.0.101   # 사용할 IP addresses 정의(필수)
     properties:
-      replSet_hosts: ["10.0.14.2","10.0.14.6","10.0.14.10"] # 첫번째 Host는 replicaSet1의 master
+      replSet_hosts: ["10.0.0.101","10.0.0.102","10.0.0.103"] # 첫번째 Host는 replicaSet1의 master
       replSetName: op1 # replicaSet1 의 이름
 
   - name: mongodb_master2
@@ -117,9 +111,9 @@ jobs:
     networks:
     - name: default
       static_ips:
-      - 10.0.14.14
+      - 10.0.0.104
     properties:
-      replSet_hosts: ["10.0.14.14","10.0.14.18","10.0.14.22"] # 첫번째 Host는 replicaSet2의 master
+      replSet_hosts: ["10.0.0.104","10.0.0.105","10.0.0.106"] # 첫번째 Host는 replicaSet2의 master
       replSetName: op2  # replicaSet2 의 이름
 
   - name: mongodb_master3
@@ -130,9 +124,9 @@ jobs:
     networks:
     - name: default
       static_ips:
-      - 10.0.14.26
+      - 10.0.0.107
     properties:
-      replSet_hosts: ["10.0.14.26","10.0.14.30","10.0.14.34"] # 첫번째 Host는 replicaSet2의 master
+      replSet_hosts: ["10.0.0.107","10.0.0.108","10.0.0.109"] # 첫번째 Host는 replicaSet2의 master
       replSetName: op3  # replicaSet3 의 이름
 
   - name: mongodb_config
@@ -143,9 +137,9 @@ jobs:
     networks:
     - name: default
       static_ips:
-      - 10.0.14.38
-      - 10.0.14.42
-      - 10.0.14.46
+      - 10.0.0.110
+      - 10.0.0.111
+      - 10.0.0.112
 
   - name: mongodb_shard
     template: mongodb_shard
@@ -154,17 +148,17 @@ jobs:
     networks:
     - name: default
       static_ips:
-      - 10.0.14.50
+      - 10.0.0.113
     properties:
       bindIp: 0.0.0.0
       configsvr_hosts: # mongodb_config hosts
-      - 10.0.14.38
-      - 10.0.14.42
-      - 10.0.14.46
+      - 10.0.0.110
+      - 10.0.0.111
+      - 10.0.0.112
       repl_name_host_list: # mongodb_master properties
-      - op1/10.0.14.2 # replicaSet1 의 이름/host
-      - op2/10.0.14.14 # replicaSet2 의 이름/host
-      - op3/10.0.14.26 # replicaSet3 의 이름/host
+      - op1/10.0.0.101 # replicaSet1 의 이름/host
+      - op2/10.0.0.104 # replicaSet2 의 이름/host
+      - op3/10.0.0.107 # replicaSet3 의 이름/host
 
   - name: mongodb_broker  #작업 이름(필수): mongodb 서비스 브로커
     template: mongodb_broker  # job template 이름(필수)
@@ -173,7 +167,7 @@ jobs:
     networks:   # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:   # 사용할 IP addresses 정의(필수)
-      - 10.0.14.54
+      - 10.0.0.114
 
   - name : mongodb_broker_registrar   # 작업 이름: 서비스 브로커 등록
     template : mongodb_broker_registrar
@@ -184,7 +178,7 @@ jobs:
     - name: default
     properties:
       broker:   # 서비스 브로커 설정 정보
-        host: 10.0.14.54   # 서비스 브로커 IP 
+        host: 10.0.0.114   # 서비스 브로커 IP 
         name: Mongo-DB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
         password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
         username: admin   # 브로커 접근 아이디(필수)
@@ -205,7 +199,7 @@ jobs:
     - name: default
     properties:
       broker:
-        host: 10.0.14.54
+        host: 10.0.0.114
         name: Mongo-DB
         password: cloudfoundry
         username: admin
@@ -223,7 +217,7 @@ meta:
   external_domain: bosh-lite.com   # CF 설치시 설정한 외부 도메인 정보
   nats:   # CF 설치시 설정한 nats 정보
     machines:
-    - 10.0.16.11
+    - 10.0.0.199
     password: nats
     port: 4222
     user: nats
@@ -251,11 +245,10 @@ properties:
       e46UrHd54ZJFzdzicRZ8DeuU9G4K
     user: root  # admin 권한 사용자이름
     passwd: openpaas  # admin 권한 사용자 비밀번호
-#    replSetName: op
-#    bindIp: 10.0.14.53 # shard server ip
     port: 27017   # mongodb port
 
   mongodb_broker:
     db_name: mongodb-broker # mongodb broker 관리용 데이터베이스
     authsource: admin   # mongodb broker 관리용 데이터베이스에 접근할 때 인증정보가 있는 데이터베이스
-    hosts: 10.0.14.50 # mongodb Host
+    hosts: 10.0.0.113 # mongodb Host
+
