@@ -1,4 +1,4 @@
-# openpaas-cubrid-vsphere 설정 파일 내용
+# openpaas-cubrid-aws 설정 파일 내용
 ---
 name: openpaas-cubrid-service  # 서비스 배포이름(필수)
 director_uuid: aafb8d2d-d7e8-4346-a8f2-e746e7b21b87 #bosh status 에서 확인한 Director UUID을 입력(필수)
