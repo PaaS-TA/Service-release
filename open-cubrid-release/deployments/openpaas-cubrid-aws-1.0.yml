@@ -86,7 +86,7 @@ jobs:
       cf:
         admin_password: admin   # CF 사용자의 패스워드
         admin_username: admin   # CF 사용자 이름
-        api_url: https://api.controller.open-paas.com   # CF 설치시 설정한 api uri 정보(필수)
+        api_url: https://api.115.68.46.30.xip.io   # CF 설치시 설정한 api uri 정보(필수)
     release: openpaas-cubrid
   - name : cubrid_broker_deregistrar  # 작업 이름: 서비스 브로커 삭제
     template : cubrid_broker_deregistrar
@@ -106,13 +106,13 @@ jobs:
       cf:
         admin_password: admin
         admin_username: admin
-        api_url: https://api.controller.open-paas.com
+        api_url: https://api.115.68.46.30.xip.io
     release: openpaas-cubrid
 
 meta:
-  apps_domain: controller.open-paas.com   # CF 설치시 설정한 apps 도메인 정보
+  apps_domain: 115.68.46.30.xip.io   # CF 설치시 설정한 apps 도메인 정보
   environment: null
-  external_domain: controller.open-paas.com   # CF 설치시 설정한 외부 도메인 정보
+  external_domain: 115.68.46.30.xip.io   # CF 설치시 설정한 외부 도메인 정보
   nats: # CF 설치시 설정한 nats 정보
     machines:
     - 10.0.0.199

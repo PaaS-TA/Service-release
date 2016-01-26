@@ -67,7 +67,7 @@ jobs:
       protocol: http
       port: 8080
     cf:
-      api_url: https://api.controller.open-paas.com 
+      api_url: https://api.115.68.46.30.xip.io 
       admin_username: admin 
       admin_password: admin 
   release: openpaas-glusterfs
@@ -81,7 +81,7 @@ jobs:
   - name: openpaas_network
   properties:
     cf:
-      api_url: https://api.controller.open-paas.com 
+      api_url: https://api.115.68.46.30.xip.io 
       admin_username: admin 
       admin_password: admin 
   release: openpaas-glusterfs
