@@ -46,16 +46,16 @@ resource_pools:   # 배포시 사용하는 resource pools를 명시하며 여러
       name: bosh-vsphere-esxi-ubuntu-trusty-go_agent  # stemcell 이름(필수)
       version: 3147   # stemcell 버전(필수)
     cloud_properties: # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
-      cpu: 2
+      cpu: 1
       disk: 8192
-      ram: 4096
+      ram: 1024
 
 jobs:
   - name: mongodb_slave1  #작업 이름(필수): mongodb replica set의 slave 서버
     template: mongodb_slave   # job template 이름(필수)
     instances: 2  # job 인스턴스 수(필수)
     resource_pool: mongodb_shard_resource_pools   # resource_pools block에 정의한 resource pool 이름(필수)
-    persistent_disk: 16384  # 영구적 디스크 사이즈 정의(옵션): 16G
+    persistent_disk: 4092  # 영구적 디스크 사이즈 정의(옵션): 16G
     networks:   # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:   # 사용할 IP addresses 정의(필수)
@@ -68,7 +68,7 @@ jobs:
     template: mongodb_slave
     instances: 2
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
+    persistent_disk: 4092
     networks:
     - name: default
       static_ips:
@@ -81,7 +81,7 @@ jobs:
     template: mongodb_slave
     instances: 2
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
+    persistent_disk: 4092
     networks:
     - name: default
       static_ips:
@@ -94,7 +94,7 @@ jobs:
     template: mongodb_master  # job template 이름(필수)
     instances: 1  # job 인스턴스 수(필수)
     resource_pool: mongodb_shard_resource_pools   # resource_pools block에 정의한 resource pool 이름(필수)
-    persistent_disk: 16384  # 영구적 디스크 사이즈 정의(옵션): 16G
+    persistent_disk: 4092  # 영구적 디스크 사이즈 정의(옵션): 16G
     networks:   # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
@@ -107,7 +107,7 @@ jobs:
     template: mongodb_master
     instances: 1
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
+    persistent_disk: 4092
     networks:
     - name: default
       static_ips:
@@ -120,7 +120,7 @@ jobs:
     template: mongodb_master
     instances: 1
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
+    persistent_disk: 4092
     networks:
     - name: default
       static_ips:
@@ -133,7 +133,7 @@ jobs:
     template: mongodb_config
     instances: 3
     resource_pool: mongodb_shard_resource_pools
-    persistent_disk: 16384
+    persistent_disk: 4092
     networks:
     - name: default
       static_ips:

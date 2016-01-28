@@ -26,7 +26,7 @@ jobs:
   networks:
   - name: openpaas_network
     static_ips: 10.30.40.196
-  persistent_disk: 10000
+#  persistent_disk: 1024
   properties:
     admin_username: root
     admin_password: admin
@@ -112,9 +112,9 @@ networks:
 properties: {}
 resource_pools:
 - cloud_properties:
-    cpu: 2
-    disk: 10480
-    ram: 4096
+    cpu: 1
+    disk: 8192
+    ram: 1024
   name: services-small
   #size: 5
   network: openpaas_network
