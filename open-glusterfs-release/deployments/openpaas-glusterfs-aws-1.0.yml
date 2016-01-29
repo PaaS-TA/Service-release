@@ -1,6 +1,6 @@
 # copy of openstack
 name: openpaas-glusterfs-service
-director_uuid: aafb8d2d-d7e8-4346-a8f2-e746e7b21b87 
+director_uuid: f7f7e2a8-aae9-4be7-8e11-70d91e4fccc1
 
 releases:
 - name: openpaas-glusterfs
@@ -24,8 +24,8 @@ jobs:
   name: mysql
   networks:
   - name: openpaas_network
-    static_ips: 10.0.0.70
-  persistent_disk: 10000
+    static_ips: 10.0.0.170
+#  persistent_disk: 10000
   properties:
     admin_username: root 
     admin_password: admin 
@@ -37,9 +37,9 @@ jobs:
   name: openpaas-glusterfs-java-broker
   networks:
   - name: openpaas_network
-    static_ips: 10.0.0.71 
+    static_ips: 10.0.0.171 
   properties:
-    jdbc_ip: 10.0.0.70 
+    jdbc_ip: 10.0.0.170 
     jdbc_pwd: admin
     jdbc_port: 3306
     log_dir: openpaas-glusterfs-java-broker
@@ -60,14 +60,14 @@ jobs:
   - name: openpaas_network
   properties:
     broker:
-      host: 10.0.0.71 
+      host: 10.0.0.171 
       name: Glusterfs
       password: cloudfoundry 
       username: admin 
       protocol: http
       port: 8080
     cf:
-      api_url: https://api.115.68.46.30.xip.io 
+      api_url: https://api.52.71.217.204.xip.io 
       admin_username: admin 
       admin_password: admin 
   release: openpaas-glusterfs
@@ -81,7 +81,7 @@ jobs:
   - name: openpaas_network
   properties:
     cf:
-      api_url: https://api.115.68.46.30.xip.io 
+      api_url: https://api.52.71.217.204.xip.io 
       admin_username: admin 
       admin_password: admin 
   release: openpaas-glusterfs
@@ -92,20 +92,19 @@ networks:
 - name: openpaas_network
   subnets:
   - cloud_properties:
-      subnet: subnet-e300eabb
+      subnet: subnet-e51bba93
       security_groups:
-      - cf-security
-      - bosh-security
+      - op-cf
+      - op-bosh
     dns:
-    - 10.0.0.6
     - 8.8.8.8 
     gateway: 10.0.0.1 
     range: 10.0.0.0/24 
     reserved:
-    - 10.0.0.2 - 10.0.0.69 
+    - 10.0.0.2 - 10.0.0.169 
     static:
-    - 10.0.0.70
-    - 10.0.0.71
+    - 10.0.0.170
+    - 10.0.0.171
   type: manual
 
 

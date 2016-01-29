@@ -24,7 +24,7 @@ jobs:
   networks:
   - name: openpaas_network
     static_ips: 10.20.0.70
-  persistent_disk: 10000
+#  persistent_disk: 10000
   properties:
     admin_username: root 
     admin_password: admin 

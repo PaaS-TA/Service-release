@@ -42,7 +42,7 @@ jobs:
     template: cubrid  # job template 이름(필수)
     instances: 1  # job 인스턴스 수(필수)
     resource_pool: small  # resource_pools block에 정의한 resource pool 이름(필수)
-    persistent_disk: 16384  # 영구적 디스크 사이즈 정의(옵션): 16G
+#    persistent_disk: 16384  # 영구적 디스크 사이즈 정의(옵션): 16G
     networks:     # 네트워크 구성정보
     - name: default   # Networks block에서 선언한 network 이름(필수)
       static_ips:
