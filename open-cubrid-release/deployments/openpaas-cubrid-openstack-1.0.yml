@@ -18,8 +18,8 @@ compilation:                           # 컴파일시 필요한 가상머신의 
 # this section describes how updates are handled
 update:
   canaries: 1                 # canary 인스턴스 수(필수)
-  canary_watch_time: 30000    # canary 인스턴스가 수행하기 위한 대기 시간(필수)
-  update_watch_time: 30000    # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  canary_watch_time: 120000    # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 120000    # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
   max_in_flight: 4            # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
   serial: true
 
@@ -118,9 +118,12 @@ properties:
     cubrid_db_passwd: openpaas  # 브로커 관리용 데이터베이스 접근 사용자 비밀번호
     cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
     cubrid_ssh_user: vcap # Cubrid가 설치된 서버 SSH 접속 사용자 이름
-#    cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
     cubrid_ssh_sudo_passwd: dhvms09! # Cubrid가 설치된 서버 sudo 권한 비밀번호
-    cubrid_ssh_identity: /var/vcap/jobs/cubrid_broker/config/bosh.pem # Cubrid가 설치된 서버 SSH 접속 인증 키
+    # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호 또는 Key. 설치된 vm의 ssh인증 방식에 따라 둘중 하나를 사용한다.
+    # 비밀번호 또는 Key값은 인프라 담당자에게 문의한다.
+#    cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호. password 인증 방식을 사용할 때 사용한다.
+    cubrid_ssh_identity: /var/vcap/jobs/cubrid_broker/config/bosh.pem # Cubrid가 설치된 서버 SSH 접속 인증 키. 위치는 고정. Key인증 방식을 사용할 때 사용한다.
+    # cubrid_ssh_key: cubrid가 설치된 서버 SSH 접속 key. key 인증방식을 사용할 때 사용한다.
     cubrid_ssh_key: |
       -----BEGIN RSA PRIVATE KEY-----
       MIIEpAIBAAKCAQEA6Bf5unjJSccNlQk3jXqz4TNdpZkleKc92P69d1w//3moCyHz
