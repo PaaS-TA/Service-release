@@ -3,8 +3,8 @@ set -e
 
 pushd ${BUILD_DIR}/cf-mysql-broker
   # cache gems
-  rm -rf vendor/*
-  bundle package --all --no-install
+  # rm -rf vendor/*
+  # bundle package --all --no-install
 
   # remove unneeded files
   rm -rf spec
