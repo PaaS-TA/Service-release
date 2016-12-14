@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#ADD HOST IP, HOST NAME
+echo <%= p('hbase.host_ip')%>  <%= p('hbase.host_name')%> >> /etc/hosts
+
+#SET JOB_NAME
+export JOB_NAME='collector'
+
+#CALL COMMON
+source /var/vcap/jobs/${JOB_NAME}/common/ctl_common.sh ${JOB_NAME}
+
+echo "Starting COMMON INIT ..."
+common_init
+echo "SUCCESS :: Starting COMMON INIT ..."
+
+case $1 in
+  
+  start)
+    echo "Starting COLLECTOR ..."
+
+    #SET COMMON START
+    common_start
+  
+    #CHECK COLLECTOR WAR
+    if [ -f ${PKG_DIR}/pinpoint-collector-1.6.0-SNAPSHOT.war ]; then
+      echo "Checking WAR ..."
+      unzip -qq ${PKG_DIR}/pinpoint-collector-1.6.0-SNAPSHOT.war -d ${CATALINA_HOME}/webapps/ROOT
+      echo "SUCCESS :: Checking WAR ..."
+    else
+      echo "FAIL :: Checking WAR ..."
+      exit 1
+    fi
+  
+    #MODFY HBASE PROPERT
+    echo "Modifying HBASE PROPERTY ..."
+    sed -i -e s/"hbase.client.host=localhost"/"hbase.client.host=<%= p('hbase.host_name')%>"/g ${CATALINA_HOME}/webapps/ROOT/WEB-INF/classes/hbase.properties
+    echo "SUCCESS :: Modifying HBASE PROPERTY ..."
+  
+    #MODFY COLLECTOR PROPERT
+    echo "Modifying COLLECTOR PROPERTY ..."
+    sed -i -e s/"cluster.zookeeper.address=localhost"/"cluster.zookeeper.address=<%= p('hbase.host_name')%>"/g ${CATALINA_HOME}/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+    sed -i -e s/"collector.tcpListenPort=9994"/"collector.tcpListenPort=<%= p('hbase.tcp_listen_port')%>"/g ${CATALINA_HOME}/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+    sed -i -e s/"collector.udpStatListenPort=9995"/"collector.udpStatListenPort=<%= p('hbase.udp_stat_listen_port')%>"/g ${CATALINA_HOME}/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+    sed -i -e s/"collector.udpSpanListenPort=9996"/"collector.udpSpanListenPort=<%= p('hbase.udp_span_listen_port')%>"/g ${CATALINA_HOME}/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+    echo "SUCCESS :: Modifying COLLECTOR PROPERTY ..."
+  
+    ${CATALINA_HOME}/bin/startup_pinpoint.sh
+
+    echo "SUCCESS :: Starting COLLECTOR ..."
+    ;;
+  
+  stop)
+    echo "Stopping COLLECTOR ..."
+    ${CATALINA_HOME}/bin/shutdown_pinpoint.sh > /dev/null &
+    echo "SUCCESS :: Stopping COLLECTOR ..."
+    ;;
+  
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+
+esac
+exit 1

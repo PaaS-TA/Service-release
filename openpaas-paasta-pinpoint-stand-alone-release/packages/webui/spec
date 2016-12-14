@@ -1,0 +1,6 @@
+---
+name: webui
+dependencies: 
+- tomcat
+files:
+- webui/pinpoint-web-1.6.0-SNAPSHOT.war

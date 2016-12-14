@@ -1,0 +1,6 @@
+check process collector
+with pidfile /etc/sv/monit/pinpoint.pid
+  start program "/var/vcap/jobs/collector/bin/collector_ctl start with timeout 300 seconds"
+  stop program "/var/vcap/jobs/collector/bin/collector_ctl stop with timeout 60 seconds"
+  group vcap
+

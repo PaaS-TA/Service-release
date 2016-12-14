@@ -1,0 +1,12 @@
+---
+name: hbase
+packages:
+  - hbase
+  - java
+templates:
+  bin/hbase_ctl.erb: bin/hbase_ctl
+properties:
+  hbase.host_ip:
+    description: 'hbase host ip'
+  hbase.host_name:
+    description: 'hbase host name'
