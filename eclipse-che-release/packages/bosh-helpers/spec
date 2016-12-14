@@ -1,0 +1,4 @@
+---
+name: bosh-helpers
+files:
+- bosh-helpers/*

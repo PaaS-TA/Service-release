@@ -1,0 +1,22 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+archive="eclipse-che/eclipse-che-4.5.1.tar.gz"
+
+if [[ -f $archive ]] ; then
+  echo "Archive found"
+  echo "Extracting archive..."
+  tar xzf $archive
+else
+  echo "Archive not found"
+  exit 1
+fi
+
+if [[ -d eclipse-che-4.5.1/bin ]]; then
+  echo "Starting Install eclipse-che..."
+  cp -a eclipse-che-4.5.1/* ${BOSH_INSTALL_TARGET}
+  echo "SUCCESS :: Starting Install  eclipse-che..."
+else
+  echo " eclipse-che is not properly packaged"
+  exit 1
+fi

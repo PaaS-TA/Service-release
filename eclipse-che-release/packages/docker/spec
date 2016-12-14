@@ -1,0 +1,14 @@
+---
+name: docker
+
+files:
+- docker/docker_setup.sh
+- docker/libsystemd-journal0_204-5ubuntu20.19_amd64.deb
+- docker/libltdl7_2.4.2-1.7ubuntu1_amd64.deb
+- docker/liberror-perl_0.17-1.1_all.deb
+- docker/aufs-tools_amd64.deb
+- docker/cgroup-lite_1.9_all.deb
+- docker/git_1.9.1-1ubuntu0.3_amd64.deb
+- docker/git-man_1.9.1-1ubuntu0.3_all.deb
+- docker/docker-engine_1.12.1-0~trusty_amd64.deb
+

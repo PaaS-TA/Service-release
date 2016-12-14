@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#SET HELPER
+export JOB_NAME='eclipse-che1'
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh $JOB_NAME
+export PIDFILE=${RUN_DIR}/pid
+
+chmod -R 777 $PKG_DIR/eclipse-che/
+
+if [ -d /var/lib/docker ]; then
+    service docker restart
+else
+    chmod 755 $PKG_DIR/docker/docker_setup.sh 
+    $PKG_DIR/docker/docker_setup.sh 
+fi
+
+case $1 in
+
+  start)
+
+    chmod 777 /var/run/docker.sock	
+
+    echo $$ > $PIDFILE
+
+    exec chpst -u vcap:vcap /var/vcap/packages/eclipse-che/bin/che.sh  \
+	-r:<%= properties.che.ip %>    \
+	-p:<%= properties.che.port %> \
+	>>  $LOG_DIR/${JOB_NAME}.stdout.log   \
+	2>> $LOG_DIR/${JOB_NAME}.stderr.log
+
+    ;;
+
+  stop)
+
+    kill -9 `cat $PIDFILE`
+
+    rm -f $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: che_ctl {start|stop}" ;;
+
+esac

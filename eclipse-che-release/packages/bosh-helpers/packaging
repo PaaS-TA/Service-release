@@ -1,0 +1,12 @@
+set -e
+
+archive="bosh-helpers/ctl_setup.sh"
+
+#COPY ARCHIVE
+if [[ -f $archive ]] ; then
+  cp -a bosh-helpers/* ${BOSH_INSTALL_TARGET}/
+  chmod 755 ${BOSH_INSTALL_TARGET}/*
+else
+  echo "Archive not found"
+  exit 1
+fi

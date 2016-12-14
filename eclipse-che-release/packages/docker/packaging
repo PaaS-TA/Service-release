@@ -1,0 +1,12 @@
+set -e
+
+archive="docker/docker_setup.sh"
+
+#COPY ARCHIVE
+if [[ -f $archive ]] ; then
+  cp -a docker/* ${BOSH_INSTALL_TARGET}/
+else
+  echo "Archive is not found"
+  exit 1
+fi
+
