@@ -1,0 +1,5 @@
+check process h_slave
+  with pidfile /var/vcap/sys/run/h_slave/h_slave.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger h_slave_ctl '/var/vcap/jobs/h_slave/bin/h_slave_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger h_slave_ctl '/var/vcap/jobs/h_slave/bin/h_slave_ctl stop'"
+  group vcap

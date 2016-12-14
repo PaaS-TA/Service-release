@@ -1,0 +1,6 @@
+check process webui
+with pidfile /etc/sv/monit/pinpoint.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger webui_ctl '/var/vcap/jobs/webui/bin/webui_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger webui_ctl '/var/vcap/jobs/webui/bin/webui_ctl stop'"
+  group vcap
+

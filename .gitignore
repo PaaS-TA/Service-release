@@ -1,2 +1,6 @@
 openpaas-paasta-pinpoint-stand-alone-release/src/hbase/*.gz
 openpaas-paasta-pinpoint-stand-alone-release/src/java/*.gz
+
+openpaas-paasta-pinpoint-cluster-release/src/hbase/*.gz
+openpaas-paasta-pinpoint-cluster-release/src/hadoop/*.gz
+openpaas-paasta-pinpoint-cluster-release/src/java/*.gz

@@ -1,0 +1,113 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#SET HELPER
+export JOB_NAME='h_master'
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh $JOB_NAME
+export PID_FILE=$RUN_DIR/hadoop-root-namenode.pid
+
+#SET hostname
+echo <%= p('master.host_name') %> > /etc/hostname
+/bin/hostname -F /etc/hostname
+
+#SET HOSTS
+cp -a $JOB_DIR/etc/hosts /etc/hosts
+
+#SET SSH KEY
+mkdir -p /root/.ssh
+cp -a /var/vcap/packages/ssh-keys/authorized_keys /root/.ssh/
+cp -a /var/vcap/packages/ssh-keys/id_rsa.pub /root/.ssh/
+cp -a /var/vcap/packages/ssh-keys/id_rsa /root/.ssh/
+
+chmod 644 /root/.ssh/authorized_keys
+chmod 644 /root/.ssh/id_rsa.pub
+chmod 600 /root/.ssh/id_rsa
+
+#SET SSH CONFIG
+if [[ `cat /etc/ssh/sshd_config|grep 'PermitRootLogin no'` ]];
+then
+  sed -i -e s/'PermitRootLogin no'/'PermitRootLogin yes'/g /etc/ssh/sshd_config
+  service ssh restart
+fi
+
+#CHECK SSH CONNECTION
+ssh root@<%= p('master.host_name') %> -o StrictHostKeyChecking=no 'pwd'
+ssh root@<%= p('secondary.host_name') %> -o StrictHostKeyChecking=no 'pwd'
+<% p('slave.host_names').each do |hostname| %>
+ssh root@<%= hostname %> -o StrictHostKeyChecking=no 'pwd';
+<% end %>
+
+#COPY CONFIG
+cp $JOB_DIR/config/hadoop/* /var/vcap/packages/hadoop/etc/hadoop
+cp $JOB_DIR/config/hbase/* /var/vcap/packages/hbase/conf
+
+case $1 in
+
+  start)
+    echo "Starting SECONDARY ..."
+
+    pid_guard $PID_FILE $JOB_NAME
+
+    #CREATE HADOOP DATA-DIR
+    if [ ! -d $DFS_NAME_DIR ]; then
+      mkdir -p $DFS_NAME_DIR
+      chmod 755 -R $DFS_NAME_DIR
+    fi
+
+    #SET HADOOP NAMENODE
+    if [ -d $PKG_DIR/hadoop/bin ]; then
+      sudo -E -u root $PKG_DIR/hadoop/bin/hadoop namenode -format >>$LOG_DIR/$JOB_NAME.stdout.log 2>>$LOG_DIR/$JOB_NAME.stderr.log &
+    else
+      echo "FAIL :: SET HADOOP NAMENODE ..."
+      exit 1
+    fi
+
+    #START HADOOP
+    if [ -d $PKG_DIR/hadoop/sbin ]; then
+      sudo -E -u root $PKG_DIR/hadoop/sbin/start-all.sh >>$LOG_DIR/$JOB_NAME.stdout.log 2>>$LOG_DIR/$JOB_NAME.stderr.log &
+    else
+      echo "FAIL :: START HADOOP ..."
+      exit 1
+    fi
+
+    #CREATE HBASE DATA-DIR
+    if [ ! -d $HOME/data/zookeeper-data ]; then
+      mkdir -p $HOME/data/zookeeper-data
+      chmod 755 -R $HOME/data/zookeeper-data
+    fi
+
+    #START HBASE MASTER
+    if [ -d $PKG_DIR/hbase/bin/ ]; then
+      sudo -E -u root $PKG_DIR/hbase/bin/start-hbase.sh >>$LOG_DIR/$JOB_NAME.stdout.log 2>>$LOG_DIR/$JOB_NAME.stderr.log &
+    else
+      echo "FAIL :: HBASE MASTER ..."
+      exit 1
+    fi
+
+    #CREATE tables
+    ##################################################
+    # AFTER BOSH DEPLY, RUN BOSH ERRAND
+    # > bosh run errand h_master_register
+
+    ;;
+
+  stop)
+    echo "Stopping SECONDARY ..."
+    #STOP hbase
+    $PKG_DIR/bin/stop-hbase.sh > /dev/null &
+    rm -rf $HOME/data/zookeeper-data
+
+    #STOP hadoop
+    $PKG_DIR/hadoop/sbin/stop-all.sh > /dev/null &
+    rm -rf $DFS_NAME_DIR
+
+    kill_and_wait $PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+
+esac

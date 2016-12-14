@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#SET HOSTS
+echo <%= p('master.host_ip')%> <%= p('master.host_name')%> >> /etc/hosts
+
+#SET SSH KEY
+mkdir -p /root/.ssh
+cp -a /var/vcap/packages/ssh-keys/authorized_keys /root/.ssh/
+cp -a /var/vcap/packages/ssh-keys/id_rsa.pub /root/.ssh/
+cp -a /var/vcap/packages/ssh-keys/id_rsa /root/.ssh/
+
+chmod 644 /root/.ssh/authorized_keys
+chmod 644 /root/.ssh/id_rsa.pub
+chmod 600 /root/.ssh/id_rsa
+
+sudo -E -u root ssh h-master -o StrictHostKeyChecking=no 'mount -o remount, exec /tmp && /var/vcap/packages/hbase/bin/hbase shell /var/vcap/packages/hbase/bin/hbase-create.hbase'

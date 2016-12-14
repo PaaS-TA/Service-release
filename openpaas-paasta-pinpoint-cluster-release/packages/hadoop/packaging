@@ -1,0 +1,20 @@
+set -e
+
+archive="hadoop/hadoop-2.5.2.tar.gz"
+
+#UNPRESS ARCHIVE
+if [[ -f $archive ]] ; then
+  tar xzf $archive
+else
+  echo "Archive not found"
+  exit 1
+fi
+
+#COPY ARCHIVE
+if [[ -d hadoop-2.5.2/bin ]]; then
+  cp -a hadoop-2.5.2/* ${BOSH_INSTALL_TARGET}
+  chmod 755 ${BOSH_INSTALL_TARGET}/*
+else
+  echo "HADOOP is not properly packaged"
+  exit 1
+fi

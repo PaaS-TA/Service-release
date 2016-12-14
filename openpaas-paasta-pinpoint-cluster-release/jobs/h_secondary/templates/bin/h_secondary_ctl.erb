@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#SET HELPER
+export JOB_NAME='h_secondary'
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh $JOB_NAME
+export PID_FILE=$RUN_DIR/$JOB_NAME.pid
+
+#SET hostname
+echo <%= p('secondary.host_name') %> > /etc/hostname
+/bin/hostname -F /etc/hostname
+
+#SET HOSTS
+cp -a $JOB_DIR/etc/hosts /etc/hosts
+
+#SET SSH KEY
+mkdir -p /root/.ssh
+cp -a /var/vcap/packages/ssh-keys/authorized_keys /root/.ssh/
+cp -a /var/vcap/packages/ssh-keys/id_rsa.pub /root/.ssh/
+cp -a /var/vcap/packages/ssh-keys/id_rsa /root/.ssh/
+
+chmod 644 /root/.ssh/authorized_keys
+chmod 644 /root/.ssh/id_rsa.pub
+chmod 600 /root/.ssh/id_rsa
+
+#SET SSH CONFIG
+if [[ `cat /etc/ssh/sshd_config|grep 'PermitRootLogin no'` ]];
+then
+  sed -i -e s/'PermitRootLogin no'/'PermitRootLogin yes'/g /etc/ssh/sshd_config
+  service ssh restart
+fi
+
+#COPY CONFIG
+cp $JOB_DIR/config/hadoop/* /var/vcap/packages/hadoop/etc/hadoop
+
+case $1 in
+
+  start)
+    echo "Starting SECONDARY ..."
+
+    pid_guard $PID_FILE $JOB_NAME
+
+    #MAKE PID    
+    nohup tailf /var/log/syslog>>$LOG_DIR/$JOB_NAME.stdout.log 2>>$LOG_DIR/$JOB_NAME.stderr.log &
+    echo $! > $PID_FILE
+
+    echo "SUCCESS :: Starting SECONDARY ..."    
+    ;;
+
+  stop)
+    echo "Stopping SECONDARY ..."
+    kill_and_wait $PID_FILE
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+    
+esac

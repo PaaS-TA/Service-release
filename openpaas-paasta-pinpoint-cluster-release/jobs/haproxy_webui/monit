@@ -1,0 +1,5 @@
+check process haproxy_webui
+  with pidfile /var/vcap/sys/run/haproxy_webui/haproxy_webui.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger haproxy_webui_ctl '/var/vcap/jobs/haproxy_webui/bin/haproxy_webui_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger haproxy_webui_ctl '/var/vcap/jobs/haproxy_webui/bin/haproxy_webui_ctl stop'"
+  group vcap

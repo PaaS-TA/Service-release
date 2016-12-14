@@ -1,0 +1,31 @@
+127.0.0.1 localhost 
+
+#MASTER
+<%= p('master.host_ip')%> <%= p('master.host_name')%>
+<%= p('secondary.host_ip')%> <%= p('secondary.host_name')%>
+
+#SLAVE
+<% p('slave.host_names').each_with_index do |host_name, index| %>
+<%= p('slave.host_ips')[index] %> <%= host_name %>
+<% end %>
+
+#COLLECTOR
+<% p('collector.host_names').each_with_index do |host_name, index| %>
+<%= p('collector.host_ips')[index] %> <%= host_name %>
+<% end %>
+
+#HAPROXY-WEBUI
+<%= p('haproxy.host_ip')%> <%= p('haproxy.host_name')%>
+
+#WEBUI
+<% p('webui.host_names').each_with_index do |host_name, index| %>
+<%= p('webui.host_ips')[index] %> <%= host_name %>
+<% end %>
+
+# The following lines are desirable for IPv6 capable hosts
+::1 localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
