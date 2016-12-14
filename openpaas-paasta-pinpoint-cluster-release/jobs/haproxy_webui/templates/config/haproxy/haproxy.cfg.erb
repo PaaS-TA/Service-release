@@ -1,0 +1,23 @@
+global
+    daemon
+    pidfile /var/vcap/sys/run/haproxy_webui/haproxy_webui.pid
+    maxconn 100000
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+    stats enable
+    stats uri /admin
+
+frontend http-in
+    mode http
+    bind *:<%= p('haproxy.http_port')%>
+    default_backend servers
+
+backend servers
+    mode http
+<% p('webui.host_names').each_with_index do |host_name, index| %>
+    server <%= host_name %> <%= p('webui.host_ips')[index] %>:8080
+<% end %>

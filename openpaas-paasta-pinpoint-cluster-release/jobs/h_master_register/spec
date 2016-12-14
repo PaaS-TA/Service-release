@@ -1,0 +1,11 @@
+---
+name: h_master_register
+packages:
+  - ssh-keys
+templates:
+  errand.sh.erb: bin/run
+properties:
+  master.host_name:
+    description: Master host name
+  master.host_ip:
+    description: Master host ip

@@ -1,0 +1,6 @@
+check process collector
+with pidfile /etc/sv/monit/pinpoint.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger collector_ctl '/var/vcap/jobs/collector/bin/collector_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger collector_ctl '/var/vcap/jobs/collector/bin/collector_ctl stop'"
+  group vcap
+

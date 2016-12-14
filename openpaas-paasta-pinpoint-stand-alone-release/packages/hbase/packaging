@@ -1,0 +1,25 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+archive="hbase/hbase-1.2.1-bin.tar.gz"
+
+if [[ -f $archive ]] ; then
+  echo "Archive found"
+  echo "Extracting archive..."
+  tar zxf $archive
+else
+  echo "Archive not found"
+  exit 1
+fi
+
+if [[ -d hbase-1.2.1/bin ]]; then
+  echo "Copying Hbase..."
+  cp -a hbase-1.2.1/* ${BOSH_INSTALL_TARGET}
+
+  echo "Copying Hbase script..."
+  cp hbase/hbase-create.hbase ${BOSH_INSTALL_TARGET}/bin
+else
+  echo "HBase is not properly packaged"
+  exit 1
+fi
+

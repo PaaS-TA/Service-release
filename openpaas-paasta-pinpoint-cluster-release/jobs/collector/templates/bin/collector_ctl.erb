@@ -1,0 +1,76 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#SET HELPER
+export JOB_NAME='collector'
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh $JOB_NAME
+export PID_FILE=/etc/sv/monit/pinpoint.pid
+
+#CALL COMMON
+source /var/vcap/jobs/${JOB_NAME}/common/ctl_common.sh ${JOB_NAME}
+
+#SET hostname
+echo h-collector<%= index %> > /etc/hostname
+/bin/hostname -F /etc/hostname
+
+#SET HOSTS
+cp -a $JOB_DIR/etc/hosts /etc/hosts
+
+#COMMON INIT
+common_init
+
+case $1 in
+  
+  start)
+    echo "Starting COLLECTOR ..."
+
+    pid_guard $PID_FILE $JOB_NAME
+
+    #COMMON START
+    war_name='pinpoint-collector-1.6.0-SNAPSHOT.war'
+    common_start $war_name
+
+    #MODFY HBASE PROPERTY
+    if [ -f $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/hbase.properties ]; then
+      sed -i -e s/"hbase.client.host=localhost"/"hbase.client.host=<%= p('master.host_name')%>"/g $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/hbase.properties
+    else
+      echo "FAIL :: MODFY HBASE PROPERTY ..."
+      exit 1
+    fi
+
+    #MODFY COLLECTOR PROPERTY
+    if [ -f $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties ]; then
+      sed -i -e s/"cluster.zookeeper.address=localhost"/"cluster.zookeeper.address=<%= p('master.host_name')%>"/g $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+      sed -i -e s/"collector.tcpListenPort=9994"/"collector.tcpListenPort=<%= p('master.tcp_listen_port')%>"/g $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+      sed -i -e s/"collector.udpStatListenPort=9995"/"collector.udpStatListenPort=<%= p('master.udp_stat_listen_port')%>"/g $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+      sed -i -e s/"collector.udpSpanListenPort=9996"/"collector.udpSpanListenPort=<%= p('master.udp_span_listen_port')%>"/g $CATALINA_HOME/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+    else
+      echo "FAIL :: MODFY COLLECTOR PROPERTY ..."
+      exit 1
+    fi
+  
+    #CHECK STARTUP.SH
+    if [ -f $CATALINA_HOME/bin/startup_pinpoint.sh ]; then
+      $CATALINA_HOME/bin/startup_pinpoint.sh
+    else
+      echo "FAIL :: CHECK STARTUP.SH ..."
+      exit 1
+    fi
+
+    echo "SUCCESS :: Starting COLLECTOR ..."
+    ;;
+  
+  stop)
+    echo "Stopping COLLECTOR ..."
+    $CATALINA_HOME/bin/shutdown_pinpoint.sh > /dev/null &
+    kill_and_wait $PID_FILE
+    ;;
+  
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+
+esac
+exit 1

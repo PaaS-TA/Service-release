@@ -1,0 +1,11 @@
+set -e
+
+archive="webui/pinpoint-web-1.6.0-SNAPSHOT.war"
+
+#COPY ARCHIVE
+if [[ -f $archive ]] ; then
+  cp $archive ${BOSH_INSTALL_TARGET}
+else
+  echo "Archive not found"
+  exit 1
+fi

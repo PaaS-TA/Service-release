@@ -1,0 +1,27 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+if [[ `uname -a` =~ "x86_64" ]] ; then
+  archive="java/jdk-8u77-linux-x64.tar.gz"
+  echo "Using 64-bit version"
+else
+  echo "Only 64-bit architectures are supported."
+  exit 1
+fi
+
+if [[ -f $archive ]] ; then
+  echo "Archive found"
+  echo "Extracting archive..."
+  tar xzf $archive
+else
+  echo "Archive not found"
+  exit 1
+fi
+
+if [[ -d jdk1.8.0_77/bin && `jdk1.8.0_77/bin/java -version 2>&1` =~ "Java HotSpot" && $? == 0 ]]; then
+  echo "Copying JDK..."
+  cp -a jdk1.8.0_77/* ${BOSH_INSTALL_TARGET}
+else
+  echo "JVM is not properly packaged"
+  exit 1
+fi

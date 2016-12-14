@@ -1,0 +1,5 @@
+check process hbase
+  with pidfile /tmp/hbase--master.pid
+  start program "/var/vcap/jobs/hbase/bin/hbase_ctl start with timeout 300 seconds"
+  stop program "/var/vcap/jobs/hbase/bin/hbase_ctl stop with timeout 60 seconds"
+  group vcap

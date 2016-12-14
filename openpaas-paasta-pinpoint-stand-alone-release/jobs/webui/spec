@@ -1,0 +1,15 @@
+---
+name: webui
+packages:
+  - webui
+  - java
+  - tomcat
+templates:
+  bin/webui_ctl.erb: bin/webui_ctl
+  common/ctl_common.sh: common/ctl_common.sh
+properties:
+  hbase.host_ip:
+    description: 'hbase host ip'
+  hbase.host_name:
+    description: 'hbase host name'
+

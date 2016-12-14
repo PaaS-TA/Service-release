@@ -1,0 +1,101 @@
+---
+name: h_secondary
+packages:
+  - bosh-helpers
+  - ssh-keys
+  - java
+  - hadoop
+
+templates:
+  bin/h_secondary_ctl.erb: bin/h_secondary_ctl
+  config/hadoop/core-site.xml.erb: config/hadoop/core-site.xml
+  config/hadoop/hadoop-env.sh: config/hadoop/hadoop-env.sh
+  config/hadoop/hdfs-site.xml.erb: config/hadoop/hdfs-site.xml
+  config/hadoop/mapred-site.xml.erb: config/hadoop/mapred-site.xml
+  config/hadoop/slaves.erb: config/hadoop/slaves
+  config/hadoop/yarn-env.sh: config/hadoop/yarn-env.sh
+  config/hadoop/yarn-site.xml.erb: config/hadoop/yarn-site.xml
+  data/properties.sh.erb: data/properties.sh
+  etc/hosts.erb: etc/hosts
+  config/hadoop/capacity-scheduler.xml: config/hadoop/capacity-scheduler.xml
+  config/hadoop/configuration.xsl: config/hadoop/configuration.xsl
+  config/hadoop/container-executor.cfg: config/hadoop/container-executor.cfg
+  config/hadoop/hadoop-env.cmd: config/hadoop/hadoop-env.cmd
+  config/hadoop/hadoop-metrics.properties: config/hadoop/hadoop-metrics.properties
+  config/hadoop/hadoop-metrics2.properties: config/hadoop/hadoop-metrics2.properties
+  config/hadoop/hadoop-policy.xml: config/hadoop/hadoop-policy.xml
+  config/hadoop/httpfs-env.sh: config/hadoop/httpfs-env.sh
+  config/hadoop/httpfs-log4j.properties: config/hadoop/httpfs-log4j.properties
+  config/hadoop/httpfs-signature.secret: config/hadoop/httpfs-signature.secret
+  config/hadoop/httpfs-site.xml: config/hadoop/httpfs-site.xml
+  config/hadoop/log4j.properties: config/hadoop/log4j.properties
+  config/hadoop/mapred-env.cmd: config/hadoop/mapred-env.cmd
+  config/hadoop/mapred-env.sh: config/hadoop/mapred-env.sh
+  config/hadoop/mapred-queues.xml.template: config/hadoop/mapred-queues.xml.template
+  config/hadoop/mapred-site.xml.template: config/hadoop/mapred-site.xml.template
+  config/hadoop/ssl-client.xml.example: config/hadoop/ssl-client.xml.example
+  config/hadoop/ssl-server.xml.example: config/hadoop/ssl-server.xml.example
+  config/hadoop/yarn-env.cmd: config/hadoop/yarn-env.cmd
+  
+properties:
+  master.host_name:
+    description: Master host name
+  master.host_ip:
+    description: Master host ip
+  master.port:
+    description: Master port
+    default: 9000
+  master.http_port:
+    description: Master http port
+    default: 50070
+  master.replication:
+    description: Master replication
+    default: 3
+  master.tcp_listen_port:
+    description: Master tcp listen port
+    default: 29994
+  master.udp_stat_listen_port:
+    description: Master udp stat listen port
+    default: 29995
+  master.udp_span_listen_port:
+    description: Master udp span listen port
+    default: 29996
+  secondary.host_name:
+    description: Secondary host name
+  secondary.host_ip:
+    description: Secondary host ip
+  secondary.http_port:
+    description: Secondary host http port
+    default: 50090
+  yarn.host_name:
+    description: Yarn host name
+  yarn.host_ip:
+    description: Yarn host ip
+  yarn.resource_tracker_port:
+    description: Yarn resource tracker port
+    default: 8025
+  yarn.scheduler_port:
+    description: Yarn scheduler port
+    default: 8030
+  yarn.resourcemanager_port:
+    description: Yarn resourcemanager port
+    default: 8040
+  slave.host_names:
+    description: Slave host names(array)
+  slave.host_ips:
+    description: Slave host ips(array)
+  collector.host_names:
+    description: Collector host names(array)
+  collector.host_ips:
+    description: Collector host ips(array)
+  haproxy.host_name:
+    description: Haproxy host name
+  haproxy.host_ip:
+    description: Haproxy host ip
+  haproxy.http_port:
+    description: Haproxy http port
+    default: 8080
+  webui.host_names:
+    description: Webui host names(array)
+  webui.host_ips:
+    description: Webui host ips(array)

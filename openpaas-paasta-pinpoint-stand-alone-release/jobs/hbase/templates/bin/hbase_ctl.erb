@@ -1,0 +1,74 @@
+#!/bin/bash
+
+set -e
+set -u
+
+#SET HOST NAME
+echo <%= p('hbase.host_name')%> > /etc/hostname
+/bin/hostname -F /etc/hostname
+
+#ADD HOST IP, HOST NAME
+echo <%= p('hbase.host_ip')%>  <%= p('hbase.host_name')%> >> /etc/hosts
+sed -i -e s/'127.0.0.1'/'#127.0.0.1'/g /etc/hosts
+
+#SET JOB_NAME
+export JOB_NAME='hbase'
+
+#CHECK JAVA_HOME
+if [ -d /var/vcap/packages/java ]; then
+  echo "Setting JAVA_HOME ..."
+  export JAVA_HOME=/var/vcap/packages/java
+  export PATH=$PATH:${JAVA_HOME}/bin
+else
+  echo "FAIL :: Setting JAVA_HOME ..."
+  exit 1
+fi
+
+case $1 in
+
+  start)
+    echo "Starting HBASE ..."
+
+    #CHECK PACKAGE DIR
+    if [ -d /var/vcap/packages/${JOB_NAME} ]; then
+      echo "Checking PKG_DIR ..."
+      export PKG_DIR=/var/vcap/packages/${JOB_NAME}
+      echo "SUCCESS :: Checking PKG_DIR ..."
+    else
+      echo "FAIL :: Checking PKG_DIR ..."
+      exit 1
+    fi
+  
+    #START HBASE
+    if [ -d ${PKG_DIR}/bin ]; then
+      echo "Starting HBASE ..."
+      ${PKG_DIR}/bin/start-hbase.sh > /dev/null &
+      echo "SUCCESS :: Starting HBASE ..."
+    else
+      echo "FAIL :: Starting HBASE ..."
+      exit 1
+    fi
+  
+    #CREATE TABLES
+    if [ -f ${PKG_DIR}/bin/hbase-create.hbase ]; then
+      echo "Creating TABLES ..."
+      ${PKG_DIR}/bin/hbase shell ${PKG_DIR}/bin/hbase-create.hbase
+      echo "SUCCESS :: Creating TABLES ..."
+    else
+      echo "FAIL :: Creating TABLES ..."
+      exit 1
+    fi
+    ;;
+
+  stop)
+    echo "Stopping HBASE ..."
+    ${PKG_DIR}/bin/stop-hbase.sh > /dev/null &
+    echo "SUCCESS :: Stopping HBASE ..."
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+
+esac
+exit 1

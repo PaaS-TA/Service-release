@@ -1,0 +1,6 @@
+---
+name: hadoop
+dependencies: 
+- java
+files:
+- hadoop/hadoop-2.5.2.tar.gz

@@ -1,0 +1,5 @@
+check process h_master
+  with pidfile /var/vcap/sys/run/h_master/hadoop-root-namenode.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger h_master_ctl '/var/vcap/jobs/h_master/bin/h_master_ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger h_master_ctl '/var/vcap/jobs/h_master/bin/h_master_ctl stop'"
+  group vcap
