@@ -9,6 +9,8 @@
 
 ##2. Deploy
 >`$ cd $BOSH_RELEASE_DIR`
+
 >`$ bosh deployment deployment/openpaas-paasta-pinpoint-release.yml`
+
 >`$ bosh deploy`
 

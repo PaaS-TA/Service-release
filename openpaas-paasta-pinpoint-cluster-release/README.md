@@ -12,7 +12,9 @@
 
 ##2. Deploy
 >`$ cd $BOSH_RELEASE_DIR`
+
 >`$ bosh deployment deployment/openpaas-paasta-pinpoint-cluster-release.yml`
+
 >`$ bosh deploy`
 
 ##3. Run errand
