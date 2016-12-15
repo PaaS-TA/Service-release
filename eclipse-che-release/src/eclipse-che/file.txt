@@ -1,1 +1,1 @@
-eclipse-che-4.5.1.tar.gz
+https://github.com/eclipse/che/archive/4.5.1.tar.gz
