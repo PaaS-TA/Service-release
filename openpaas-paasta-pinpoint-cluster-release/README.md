@@ -3,19 +3,29 @@
 ## file download
 
  1. hadoop
+ 
  >`$ cd src`
+ 
  >`$ mkdir hadoop`
+ 
  >`$ cd hadoop`
+ 
  >`$ wget https://archive.apache.org/dist/hadoop/core/hadoop-2.5.2/hadoop-2.5.2.tar.gz`
  
  2. hbase
+ 
  >`$ cd src`
+ 
  >`$ cd hbase`
+ 
  >`$ wget https://archive.apache.org/dist/hbase/1.2.1/hbase-1.2.1-bin.tar.gz`
  
  3. java
+ 
  >`$ cd src`
+ 
  >`$ mkdir java`
+ 
  >`$ wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.tar.gz`
 
 ##1. Pinpoint Cluster Configuration
