@@ -1,7 +1,6 @@
 # OpenPaaS PaaSTA Pinpoint Guide
 
 ## file download
-
 ###1. hadoop
  
 >`$ cd src`
@@ -27,6 +26,8 @@
 >`$ mkdir java`
  
 >`$ wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.tar.gz`
+
+
 
 ##1. Pinpoint Cluster Configuration
 - Hadoop master(=Hbase master) :: 1 machine
