@@ -33,7 +33,7 @@ $ wget -O 'wso2am-1.8.0.zip' http://dist.wso2.org/maven2/org/wso2/am/wso2am/1.8.
 $ cd ~/openpaas-service-release/open-apiplatform-release/src/bam
 $ wget -O 'wso2bam-2.5.0.zip' http://dist.wso2.org/maven2/org/wso2/bam/wso2bam/2.5.0/wso2bam-2.5.0.zip
 $ cd ~/openpaas-service-release/open-apiplatform-release/src/java7
-$ wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u75-b13/jdk-7u75-linux-x64.tar.gz
+$ wget -O 'jdk-7u75-linux-x64.gz' --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u75-b13/jdk-7u75-linux-x64.tar.gz
 
 ```
 
