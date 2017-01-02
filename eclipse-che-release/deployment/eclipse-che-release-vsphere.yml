@@ -76,9 +76,13 @@ jobs:
   - name: public_network
     default: [dns, gateway]
     static_ips: 115.68.46.183
+  properties:
+    che:
+      ip: 115.68.46.183
+      port: 8080
 
 - name: eclipse-che2 #작업 이름(필수)
-  template: eclipse-che2 # job template 이름(필수)
+  template: eclipse-che1 # job template 이름(필수)
   instances: 1  # job 인스턴스 수(필수)
   resource_pool: resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
   networks:     # 네트워크 구성정보
@@ -88,3 +92,7 @@ jobs:
   - name: public_network
     default: [dns, gateway]
     static_ips: 115.68.46.184
+  properties:
+    che:
+      ip: 115.68.46.184
+      port: 8080
