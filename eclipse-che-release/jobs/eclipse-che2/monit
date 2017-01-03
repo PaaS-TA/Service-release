@@ -1,5 +1,0 @@
-check process eclipse-che2
-  with pidfile /var/vcap/sys/run/eclipse-che2/pid
-  start program "/var/vcap/jobs/eclipse-che2/bin/che_ctl start"
-  stop program "/var/vcap/jobs/eclipse-che2/bin/che_ctl stop"
-  group vcap
