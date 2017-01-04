@@ -1,10 +1,10 @@
 # openpaas-cubrid-vsphere 설정 파일 내용
 ---
 name: eclipse-che  # 서비스 배포이름(필수)
-director_uuid: 0bc8d3c2-e032-4c7e-a99c-e23eea7091fc #bosh status 에서 확인한 Director UUID을 입력(필수)
+director_uuid: d363905f-eaa0-4539-a461-8c1318498a32 #bosh status 에서 확인한 Director UUID을 입력(필수)
 
 release:
-  name: eclipse-che-release  #서비스 릴리즈 이름(필수)
+  name: paasta-eclipse-che  #서비스 릴리즈 이름(필수)
   version: latest   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
 compilation:          # 컴파일시 필요한 가상머신의 속성(필수)
@@ -28,7 +28,6 @@ networks:                     # 네트워크 블록에 나열된 각 서브 블�
   - cloud_properties:
       name: Internal          # vsphere 에서 사용하는 network 이름(필수)
     dns:                      # DNS 정보
-    - 10.30.20.24
     - 8.8.8.8
     gateway: 10.30.20.23
     name: default_unused
@@ -58,15 +57,15 @@ resource_pools:               # 배포시 사용하는 resource pools를 명시�
     network: default
     stemcell:
       name: bosh-vsphere-esxi-ubuntu-trusty-go_agent # stemcell 이름(필수)
-      version: 3147  # stemcell 버전(필수)
+      version: 3263.8  # stemcell 버전(필수)
     cloud_properties:         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
       cpu: 2
       disk: 10240
       ram: 2048
 
 jobs:
-- name: eclipse-che1 #작업 이름(필수)
-  template: eclipse-che1 # job template 이름(필수)
+- name: paasta-web-ide1 #작업 이름(필수)
+  template: eclipse-che # job template 이름(필수)
   instances: 1  # job 인스턴스 수(필수)
   resource_pool: resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
   networks:     # 네트워크 구성정보
@@ -81,8 +80,8 @@ jobs:
       ip: 115.68.46.183
       port: 8080
 
-- name: eclipse-che2 #작업 이름(필수)
-  template: eclipse-che1 # job template 이름(필수)
+- name: paasta-web-ide2 #작업 이름(필수)
+  template: eclipse-che # job template 이름(필수)
   instances: 1  # job 인스턴스 수(필수)
   resource_pool: resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
   networks:     # 네트워크 구성정보
