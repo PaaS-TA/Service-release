@@ -70,10 +70,10 @@ jobs:
   resource_pool: resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
   networks:     # 네트워크 구성정보
   - name: default   # Networks block에서 선언한 network 이름(필수)
+    default: [dns, gateway]
     static_ips:
     - 10.30.70.31   # 사용할 IP addresses 정의(필수)
   - name: public_network
-    default: [dns, gateway]
     static_ips: 115.68.46.183
   properties:
     che:
@@ -86,10 +86,10 @@ jobs:
   resource_pool: resource_pools  # resource_pools block에 정의한 resource pool 이름(필수)
   networks:     # 네트워크 구성정보
   - name: default   # Networks block에서 선언한 network 이름(필수)
+    default: [dns, gateway]
     static_ips:
     - 10.30.70.32   # 사용할 IP addresses 정의(필수)
-  - name: public_network
-    default: [dns, gateway]
+  - name: public_network    
     static_ips: 115.68.46.184
   properties:
     che:
