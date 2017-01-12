@@ -1,10 +1,10 @@
-# openpaas-cubrid-vsphere 설정 파일 내용
+# paasta-web-ide-vsphere 설정 파일 내용
 ---
-name: eclipse-che  # 서비스 배포이름(필수)
+name: paasta-web-ide  # 서비스 배포이름(필수)
 director_uuid: d363905f-eaa0-4539-a461-8c1318498a32 #bosh status 에서 확인한 Director UUID을 입력(필수)
 
 release:
-  name: paasta-eclipse-che  #서비스 릴리즈 이름(필수)
+  name: paasta-web-ide  #서비스 릴리즈 이름(필수)
   version: latest   #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
 compilation:          # 컴파일시 필요한 가상머신의 속성(필수)
@@ -73,7 +73,7 @@ jobs:
     default: [dns, gateway]
     static_ips:
     - 10.30.70.31   # 사용할 IP addresses 정의(필수)
-  - name: public_network
+  - name: public_network    
     static_ips: 115.68.46.183
   properties:
     che:
