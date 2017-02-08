@@ -1,0 +1,19 @@
+---
+name: eclipse-che1
+
+templates:  
+   che_ctl.erb: bin/che_ctl
+
+packages:
+  - java
+  - docker
+  - eclipse-che
+  - bosh-helpers
+
+properties:
+  che.ip:
+    description: "The ip address of the che server."
+    default: 115.68.46.183
+  che.port:
+    description: "The port number of the che server."
+    default: 8080
