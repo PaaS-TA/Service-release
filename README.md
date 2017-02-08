@@ -1,17 +1,17 @@
 # openpaas-service-release
-
-packages
-소프트웨어를 설치하기 위해 필요한 파일들이 위치해 있다.
-
-packaging : 소프트웨어를 설치하는 script가 작성되어있다.
-spec : 설치할 package의 메터 정보인 이름, dependencies 및 파일 정보가 작성되어있다.
-templates : 설치된 package를 구동 및 정지 및 관련 설정 파일을 구성하는 템플릿 파일
-monit : 소프트웨어를 모니터링 하기 위한 pid파일 위치와 시작/정지 명령어가 작성되어있다.
-spec : 설치할 job 의 메타 정보인 이름, templates 및 설정 properties 정보가 제공된다.
-config : 최종 release를 저장하기 위한 Bosh blobstore에 URL 및 액세스 자격 증명을 위한 설정 파일로 구성한다.
-releases : 버전별 서비스 release yml 파일들을 관리한다.(yaml 설치 방식)
-
-
+<br>
+packages<br>
+소프트웨어를 설치하기 위해 필요한 파일들이 위치해 있다.<br>
+<br>
+packaging : 소프트웨어를 설치하는 script가 작성되어있다.<br>
+spec : 설치할 package의 메터 정보인 이름, dependencies 및 파일 정보가 작성되어있다.<br>
+templates : 설치된 package를 구동 및 정지 및 관련 설정 파일을 구성하는 템플릿 파일<br>
+monit : 소프트웨어를 모니터링 하기 위한 pid파일 위치와 시작/정지 명령어가 작성되어있다.<br>
+spec : 설치할 job 의 메타 정보인 이름, templates 및 설정 properties 정보가 제공된다.<br>
+config : 최종 release를 저장하기 위한 Bosh blobstore에 URL 및 액세스 자격 증명을 위한 설정 파일로 구성한다.<br>
+releases : 버전별 서비스 release yml 파일들을 관리한다.(yaml 설치 방식)<br>
+<br>
+<br>
 ├── packages<br>
 │   ├── cli<br>
 │   │   ├── packaging<br>
