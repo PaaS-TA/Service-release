@@ -6,9 +6,7 @@
 
 ##2. Deploy
 >`$ cd $BOSH_RELEASE_DIR`
-
 >`$ bosh deployment paasta_web_ide_vsphere_2.0.yml`
-
 >`$ bosh deploy`
 
 #Github에 100MB 이상의 파일 올리고 다운로드 받기<br>
