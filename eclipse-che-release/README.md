@@ -42,4 +42,4 @@ Commit 과정에서 지정한 파일을 작게 조각내주는 Git extension인 
 ##2. git-lfs clone <br>
 git-lfs를 이용해 clone 한다.
 <br>
->`$ git lfs clone`<br>
+>`$ git lfs clone https://github.com/OpenPaaSRnD/openpaas-service-release.git`<br>
