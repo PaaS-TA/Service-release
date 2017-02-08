@@ -9,7 +9,7 @@
 >`$ bosh deployment paasta_web_ide_vsphere_2.0.yml`<br>
 >`$ bosh deploy`
 
-#Github에 100MB 이상의 파일 올리고 다운로드 받기<br>
+#Github에 100MB 이상의 파일 push & clone 받기<br>
 <br>
 ##1. git-lfs 적용<br>
 Commit 과정에서 지정한 파일을 작게 조각내주는 Git extension인 git-lfs — Git Large File Storage https://git-lfs.github.com/ — 를 로컬에 설치한 뒤, 적용하려는 Repository 경로에서 다음 명령을 실행한다.<br>
