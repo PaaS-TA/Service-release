@@ -65,6 +65,6 @@
 │   ├── final.yml<br>
 │   └── private.yml<br>
 ├── releases<br>
-|    └── openpaas-cubrid <br>
-|        ├── index.yml <br>
-|        └── openpaas-cubrid-1.0.yml<br>
+│   └── openpaas-cubrid <br>
+│       ├── index.yml <br>
+│       └── openpaas-cubrid-1.0.yml<br>
