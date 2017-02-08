@@ -26,7 +26,7 @@ Commit 과정에서 지정한 파일을 작게 조각내주는 Git extension인 
 >`[master (root-commit) dd2b715] Large file included`<br>
 >`(...)`<br>
 
-##2. git-push <br>
+##2. git-lfs push <br>
 위 과정들을 적용한 뒤 push를 시도하면 다음과 같이 성공 메시지를 볼 수 있다.<br>
 <br>
 >`$ git push`<br>
@@ -39,3 +39,7 @@ Commit 과정에서 지정한 파일을 작게 조각내주는 Git extension인 
 >` * [new branch] master -> master`<br>
 >` * [new branch] *** -> ***`<br>
 
+##2. git-lfs clone <br>
+git-lfs를 이용해 clone 한다.
+<br>
+>`$ git lfs clone`<br>
