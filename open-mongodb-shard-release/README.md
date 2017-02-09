@@ -1,4 +1,4 @@
-# open-mongodb-release
+# open-mongodb-shard-release
 
 ##1. Mongodb Configuration
 - PaaS-TA-mongodb-broker :: 1 machine
@@ -8,5 +8,5 @@
 
 ##2. Deploy
 >`$ cd $BOSH_RELEASE_DIR`<br>
->`$ bosh deployment mongodb-vsphere-1.yml`<br>
+>`$ bosh deployment openpaas-mongodb-shard-vsphere-1.0.yml`<br>
 >`$ bosh deploy`

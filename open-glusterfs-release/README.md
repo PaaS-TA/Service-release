@@ -6,5 +6,5 @@
 
 ##2. Deploy
 >`$ cd $BOSH_RELEASE_DIR`<br>
->`$ bosh openpaas-glusterfs-vsphere-1.0.yml`<br>
+>`$ bosh deployment openpaas-glusterfs-vsphere-1.0.yml`<br>
 >`$ bosh deploy`

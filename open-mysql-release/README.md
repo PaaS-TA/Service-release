@@ -7,5 +7,5 @@
 
 ##2. Deploy
 >`$ cd $BOSH_RELEASE_DIR`<br>
->`$ bosh paasta-mysql-vsphere-1.0.yml`<br>
+>`$ bosh deployment paasta-mysql-vsphere-1.0.yml`<br>
 >`$ bosh deploy`
