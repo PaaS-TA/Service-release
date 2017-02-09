@@ -1,6 +1,6 @@
 # open-glusterfs-release
 
-##1. Gluster-fs Configuration
+##1. Glusterfs Configuration
 - mysql :: 1 machine
 - paasta-glusterfs-broker :: 1 machine
 
