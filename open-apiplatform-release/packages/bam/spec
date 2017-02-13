@@ -1,6 +1,0 @@
----
-name: bam
-
-files:
-  - bam/wso2bam-2.5.0.zip
-  - bam/API_Manager_Analytics.tbox

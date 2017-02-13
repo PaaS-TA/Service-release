@@ -1,8 +1,0 @@
-dev_releases/*
-releases/*
-blobs
-.blobs
-.dev_builds
-.final_builds
-src/cubrid
-!src/cubrid_broker

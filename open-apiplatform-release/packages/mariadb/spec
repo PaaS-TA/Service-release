@@ -1,5 +1,0 @@
----
-name: mariadb
-
-files:
-  - mariadb/mariadb-10.0.21.tar.gz

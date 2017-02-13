@@ -1,8 +1,0 @@
----
-name: apiplatform-broker
-
-dependencies:
-  - jre7
-
-files:
-  - apiplatform-broker/openpaas-service-java-broker-apiplatform.jar

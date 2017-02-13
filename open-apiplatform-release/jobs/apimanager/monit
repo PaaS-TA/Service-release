@@ -1,5 +1,0 @@
-check process apimanager
-  with pidfile /var/vcap/packages/apimanager/wso2am-1.8.0/wso2carbon.pid
-  start program "/var/vcap/jobs/apimanager/bin/apimanager_ctl start"
-  stop program "/var/vcap/jobs/apimanager/bin/apimanager_ctl stop"
-  group vcap

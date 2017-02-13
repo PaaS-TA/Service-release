@@ -1,5 +1,0 @@
----
-secret: 'does-not-matter'
-blobstore:
-  local:
-    blobstore_path: /tmp/apiplatform-blobs
