@@ -1,7 +1,0 @@
----
-name: hbase
-dependencies: 
-- java
-files:
-- hbase/hbase-1.2.1-bin.tar.gz
-- hbase/hbase-create.hbase

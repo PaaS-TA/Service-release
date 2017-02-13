@@ -1,5 +1,0 @@
-check process broker
-  with pidfile /var/vcap/sys/run/broker/broker.pid
-  start program "/var/vcap/jobs/broker/bin/monit_debugger broker_ctl '/var/vcap/jobs/broker/bin/broker_ctl start'"
-  stop program "/var/vcap/jobs/broker/bin/monit_debugger broker_ctl '/var/vcap/jobs/broker/bin/broker_ctl stop'"
-  group vcap

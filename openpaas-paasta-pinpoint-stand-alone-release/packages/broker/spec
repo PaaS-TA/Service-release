@@ -1,7 +1,0 @@
----
-name: broker
-
-dependencies:
-- java
-files:
-- broker/openpaas-service-java-broker-pinpoint.jar
