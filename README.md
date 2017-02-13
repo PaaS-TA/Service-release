@@ -20,8 +20,6 @@
 <br>
 <br>
 예제)<br>
-<br>
-<br>
 ├── packages<br>
 │   ├── cli<br>
 │   │   ├── packaging<br>
