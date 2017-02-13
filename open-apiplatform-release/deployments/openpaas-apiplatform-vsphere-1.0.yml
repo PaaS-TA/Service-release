@@ -109,7 +109,6 @@ jobs:
     apiplatform_broker_username: apiplatform
     apiplatform_broker_password: openpaas
 
-
 - name: broker-registrar
   template: broker-registrar
   instances: 1
