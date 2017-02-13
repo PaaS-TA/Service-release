@@ -1,4 +1,4 @@
-# eclipse-che-release
+# paasta-eclipse-che-release
 
 ##1. WEB-IDE Configuration
 - paasta-web-ide1 :: 1 machine
