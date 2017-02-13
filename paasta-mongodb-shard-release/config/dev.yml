@@ -1,0 +1,3 @@
+---
+dev_name: op-mongodb-shard-dev
+latest_release_filename: "/home/ubuntu/bosh-space/release/openpaas-service-release/open-mongodb-shard-release/releases/openpaas-mongodb-shard/openpaas-mongodb-shard-1.0.yml"

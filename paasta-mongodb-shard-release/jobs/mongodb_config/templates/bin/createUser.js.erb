@@ -1,0 +1,5 @@
+db.createUser( { user: "<%= p('mongodb.user')%>",
+          pwd: "<%= p('mongodb.passwd')%>",
+          roles: ["root"]
+} )
+quit()

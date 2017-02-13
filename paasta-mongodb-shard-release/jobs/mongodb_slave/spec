@@ -1,0 +1,23 @@
+---
+name: mongodb_slave
+templates:
+  bin/mongodb_slave_ctl: bin/mongodb_slave_ctl
+  config/mongod_repl.conf.erb: config/mongod_repl.conf
+  config/security_key.erb: config/security_key
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - mongodb
+properties:
+  mongodb.key:
+    description: 'mongodb replication key'
+  replSetName:
+    description: 'Replica Set Name.'
+    default: openpaas
+  mongodb.bindIp:
+    description: 'The IP address that mongos or mongod binds to in order to listen for connections from applications.'
+    default: 0.0.0.0
+  mongodb.port:
+    description: 'mongodb port'
+    default: 27017

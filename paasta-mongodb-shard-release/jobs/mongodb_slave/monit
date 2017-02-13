@@ -1,0 +1,5 @@
+check process mongodb_slave
+  with pidfile /var/vcap/sys/run/mongodb_slave/mongodb_slave.pid
+  start program "/var/vcap/jobs/mongodb_slave/bin/mongodb_slave_ctl start"
+  stop program "/var/vcap/jobs/mongodb_slave/bin/mongodb_slave_ctl stop"
+  group vcap

@@ -1,0 +1,7 @@
+---
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/mongodb-blobs
+final_name: openpaas-mongodb-shard
+

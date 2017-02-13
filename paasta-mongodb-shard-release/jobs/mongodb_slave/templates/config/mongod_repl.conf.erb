@@ -1,0 +1,25 @@
+#mongod_repl.confg
+systemLog:
+   destination: file
+   path: "/var/vcap/sys/log/mongodb_slave/mongodb_slave.log"
+   logAppend: true
+storage:
+   dbPath: "/var/vcap/store/mongodb_slave"
+   journal:
+      enabled: true
+processManagement:
+   fork: true
+   pidFilePath: "/var/vcap/sys/run/mongodb_slave/mongodb_slave.pid"
+net:
+#   bindIp: <%= p('mongodb.bindIp')%>
+   bindIp: 0.0.0.0
+   port: <%= p('mongodb.port')%>
+setParameter:
+   enableLocalhostAuthBypass: false
+replication:
+   replSetName: <%= p('replSetName')%>
+security:
+   keyFile: "/var/vcap/jobs/mongodb_slave/config/security_key"
+   clusterAuthMode: "keyFile"
+   authorization: "enabled"
+#   authorization: "disabled"

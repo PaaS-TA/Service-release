@@ -1,0 +1,34 @@
+---
+name: mongodb_shard
+templates:
+  bin/mongodb_shard_ctl.erb: bin/mongodb_shard_ctl
+  bin/initShardSet.js.erb: bin/initShardSet.js
+  config/mongod_shard.conf.erb: config/mongod_shard.conf
+  config/security_key.erb: config/security_key
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - mongodb
+properties:
+  mongodb.key:
+    description: 'mongodb replication key'
+  mongodb.replSetName:
+    description: 'Replica Set Name.'
+    default: openpaas
+  bindIp:
+    description: 'The IP address that mongos or mongod binds to in order to listen for connections from applications.'
+    default: 0.0.0.0
+  mongodb.port:
+    description: 'mongodb port'
+    default: 27017
+  configsvr_hosts:
+    description: 'config server hosts.'
+  repl_name_host_list:
+    description: 'replicationName/host list. ex) op/1.1.1.1'
+  mongodb.user:
+    description: 'mongodb admin username'
+    default: root
+  mongodb.passwd:
+    description: 'mongodb password'
+    default: openpaas

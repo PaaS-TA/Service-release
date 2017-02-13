@@ -1,0 +1,16 @@
+#mongod_shard.confg
+systemLog:
+   destination: file
+   path: "/var/vcap/sys/log/mongodb_shard/mongodb_shard.log"
+   logAppend: true
+processManagement:
+   fork: true
+   pidFilePath: "/var/vcap/sys/run/mongodb_shard/mongodb_shard.pid"
+net:
+#   bindIp: <%= p('bindIp')%>
+   bindIp: 0.0.0.0
+   port: <%= p('mongodb.port')%>
+security:
+   keyFile: "/var/vcap/jobs/mongodb_shard/config/security_key"
+   clusterAuthMode: "keyFile"
+#   authorization: "disabled"

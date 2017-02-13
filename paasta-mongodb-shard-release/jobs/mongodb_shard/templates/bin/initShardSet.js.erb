@@ -1,0 +1,10 @@
+var repl_name_host_list = ["<%= p('repl_name_host_list').join("\",\"")%>"]; // first host is master.
+var port = <%= p('mongodb.port')%>;
+
+db.auth("<%= p('mongodb.user')%>","<%= p('mongodb.passwd')%>");
+
+for (var i = 0; i < repl_name_host_list.length; i++ ) {
+  sh.addShard(repl_name_host_list[i]+":"+port);
+}
+
+quit();
