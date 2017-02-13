@@ -19,6 +19,8 @@
 - jobs : bosh가 IaaS에 의해 가상 머신을 어떤 방법으로 생성하고 구동하는지를 정의한다.<br>
 <br>
 <br>
+예제)<br>
+<br>
 ├── packages<br>
 │   ├── cli<br>
 │   │   ├── packaging<br>
