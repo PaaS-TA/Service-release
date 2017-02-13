@@ -1,0 +1,185 @@
+
+---
+name: openpaas-paasta-pinpoint                       # 서비스 배포이름(필수)
+director_uuid: 8ebe7d77-76d0-4243-88f9-3e775558b3b7  # bosh status 에서 확인한 Director UUID을 입력(필수)
+release:                                             # 서비스 릴리즈 정보(필수) 
+  name: openpaas-paasta-pinpoint-release             # 서비스 릴리즈 이름(필수) 
+  version: 1.0                                       # 서비스 릴리즈 버전(필수)
+compilation:                      # 컴파일시 필요한 가상머신의 속성(필수)
+  workers: 4                      # 컴파일 하는 가상머신의 최대수(필수)
+  network: default
+  reuse_compilation_vms: true
+  cloud_properties:                 # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
+    name: random                    # Networks block에서 선언한 network 이름(필수)
+    instance_type: m1.xlarge
+    availability_zone: nova
+update:
+  canaries: 1                                        # canary 인스턴스 수(필수)
+  canary_watch_time: 120000                          # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 120000                          # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 8                                   # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+
+networks:                           # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
+- name: default
+  subnets:
+  - cloud_properties:
+      net_id: b7c8c08f-2d3b-4a86-bd10-641cb6faa317
+      security_groups:
+      - bosh
+    dns:                              # DNS 정보
+    - 10.244.3.4
+    - 8.8.8.8
+    gateway: 10.244.2.1               # gateway 정보
+    name: default_unused
+    range: 10.244.2.0/24
+    reserved:                         # 설치시 제외할 IP 설정
+    - 10.244.2.2 - 10.244.2.20
+    static:                           # 사용 가능한 IP 설정
+    - 10.244.2.21 - 10.244.2.50
+- name: public_network                #퍼블릭 네트워크
+  type: vip                           # 네트워크 설정 타입  openstack 일경우 vip타입만 적어주면 됨
+  cloud_properties: {}
+
+resource_pools:                                         # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name은 고유해야함(필수)
+  - name: pinpoint_small                                # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-openstack-kvm-ubuntu-trusty-go_agent   # stemcell 이름(필수)
+      version: 3232.22                                  # stemcell 버전(필수)
+    cloud_properties:                                   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      instance_type: portal.medium
+      availability_zone: nova
+
+  - name: pinpoint_medium                               # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-openstack-kvm-ubuntu-trusty-go_agent   # stemcell 이름(필수)
+      version: 3232.22                                  # stemcell 버전(필수)
+    cloud_properties:                                   # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      instance_type: portal.medium
+      availability_zone: nova
+
+jobs:
+- name: h_slave                           #작업 이름(필수)
+  template: h_slave                       # job template 이름(필수)
+  instances: 2                            # job 인스턴스 수(필수)
+  resource_pool: pinpoint_small           # resource_pools block에 정의한 resource pool 이름(필수)
+  networks:                               # 네트워크 구성정보
+  - name: default                         # Networks block에서 선언한 network 이름(필수)
+    static_ips:                           # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP
+    - 10.244.2.23
+    - 10.244.2.24
+- name: h_secondary                       #작업 이름(필수)
+  template: h_secondary                   # job template 이름(필수)
+  instances: 1                            # job 인스턴스 수(필수)
+  resource_pool: pinpoint_small           # resource_pools block에 정의한 resource pool 이름(필수)
+  networks:                               # 네트워크 구성정보
+  - name: default                         # Networks block에서 선언한 network 이름(필수)
+    static_ips:                           # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP
+    - 10.244.2.22
+- name: h_master                          #작업 이름(필수)
+  template: h_master                      # job template 이름(필수)
+  instances: 1                            # job 인스턴스 수(필수)
+  resource_pool: pinpoint_medium          # resource_pools block에 정의한 resource pool 이름(필수)
+  networks:                               # 네트워크 구성정보          
+  - name: default                         # Networks block에서 선언한 network 이름(필수)
+    static_ips:                           # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP  
+    - 10.244.2.21
+- name : h_master_register                 #작업 이름(필수)
+  template : h_master_register             # job template 이름(필수)
+  instances: 1                             # job 인스턴스 수(필수)
+  lifecycle: errand                        # resource_pools block에 정의한 resource pool 이름(필수)   
+  resource_pool: pinpoint_small            # 네트워크 구성정보
+  networks:                                # Networks block에서 선언한 network 이름(필수)
+  - name: default 
+- name: collector                          #작업 이름(필수)
+  template: collector                      # job template 이름(필수)
+  instances: 2                             # job 인스턴스 수(필수)
+  resource_pool: pinpoint_medium           # resource_pools block에 정의한 resource pool 이름(필수)
+  networks:                                # 네트워크 구성정보
+  - name: default                          # Networks block에서 선언한 network 이름(필수)
+    static_ips:                            # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP                          
+    - 10.244.2.30
+    - 10.244.2.31
+- name: haproxy_webui                     #작업 이름(필수)
+  template: haproxy_webui                 # job template 이름(필수)
+  instances: 1                            # job 인스턴스 수(필수)
+  resource_pool: pinpoint_small           # resource_pools block에 정의한 resource pool 이름(필수)
+
+  networks:                               # 네트워크 구성정보
+  - name: default                         # Networks block에서 선언한 network 이름(필수) 내부 네트워크 설정
+    default: [dns, gateway]
+    static_ips:                           # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP                          
+    - 10.244.2.33                         # 사용할 내부 IP addresses 정의(필수) 
+  - name: public_network                  # Public network 설정
+    static_ips: 115.68.151.187 
+
+- name: webui                              #작업 이름(필수)
+  template: webui                          # job template 이름(필수)
+  instances: 2                             # job 인스턴스 수(필수)
+  resource_pool: pinpoint_small            # resource_pools block에 정의한 resource pool 이름(필수)
+  networks:                                # 네트워크 구성정보
+  - name: default                          # Networks block에서 선언한 network 이름(필수)
+    static_ips:                            # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP                          
+    - 10.244.2.39
+    - 10.244.2.40
+- name: pinpoint_broker                    #작업 이름(필수)
+  template: broker                         # job template 이름(필수)
+  instances: 1                             # job 인스턴스 수(필수)
+  resource_pool: pinpoint_small            # resource_pools block에 정의한 resource pool 이름(필수)
+  networks:                                # 네트워크 구성정보
+  - name: default                          # Networks block에서 선언한 network 이름(필수)
+    static_ips:                            # 사용할 IP addresses 정의(필수): Pinpoint 서버 IP                          
+    - 10.244.2.42
+
+properties:                                # Pinpoint 설정정보
+  master:                                  # Pinpoint master 설정정보
+    host_name: h-master                    # Pinpoint master name
+    host_ip: 10.244.2.21                   # Pinpoint master IP
+    port: 9000                             # Pinpoint master port
+    http_port: 50070                       # Pinpoint master http port
+    replication: 2                         # Pinpoint master 복제개수
+    tcp_listen_port: 29994                 # Pinpoint master tcp port
+    udp_stat_listen_port: 29995            # Pinpoint master udp stat port
+    udp_span_listen_port: 29996            # Pinpoint master udp span port
+  broker:                                  # Pinpoint broker 설정정보
+    collector_ips: ["10.244.2.30","10.244.2.31"]     # Pinpoint collector ip 설정정보
+    collector_tcp_port: 29994              # Pinpoint collector tcp port 설정정보
+    collector_stat_port: 29995             # Pinpoint collector stat port 설정정보
+    collector_span_port: 29996             # Pinpoint collector span port 설정정보
+    dashboard_uri: http://115.68.151.187:80/#/main   # Pinpoint dashboard url 설정정보
+  secondary:                               # Pinpoint secondary 설정정보
+    host_name: h-secondary                # Pinpoint secondary name
+    host_ip: 10.244.2.22                  # Pinpoint secondary IP
+    http_port: 50090                      # Pinpoint secondary port
+  yarn:                                  # Pinpoint yarn 설정정보      
+    host_name: h-master                   # Pinpoint yarn name
+    host_ip: 10.244.2.21                  # Pinpoint yarn ip
+    resource_tracker_port: 8025            # Pinpoint yarn resource_tracker_port
+    scheduler_port: 8030                   # Pinpoint yarn scheduler_port
+    resourcemanager_port: 8040             # Pinpoint yarn resourcemanager_port
+  slave:                                   # Pinpoint slave 설정정보      
+    host_names:                            # Pinpoint slave name
+      - h-slave#1
+      - h-slave#2
+    host_ips:                              # Pinpoint slave ip 
+      - 10.244.2.23
+      - 10.244.2.24
+  collector:                               # Pinpoint collector 설정정보  
+    host_names:                            # Pinpoint collector host name
+      - h-collector#1
+      - h-collector#2
+    host_ips:                               # Pinpoint collector host IP
+      - 10.244.2.30
+      - 10.244.2.31
+  haproxy:                                 # Pinpoint haproxy 설정정보  
+    host_name: haproxy-webui               # Pinpoint haproxy host name
+    host_ip: 10.244.2.33                   # Pinpoint haproxy host IP
+    http_port: 80                          # Pinpoint haproxy host port
+  webui:                                   # Pinpoint webui 설정정보  
+    host_names:                            # Pinpoint webui host name
+      - h-webui#1
+      - h-webui#2
+    host_ips:                               # Pinpoint webui host IP
+      - 10.244.2.39
+      - 10.244.2.40

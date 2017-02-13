@@ -1,0 +1,166 @@
+# paasta-cubrid-openstack 설정 파일 내용
+---
+name: paasta-cubrid-service  # 서비스 배포이름(필수)
+director_uuid: b63ac41b-8215-4926-bb43-5dcc982eff6a   #bosh status 에서 확인한 Director UUID을 입력(필수)
+
+release:
+  name: paasta-cubrid  #서비스 릴리즈 이름(필수)
+  version: 2.0  #서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+compilation:                           # 컴파일시 필요한 가상머신의 속성(필수)
+  cloud_properties: # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone)
+    instance_type: monitoring          # 인스턴스 타입: Flavors 타입 (필수)
+  network: default    # Networks block에서 선언한 network 이름(필수)
+  reuse_compilation_vms: true     # 컴파일지 VM 재사용 여부(옵션)
+  workers: 4              # 컴파일 하는 가상머신의 최대수(필수)
+
+
+# this section describes how updates are handled
+update:
+  canaries: 1                 # canary 인스턴스 수(필수)
+  canary_watch_time: 30000    # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 30000    # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 4            # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  serial: true
+
+resource_pools:               # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
+- cloud_properties:
+    instance_type: monitoring
+  env:
+    bosh:                    #password: dhvms09!
+      password: $6$mwZOg/kA$r64mds4/xoqhW2tR8ck7oxmhqGiCBsDS5SWW/j8vgahvpdHkKJrb25/Wc2..CT3ja02qLgh0JB60RTP2ndjAh0
+  name: small                # 고유한 resource pool 이름
+  network: default
+  stemcell:
+    name:  bosh-openstack-kvm-ubuntu-trusty-go_agent  # stemcell 이름(필수)
+    version: 3309                # stemcell 버전(필수)
+
+jobs:
+  - name: cubrid                 #작업 이름(필수): Cubrid 서버
+    template: cubrid             # job template 이름(필수)
+    instances: 1                 # job 인스턴스 수(필수)
+    resource_pool: small         # resource_pools block에 정의한 resource pool 이름(필수)
+#    persistent_disk: 16384  # 영구적 디스크 사이즈 정의(옵션): 16G
+    networks:                    # 네트워크 구성정보
+    - name: default                  # Networks block에서 선언한 network 이름(필수)
+      static_ips:
+      - 10.244.3.65                  # 사용할 IP addresses 정의(필수): Cubrid 서버 IP
+  - name: cubrid_broker              #작업 이름(필수): Cubrid 서비스 브로커
+    template: cubrid_broker          # job template 이름(필수)
+    instances: 1                    # job 인스턴스 수(필수)
+    resource_pool: small  # resource_pools block에 정의한 resource pool 이름(필수)
+    networks: # 네트워크 구성정보
+    - name: default   # Networks block에서 선언한 network 이름(필수)
+      static_ips:
+      - 10.244.3.66   # 사용할 IP addresses 정의(필수)
+  - name : cubrid_broker_registrar  # 작업 이름: 서비스 브로커 등록
+    template : cubrid_broker_registrar
+    instances: 1
+    lifecycle: errand   # bosh deploy시 vm에 생성되어 설치 되지 않고 bosh errand 로 실행할때 설정, 주로 테스트 용도에 쓰임
+    resource_pool: small
+    networks:
+    - name: default
+    properties:
+      broker: # 서비스 브로커 설정 정보
+        host: 10.244.3.66 # 서비스 브로커 IP 
+        name: CubridDB  # CF에서 서비스 브로커를 생성시 생기는 서비스 이름 브로커에 고정되어있는 값
+        password: cloudfoundry  # 브로커 접근 아이디 비밀번호(필수)
+        username: admin   # 브로커 접근 아이디(필수)
+        protocol: http
+        port: 8080  # 브로커 포트
+      cf:
+        admin_password: admin   # CF 사용자의 패스워드
+        admin_username: admin   # CF 사용자 이름
+        api_url: https://api.115.68.151.188.xip.io   # CF 설치시 설정한 api uri 정보(필수)
+    release: paasta-cubrid
+  - name : cubrid_broker_deregistrar  # 작업 이름: 서비스 브로커 삭제
+    template : cubrid_broker_deregistrar
+    instances: 1
+    lifecycle: errand
+    resource_pool: small
+    networks:
+    - name: default
+    properties:
+      broker:
+        host: 10.244.3.66
+        name: CubridDB
+        password: cloudfoundry
+        username: admin
+        protocol: http
+        port: 8080
+      cf:
+        admin_password: admin
+        admin_username: admin
+        api_url: https://api.115.68.151.188.xip.io
+    release: paasta-cubrid
+
+meta:
+  apps_domain: 115.68.151.188.xip.io   # CF 설치시 설정한 apps 도메인 정보
+  environment: null
+  external_domain: 115.68.151.188.xip.io   # CF 설치시 설정한 외부 도메인 정보
+  nats: # CF 설치시 설정한 nats 정보
+    machines:
+    - 10.244.3.11
+    password: nats
+    port: 4222
+    user: nats
+
+properties:
+  cubrid:   # Cubrid 설정 정보
+    max_clients: 200
+  cubrid_broker:  # Cubrid Servcice Broker 설정 정보
+    cubrid_ip: 10.244.3.65 # Cubrid IP
+    cubrid_db_port: 30000 # Cubrid Port
+    cubrid_db_name: cubrid_broker   # Cubrid service 관리를 위한 데이터베이스 이름
+    cubrid_db_user: dba   # 브로커 관리용 데이터베이스 접근 사용자이름
+    cubrid_db_passwd: paasta  # 브로커 관리용 데이터베이스 접근 사용자 비밀번호
+    cubrid_ssh_port: 22   # Cubrid가 설치된 서버 SSH 접속 포트
+    cubrid_ssh_user: vcap # Cubrid가 설치된 서버 SSH 접속 사용자 이름
+#    cubrid_ssh_passwd: c1oudc0w # Cubrid가 설치된 서버 SSH 접속 사용자 비밀번호
+    cubrid_ssh_sudo_passwd: dhvms09! # Cubrid가 설치된 서버 sudo 권한 비밀번호
+    cubrid_ssh_identity: /var/vcap/jobs/cubrid_broker/config/bosh.pem # Cubrid가 설치된 서버 SSH 접속 인증 키
+    cubrid_ssh_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEA6Bf5unjJSccNlQk3jXqz4TNdpZkleKc92P69d1w//3moCyHz
+      RxZ9+FKaYgoJEmm7ydP4uEBA7Zpb6+SUyHGp3yv57PaeSgccyoci1tcgHg9XtVAH
+      c9wguyWwg8NDHNdX10Gsk8HRBtdK5CJLpIn3Wq0aiDndaCD2rrtRCqtCOHeTJy7q
+      N5bvnCBmaFeTKfZ7lIcasDwh8ynfDdmI6T38hXUAW50SF1A8JVfeq5xx0zt4Amgx
+      XeYduXFo7an6oYsJdqTOeYSuf+nswvgbSz1pKgnc0taxP9DLQRB+gJ1N/6xNjqhJ
+      4zNWRG4Dn2W84XDwwhZFMwXMXm5uqI16UxZZCwIDAQABAoIBAQDVKF/lENXdeoFQ
+      5Zwtxgm6xNA3LMYrX33/80XTf9gPLI5XWyDxowiirkq3y/u0+4LKxHFj1y9KiT/v
+      EIpM5YdcPilVptKNrqaUozQuGHmY4gJttUiC8iLlfqH1Abp7nJNCUUDMm278V3Ki
+      v5S1UzjoAJ+jiXF9Fvk4VTUDFXLGI9weF4wuxrF/d9f95TEEJ81U152lJY71M0km
+      v4cvc+G9IkeeBSCj0pwgUi/fMMXJaJuS93k/10QrISYiAo7ZoI6labE6+TCBag17
+      yFhm077Jms0suQ9tJjJMECcUQPefn3UtR/iBN/ar5pP1ADCR1u2HDA67u++QFLpr
+      FdSVjCuBAoGBAPjgUT9UOjPWAE3mXwb2pqjeumbaLGm/D0ihx+VvmmVxfG+7hz3h
+      Odkeq0Bo/u/k6XI99ai7T6GXY5eINcL+XMxEn/NNkgnfRcIiGyx2pwdRvlQv7Wao
+      znSgyB71tPG4yjwZjkAQG5suoRoHEngSWqbwjwYlMrFbupZ0SNlfdYgrAoGBAO68
+      rk+uYXQQdy+/j4hF9FA+rAktd8/W7qi4IVVJ57RNOjj9vM6ENqBT5N7EUWwTxbsZ
+      m+ZAPBQxEhdfnZsVvSDaKdkER9zEZCtIuHCQo0EHrWwKNkPecoxx6ZTibgWg0zrJ
+      cBCBa7kyg0GWRB7ngKevyQKbwm+bSf0jxes5QiKhAoGBALVq5y7v2gGBRPWEMc8k
+      qzY8LcrdzTREdwKuE8Y3BWhfQqM8IwjDjmSsC4/HOddrmZSSf+nAqPqVHZ8PRole
+      3Ax3FdXIvOT/YZ1zOTW/RGB8gO5jhX2pHd48ecS/vWfbGWiYBG7Ejyse4YbUkuz+
+      DCDXCJslMH/C6w/TsmrqQAXDAoGAT34oFIQeEwWAijeg1WFlrmqP4iZvpJcOtMNK
+      5hlLu6+TWXKzsZg4kD4fEUYRTolu55PpY0u0NYz5VysRUZh1d0DtekOAojQKnpcC
+      QwkGMxsZVcY4t3SUc8tiWZ7jv6ADdampVPWjJvF43xfn6tpu7mcL6YBvx7XPdyi4
+      OFDCgsECgYAYN2AZymeW9s4Noo8rM7KfMO00AupN5VgrJjFKKqRHT+trSjbhreQF
+      TXMm7JczHYurUaNuSxh14T1Wno5ybrKyRWKhuF9Og1B/ciUEUijifg6Vz+GFfR92
+      dvXLLjmsTzJ0dGO3vlEKwja9kyy2rN72gS/jLp1OeFReyf29cUD+Yw==
+      -----END RSA PRIVATE KEY-----
+
+networks:     # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
+- name: default
+  subnets:
+  - cloud_properties:
+      net_id: b7c8c08f-2d3b-4a86-bd10-641cb6faa317
+      security_groups: [bosh]
+    dns:  # DNS 정보
+    - 10.244.3.4
+    - 8.8.8.8
+    gateway: 10.244.3.1
+    range: 10.244.3.0/24  # 사용할 네트워크 범위
+    reserved:   # 설치시 제외할 IP 설정
+    - 10.244.3.2 - 10.244.3.60
+    static:
+    - 10.244.3.61 - 10.244.3.170  #사용 가능한 IP 설정
+  type: manual
