@@ -1,0 +1,121 @@
+name: openpaas-glusterfs-service
+director_uuid: 3475c880-8836-4a73-9309-c65bc9ac20c6 
+
+releases:
+- name: openpaas-glusterfs
+  version: 1.0
+
+update:
+  canaries: 1
+  canary_watch_time: 30000-600000
+  max_in_flight: 1
+  update_watch_time: 30000-600000
+
+compilation:
+  cloud_properties:
+    instance_type: m1.small
+  network: openpaas_network
+  reuse_compilation_vms: true
+  workers: 2
+
+jobs:
+- instances: 1
+  name: mysql
+  networks:
+  - name: openpaas_network
+    static_ips: 10.20.0.70
+#  persistent_disk: 10000
+  properties:
+    admin_username: root 
+    admin_password: admin 
+  release: openpaas-glusterfs
+  resource_pool: services-small
+  template: mysql
+
+- instances: 1
+  name: openpaas-glusterfs-java-broker
+  networks:
+  - name: openpaas_network
+    static_ips: 10.20.0.71 
+  properties:
+    jdbc_ip: 10.20.0.70 
+    jdbc_pwd: admin
+    jdbc_port: 3306
+    log_dir: openpaas-glusterfs-java-broker
+    log_file: openpaas-glusterfs-java-broker
+    log_level: INFO
+    glusterfs_url: 54.199.136.22
+    glusterfs_tenantname: service
+    glusterfs_username: swift
+    glusterfs_password: password
+  release: openpaas-glusterfs
+  resource_pool: services-small
+  template: op-glusterfs-java-broker
+
+- instances: 1
+  lifecycle: errand
+  name: broker-registrar
+  networks:
+  - name: openpaas_network
+  properties:
+    broker:
+      host: 10.20.0.71 
+      name: Glusterfs
+      password: cloudfoundry 
+      username: admin 
+      protocol: http
+      port: 8080
+    cf:
+      api_url: https://api.115.68.46.30.xip.io 
+      admin_username: admin 
+      admin_password: admin 
+  release: openpaas-glusterfs
+  resource_pool: services-small
+  template: broker-registrar
+
+- instances: 1
+  lifecycle: errand
+  name: broker-deregistrar
+  networks:
+  - name: openpaas_network
+  properties:
+    cf:
+      api_url: https://api.115.68.46.30.xip.io
+      admin_username: admin 
+      admin_password: admin 
+  release: openpaas-glusterfs
+  resource_pool: services-small
+  template: broker-deregistrar
+
+networks:
+- name: openpaas_network
+  subnets:
+  - cloud_properties:
+      net_id: 7b49e746-161a-4f90-9ed6-c93e27122a1a 
+      security_groups:
+      - cf-security
+      - bosh
+      - default
+    dns:
+    - 10.20.0.3
+    - 8.8.8.8 
+    gateway: 10.20.0.1 
+    range: 10.20.0.0/24 
+    reserved:
+    - 10.20.0.2 - 10.20.0.69 
+    static:
+    - 10.20.0.70
+    - 10.20.0.71
+  type: manual
+
+
+properties: {}
+
+resource_pools:
+- cloud_properties:
+    instance_type: m1.small
+  name: services-small
+  network: openpaas_network
+  stemcell:
+    name: bosh-openstack-kvm-ubuntu-trusty-go_agent
+    version: "3147"

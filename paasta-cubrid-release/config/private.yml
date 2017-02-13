@@ -1,0 +1,6 @@
+---
+secret: 'does-not-matter'
+blobstore:
+  local:
+    blobstore_path: ~/openpaas-service-release/open-cubrid-release/src/
+

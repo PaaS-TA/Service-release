@@ -1,0 +1,41 @@
+#!/bin/bash -e
+
+set -e
+
+
+case $1 in
+
+  start)
+    echo "start script: starting mariadb..."
+    cd /var/vcap/packages/mariadb 
+
+    if ! test -d /var/vcap/store/mysql; then
+      echo "start script: making and running /var/vcap/packages/mariadb/scripts/mysql_install_db"
+      mkdir -p /var/vcap/store/mysql
+      ./scripts/mysql_install_db \
+             --basedir=/var/vcap/packages/mariadb \
+             --user=vcap \
+             --datadir=/var/vcap/store/mysql 
+
+      mkdir -p /etc/mysql
+      ln -sf /var/vcap/jobs/mariadb/config/my.cnf /etc/mysql/my.cnf 
+    fi
+    chown -R vcap:vcap /var/vcap/store/mysql
+
+#    ./bin/mysqld_safe --user=vcap --datadir=/var/vcap/store/mysql --pid-file=/var/vcap/store/mysql/mysql.pid &
+    ./bin/mysqld_safe --user=vcap &
+# --datadir=/var/vcap/store/mysql --pid-file=/var/vcap/store/mysql/mysql.pid &
+    ;;
+
+  stop)
+
+    echo "stop script: stopping " 
+    #kill_and_wait $PIDFILE
+    echo "stop script: completed stopping mariadb_ctrl"
+    ;;
+
+  *)
+    echo "Usage: mysql_ctl {start|stop}"
+    ;;
+
+esac

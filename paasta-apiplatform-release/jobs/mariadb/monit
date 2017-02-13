@@ -1,0 +1,5 @@
+check process mariadb
+  with pidfile /var/vcap/store/mysql/mysql.pid
+  start program "/var/vcap/jobs/mariadb/bin/mariadb_ctl start" with timeout 300 seconds
+  stop program "/var/vcap/jobs/mariadb/bin/mariadb_ctl stop" with timeout 10 seconds
+  group vcap

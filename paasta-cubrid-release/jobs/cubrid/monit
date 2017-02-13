@@ -1,0 +1,5 @@
+check process cubrid
+  with pidfile /var/vcap/packages/cubrid/CUBRID/var/manager/cub_manager.pid
+  start program "/var/vcap/jobs/cubrid/bin/cubrid_ctl start"
+  stop program "/var/vcap/jobs/cubrid/bin/cubrid_ctl stop"
+  group vcap

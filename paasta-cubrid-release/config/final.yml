@@ -1,0 +1,7 @@
+---
+blobstore:
+  provider: local
+  options:
+    blobstore_path: ~/openpaas-service-release/open-cubrid-release/src/
+final_name: openpaas-cubrid
+

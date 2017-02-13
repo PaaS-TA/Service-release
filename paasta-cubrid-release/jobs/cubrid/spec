@@ -1,0 +1,32 @@
+---
+name: cubrid
+templates:
+  cubrid_ctl.erb: bin/cubrid_ctl
+  cubrid.conf.erb: config/cubrid.conf
+  cubrid_broker.conf.erb: config/cubrid_broker.conf
+  cubrid_broker_init.sql.erb: config/cubrid_broker_init.sql
+  .cubrid.sh.erb: config/.cubrid.sh
+
+packages:
+  - cubrid
+
+properties:
+  cubrid.cubrid_port_id:
+    description: 'TCP port id for the CUBRID programs (used by all clients).'
+    default: 1523
+  cubrid.max_clients:
+    description: 'The maximum number of concurrent client connections the server will accept. This value also means the total of concurrent transactions.'
+    default: 100
+  cubrid.broker_master_shm_id:
+    description: 'Specify the identifier of shared memory which is used to manage the CUBRID broker. Its value must be unique in the system.'
+    default: 30001
+  cubrid.broker_query_editor_broker_port:
+    description: 'The port number of the broker(query_editor). The value must be unique and smaller than 65,535.'
+    default: 30000
+  cubrid.broker_broker1_broker_port:
+    description: 'The port number of the broker(broker1). The value must be unique and smaller than 65,535.'
+    default: 33000
+  cubrid_broker.cubrid_db_name:
+    description: ''
+  cubrid_broker.cubrid_db_passwd:
+    description: ''

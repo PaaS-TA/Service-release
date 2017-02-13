@@ -1,0 +1,7 @@
+---
+name: apimanager
+dependencies:
+  - mysql_connector_java
+
+files:
+  - apimanager/wso2am-1.8.0.zip

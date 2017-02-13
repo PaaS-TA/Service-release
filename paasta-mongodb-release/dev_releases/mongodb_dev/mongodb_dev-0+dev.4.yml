@@ -1,0 +1,29 @@
+---
+packages:
+- name: mongodb
+  version: !binary |-
+    OTk5Zjc5MzYwOTJhNzEyMTRmNGMyNTNkYjlmODIyYjg1ZjZjZjNjOQ==
+  fingerprint: !binary |-
+    OTk5Zjc5MzYwOTJhNzEyMTRmNGMyNTNkYjlmODIyYjg1ZjZjZjNjOQ==
+  sha1: !binary |-
+    NjQ3MjlhNjJkYjAyNGVkNDlmNTA1MThmMWM5OTNjZDBmZGU5YjljNA==
+  dependencies: []
+jobs:
+- name: mongodb_master
+  version: !binary |-
+    OThlZTVmOThjNDE1MjUzNTMwY2Q2YWY5MDIxOWRmMjQ3M2M0YmU1MQ==
+  fingerprint: !binary |-
+    OThlZTVmOThjNDE1MjUzNTMwY2Q2YWY5MDIxOWRmMjQ3M2M0YmU1MQ==
+  sha1: !binary |-
+    ZGQxMTAyOTEzMzY4MDMwZTc1OTdlZDFiOWI4YjAwMGY3MWFmN2UxMA==
+- name: mongodb_slave
+  version: !binary |-
+    MmU2ZmI5ODgyMjkyZGZkZjQ1OTAzZjVkYTJiOTRjMjhlMjcwYjM2Ng==
+  fingerprint: !binary |-
+    MmU2ZmI5ODgyMjkyZGZkZjQ1OTAzZjVkYTJiOTRjMjhlMjcwYjM2Ng==
+  sha1: !binary |-
+    ZjAwMGE1ZjU3MzBkN2ZiMmUwNTNhYTlhNzFkNzdjOGI1NThhYTRkNQ==
+commit_hash: '00000000'
+uncommitted_changes: false
+name: mongodb_dev
+version: 0+dev.4

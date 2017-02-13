@@ -1,0 +1,14 @@
+# cubrid Database Settings
+jdbc.driver = cubrid.jdbc.driver.CUBRIDDriver
+cubrid.url = jdbc:cubrid:<%= p('cubrid_broker.cubrid_ip')%>::<%= p('cubrid_broker.cubrid_db_name')%>:::
+cubrid.portNumber = <%= p('cubrid_broker.cubrid_db_port')%>
+cubrid.userName = <%= p('cubrid_broker.cubrid_db_user')%>
+cubrid.password = <%= p('cubrid_broker.cubrid_db_passwd') %>
+
+cubrid.server.hostName = <%= p('cubrid_broker.cubrid_ip')%>
+cubrid.server.portNumber = <%= p('cubrid_broker.cubrid_ssh_port')%>
+cubrid.server.userName = <%= p('cubrid_broker.cubrid_ssh_user')%>
+# password or identify Only one of the two
+cubrid.server.password = <%= p('cubrid_broker.cubrid_ssh_passwd')%>
+cubrid.server.identity = <%= p('cubrid_broker.cubrid_ssh_identity')%>
+cubrid.server.sudo.password = <%= p('cubrid_broker.cubrid_ssh_sudo_passwd')%>
