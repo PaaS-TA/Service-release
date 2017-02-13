@@ -1,4 +1,8 @@
 # openpaas-service-release
+
+서비스 릴리즈는 PaaS-TA에서 서비스를 제공하기 위해 필요한 해당 Back-end Service와 서비스 브로커를 한번에 설치할 수 있도록 구성해놓은 Bosh Release를 말한다. 일부 Back-end Service를 포함하지 않는 Release가 존재한다. PaaS-TA는 다음의 8개 서비스에 대한 서비스 릴리즈를 제공한다.  
+서비스 릴리즈에 대한 자세한 사항은 [서비스팩 개발 가이드](https://github.com/OpenPaaSRnD/Documents-PaaSTA-1.0/blob/master/Development-Guide/ServicePack_develope_guide.md)문서를 참고한다. 각 서비스 릴리즈에 대해서는 각 서비스 릴리즈의 가이드 문서를 참고한다.
+
 <br>
 - packages : 소프트웨어를 설치하기 위해 필요한 파일들이 위치해 있다.<br>
 <br>
